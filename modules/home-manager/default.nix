@@ -6,7 +6,11 @@ in
 
   options.my.defaults.home-manager = { enable = mkEnableOption "Home Manager defaults"; };
 
-  config = mkIf cfg.home-manager {
-    
-  }
+  config = mkIf cfg.enable {
+    home-manager = {
+      users.marvin = import ../../home/home.nix;
+      # Install to default profile directory for better support
+      useUserPackages = true;
+    };
+  };
 }

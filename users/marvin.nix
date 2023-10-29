@@ -6,13 +6,5 @@
     isNormalUser = true;
     description = "Marvin";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      google-chrome
-      vscode
-      spotify
-      spicetify-cli
-      discord
-      gitkraken
-    ];
   };
 }
