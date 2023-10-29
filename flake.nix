@@ -4,7 +4,7 @@
     # Dependencies
     inputs = {
         # Main package repository pinned to the current NixOS version for best stability
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+        nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # todo change this back?
         # Some bleeding-edge packages are required
         unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
