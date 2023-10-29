@@ -16,7 +16,17 @@
     };
 
     # Output configurations
-    outputs = inputs@{ self, nixpkgs, ... }: {
+    outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+
+        # Add modules from ./modules
+        # Each subdir in ./modules should have a default.nix
+        nixosModules = builtins.listToAttrs (map
+            (x: {
+                name = x;
+                value = import (./modules + "/${x}");
+            })
+            (builtins.attrNames (builtins.readDir ./modules))
+        );
 
         # Machines
         # Each subdir in ./machines is a system.
@@ -29,20 +39,14 @@
                     modules = [
                         # Import machine specific configuration
                         (./machines + "/${x}/configuration.nix")
+                        # Make modules available to NixOS configuration
+                        { imports = builtins.attrValues self.nixosModules; }
+                        # Home Manager
+                        home-manager.nixosModules.home-manager
                     ];
                 };
             })
             (builtins.attrNames (builtins.readDir ./machines))
         );
-        # nixosConfigurations = {
-        #     # Default
-        #     nixos = nixpkgs.lib.nixosSystem {
-        #         system = "x86_64-linux";
-        #         modules = [
-        #             # Import old configuration
-        #             ./configuration.nix
-        #         ];
-        #     };
-        # };
     };
 }
