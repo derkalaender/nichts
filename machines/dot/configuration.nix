@@ -35,4 +35,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  # Enable proprietary Nvidia drivers instead of poorly-performing open-source drivers
+  services.xserver.videoDrivers = [ "nvidia" ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
 }
