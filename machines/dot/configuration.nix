@@ -1,6 +1,6 @@
 # Configuration for "dot" machine
 
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports =

@@ -49,6 +49,7 @@ in
       nix.enable = true;
       sound.enable = true;
       locale.enable = true;
+      home-manager = true;
     };
 
     # This value determines the NixOS release from which the default
