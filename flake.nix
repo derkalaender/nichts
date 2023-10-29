@@ -10,7 +10,7 @@
 
         # Configuration of home dirs
         home-manager = {
-            url = "github:nix-community/home-manager/release-23.05";
+            url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
