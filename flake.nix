@@ -4,13 +4,13 @@
     # Dependencies
     inputs = {
         # Main package repository pinned to the current NixOS version for best stability
-        nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # todo change this back?
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05"; # todo change this back?
         # Some bleeding-edge packages are required
-        unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+        unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
         # Configuration of home dirs
         home-manager = {
-            url = "github:nix-community/home-manager";
+            url = "github:nix-community/home-manager/release-23.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
