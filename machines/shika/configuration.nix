@@ -10,7 +10,7 @@
 
   my.desktop = {
     enable = true;
-    hostname = "dot";
+    hostname = "shika";
   };
 
   # Bootloader.
@@ -39,4 +39,10 @@
   # Enable proprietary Nvidia drivers instead of poorly-performing open-source drivers
   services.xserver.videoDrivers = [ "nvidia" ];
   boot.blacklistedKernelModules = [ "nouveau" ];
+
+  # Enable docker
+  virtualisation.docker.enable = true;
+
+  # Enable flatpak
+  services.flatpak.enable = true;
 }

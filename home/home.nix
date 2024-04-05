@@ -17,7 +17,7 @@ in
 
   home = {
     inherit username homeDirectory;
-    stateVersion = "23.05";
+    stateVersion = "23.11";
 
     packages = (with pkgs; [
       bottom
@@ -45,6 +45,7 @@ in
       pycharm-professional
       phpstorm
       clion
+      (plugins.addPlugins jetbrains.intellij [ "github-copilot" ])
     ]);
   };
 }

@@ -1,6 +1,6 @@
 { config, pkgs, lib, ...}:
 with lib;
-let 
+let
   cfg = config.my.desktop;
 in
 {
@@ -12,13 +12,13 @@ in
 
     stateVersion = mkOption {
       type = types.str;
-      default = "23.05";
+      default = "23.11";
       description = "NixOS state version. Bump this only when you need to";
     };
 
     hostname = mkOption {
       type = types.str;
-      example = "dot";
+      example = "shika";
       description = "Hostname to identify this machine";
     };
   };

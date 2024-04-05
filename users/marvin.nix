@@ -5,6 +5,6 @@
   users.users.marvin = {
     isNormalUser = true;
     description = "Marvin";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 }
