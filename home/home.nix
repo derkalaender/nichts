@@ -40,12 +40,12 @@ in
       vlc
       android-studio
     ]) ++ (with pkgs.jetbrains; [
-      idea-ultimate
+      # idea-ultimate
       goland
       pycharm-professional
       phpstorm
       clion
-      (plugins.addPlugins jetbrains.intellij [ "github-copilot" ])
+      (plugins.addPlugins idea-ultimate [ "github-copilot" ])
     ]);
   };
 }

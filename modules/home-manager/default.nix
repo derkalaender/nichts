@@ -11,6 +11,7 @@ in
       users.marvin = import ../../home/home.nix;
       # Install to default profile directory for better support
       useUserPackages = true;
+      useGlobalPkgs = true;
     };
   };
 }
