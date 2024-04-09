@@ -22,30 +22,27 @@ in
     packages = (with pkgs; [
       bottom
       unzip
-      google-chrome
-      vscode
-      spotify
-      spicetify-cli
-      discord
-      gitkraken
-      steam
+      unstable.vscode
+      # spotify
+      unstable.spicetify-cli
+      # discord
+      # steam
       nil
-      go
       killall
       prettyping
       cowsay
       dig
       docker-compose
-      insomnia
-      vlc
-      android-studio
+      # insomnia
+      # vlc
+      # android-studio
     ]) ++ (with pkgs.jetbrains; [
       # idea-ultimate
-      goland
-      pycharm-professional
-      phpstorm
-      clion
-      (plugins.addPlugins idea-ultimate [ "github-copilot" ])
+      # goland
+      # pycharm-professional
+      # phpstorm
+      # clion
+      # (plugins.addPlugins idea-ultimate [ "github-copilot" ])
     ]);
   };
 }

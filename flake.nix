@@ -1,20 +1,29 @@
 {
-    description = "My innocent NixOS configuration";
+    description = "Nichts zu sehen hier";
 
     # Dependencies
     inputs = {
         # Main package repository
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+        nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
         # Configuration of home dirs
         home-manager = {
-            url = "github:nix-community/home-manager";
+            url = "github:nix-community/home-manager/release-23.11";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
     # Output configurations
-    outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+    outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+        let
+            system = "x86_64-linux";
+            unstable = import nixpkgs-unstable {
+                inherit system;
+                config.allowUnfree = true;
+            };
+        in
+    {
 
         # Add modules from ./modules
         # Each subdir in ./modules should have a default.nix
@@ -33,7 +42,7 @@
             (x: {
                 name = x;
                 value = nixpkgs.lib.nixosSystem {
-                    system = "x86_64-linux";
+                    inherit system;
                     modules = [
                         # Import machine specific configuration
                         (./machines + "/${x}/configuration.nix")
@@ -41,6 +50,13 @@
                         { imports = builtins.attrValues self.nixosModules; }
                         # Home Manager
                         home-manager.nixosModules.home-manager
+                        # Module that adds "unstable" packages via `pkgs.unstable.x` syntax
+                        {
+                            nixpkgs.overlays = [
+                            (final: prev: {
+                                inherit unstable;
+                            })
+                        ];}
                     ];
                 };
             })
