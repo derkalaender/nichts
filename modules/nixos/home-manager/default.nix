@@ -8,7 +8,7 @@ in
 
   config = mkIf cfg.enable {
     home-manager = {
-      users.marvin = import ../../home/home.nix;
+      # users.marvin = import ../../home/home.nix;
       # Install to default profile directory for better support
       useUserPackages = true;
       useGlobalPkgs = true;

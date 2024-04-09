@@ -1,11 +1,9 @@
-# Configuration for "dot" machine
-
 { ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./hardware.nix
+      ./users/marvin.nix
     ];
 
   my.desktop = {

@@ -7,7 +7,7 @@ in
 
   config = mkIf cfg.enable {
     # Allow unfree licensed packages
-    nixpkgs.config.allowUnfree = true;
+    # nixpkgs.config.allowUnfree = true;
 
     # Options regarding nix package manager
     nix = {

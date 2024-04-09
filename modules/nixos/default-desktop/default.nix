@@ -5,7 +5,7 @@ let
 in
 {
   # Add default user
-  imports = [ ../../users/marvin.nix ];
+  # imports = [ ../../users/marvin.nix ];
 
   options.my.desktop = {
     enable = mkEnableOption "Default desktop configuration";

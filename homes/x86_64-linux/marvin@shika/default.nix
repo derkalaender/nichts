@@ -25,7 +25,10 @@ in
       unstable.vscode
       # spotify
       unstable.spicetify-cli
-      # discord
+      (unstable.discord.override {
+        withOpenASAR = true;
+        withVencord = true;
+      })
       # steam
       nil
       killall
