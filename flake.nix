@@ -17,6 +17,8 @@
             url = "github:nix-community/home-manager/release-23.11";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
     };
 
     outputs = inputs@{snowfall-lib, ...}:
@@ -36,5 +38,9 @@
             channels-config = {
                 allowUnfree = true;
             };
+
+            overlays = with inputs; [
+                fh.overlays.default
+            ];
         };
 }

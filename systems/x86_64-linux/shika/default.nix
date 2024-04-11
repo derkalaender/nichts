@@ -1,4 +1,5 @@
-{ ... }:
+{ lib, ... }:
+with lib.nichts;
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -6,10 +7,10 @@
       ./users/marvin.nix
     ];
 
-  my.desktop = {
-    enable = true;
+  nichts.desktop = enabled // {
     hostname = "shika";
   };
+  nichts.cli-apps.nix-tooling = enabled;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -43,4 +44,6 @@
 
   # Enable flatpak
   services.flatpak.enable = true;
+
+  system.stateVersion = "23.11";
 }
