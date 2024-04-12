@@ -4,16 +4,12 @@
   # nixpkgs.config.allowUnfree = true;
 
   # Include man-pages
-  manual.manpages.enable = true;
+  # manual.manpages.enable = true;
 
   # Let Home Manager manage itself
   # programs.home-manager.enable = true;
 
-  home = {
-    # inherit username homeDirectory;
-    # stateVersion = "23.11";
-
-    packages = (with pkgs; [
+  home.packages = (with pkgs; [
       bottom
       unzip
       unstable.vscode
@@ -41,5 +37,4 @@
       # clion
       # (plugins.addPlugins idea-ultimate [ "github-copilot" ])
     ]);
-  };
 }

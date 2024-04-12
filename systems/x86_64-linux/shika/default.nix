@@ -4,7 +4,7 @@ with lib.nichts;
   imports =
     [ # Include the results of the hardware scan.
       ./hardware.nix
-      ./users/marvin.nix
+      ./users.nix
     ];
 
   nichts.desktop = enabled // {

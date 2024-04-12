@@ -1,5 +1,5 @@
 { lib, ... }:
 with lib.nichts;
 {
-  programs.home-manager = enabled;
+  # programs.home-manager = enabled;
 }
