@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # Configure nix itself. Flakes, GC, etc.
   nix = {
