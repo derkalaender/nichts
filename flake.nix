@@ -19,6 +19,11 @@
         };
 
         fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
+
+        nixos-wsl = {
+            url = "github:nix-community/NixOS-WSL";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = inputs@{snowfall-lib, ...}:
@@ -39,8 +44,14 @@
                 allowUnfree = true;
             };
 
+            # External overlays
             overlays = with inputs; [
                 fh.overlays.default
+            ];
+
+            # External NixOS modules
+            systems.modules.nixos = with inputs; [
+                nixos-wsl.nixosModules.default
             ];
         };
 }
