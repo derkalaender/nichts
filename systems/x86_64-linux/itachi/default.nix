@@ -15,8 +15,12 @@ with lib.nichts;
   # Configure console keymap
   console.keyMap = "de";
 
-  # Enable docker
-  virtualisation.docker.enable = true;
+  # Enable docker & podman
+  virtualisation = {
+    containers = enabled;
+    docker = enabled;
+    podman = enabled;
+  };
 
   system.stateVersion = "23.11";
 }

@@ -13,6 +13,11 @@ with lib.nichts;
   home.packages = (with pkgs; [
       killall
       cowsay
+
+      # containers
+      dive
       docker-compose
+      podman-compose
+      podman-tui
   ]);
 }
