@@ -7,4 +7,13 @@
     description = "Marvin";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
+
+  users.users.docker-user = {
+    isNormalUser = true;
+    extraGroups = [ "docker" ];
+  };
+
+  users.users.podman-user = {
+    isNormalUser = true;
+  };
 }

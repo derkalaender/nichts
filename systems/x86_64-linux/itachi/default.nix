@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 with lib.nichts;
 {
   imports =
@@ -12,6 +12,8 @@ with lib.nichts;
 #  };
   nichts.cli-apps.nix-tooling = enabled;
 
+  boot.enableContainers = false;
+
   # Configure console keymap
   console.keyMap = "de";
 
@@ -20,7 +22,11 @@ with lib.nichts;
     containers = enabled;
     docker = enabled;
     podman = enabled;
+    containerd = enabled;
   };
+  environment.systemPackages = with pkgs; [
+    nerdctl
+  ];
 
   system.stateVersion = "23.11";
 }

@@ -19,5 +19,6 @@ with lib.nichts;
       docker-compose
       podman-compose
       podman-tui
+      runc
   ]);
 }

@@ -30,6 +30,7 @@ in
       sd # sed alternative
       unstable.fd # find alternative
       unstable.tokei # cloc alternative
+      jaq # jq alternative (json tooling)
     ];
   };
 }
