@@ -9,9 +9,11 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      unstable.nil
-      alejandra
-      fh
+      unstable.nil # nix lsp
+      unstable.nixd # another nix lsp
+      unstable.alejandra # nix code formatter
+      unstable.nh # better nix build output
+      fh # FlakeHub cli
     ];
   };
 }
