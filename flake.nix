@@ -3,7 +3,7 @@
 
     inputs = {
         # Package repositories
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
         unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
         # Opinionated flake layout
@@ -14,7 +14,7 @@
 
         # User packages and configuration
         home-manager = {
-            url = "github:nix-community/home-manager/release-23.11";
+            url = "github:nix-community/home-manager/release-24.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -49,8 +49,8 @@
                 fh.overlays.default
             ];
 
-            # External NixOS modules
-            systems.modules.nixos = with inputs; [
+            # Itachi is the WSL-based host, so it needs the corresponding module
+            systems.hosts.itachi.modules = with inputs; [
                 nixos-wsl.nixosModules.default
             ];
         };
