@@ -12,7 +12,7 @@ with lib.nichts;
   nichts.fish = enabled;
 
   home.packages = (with pkgs; [
-      unstable.vscode
+      unstable.vscode.fhs
       # spotify
       unstable.spicetify-cli
       (unstable.discord.override {
