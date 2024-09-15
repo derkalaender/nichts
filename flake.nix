@@ -44,7 +44,7 @@
 
             # External overlays
             overlays = with inputs; [
-                fh.overlays.default
+                #
             ];
 
             # Itachi is the WSL-based host, so it needs the corresponding module
