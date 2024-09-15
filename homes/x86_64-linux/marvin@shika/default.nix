@@ -15,10 +15,7 @@ with lib.nichts;
       unstable.vscode.fhs
       # spotify
       unstable.spicetify-cli
-      (unstable.discord.override {
-        withOpenASAR = true;
-        withVencord = true;
-      })
+      unstable.vesktop
       # steam
       killall
       cowsay
