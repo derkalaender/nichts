@@ -13,7 +13,6 @@ in
       unstable.nixd # another nix lsp
       unstable.alejandra # nix code formatter
       unstable.nh # better nix build output
-      fh # FlakeHub cli
     ];
   };
 }

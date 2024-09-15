@@ -18,8 +18,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        fh.url = "https://flakehub.com/f/DeterminateSystems/fh/*.tar.gz";
-
         nixos-wsl = {
             url = "github:nix-community/NixOS-WSL";
             inputs.nixpkgs.follows = "nixpkgs";
