@@ -24,6 +24,9 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Common hardware configuration
+        nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
         # Modded Spotify
         spicetify-nix = {
             url = "github:Gerg-L/spicetify-nix";
@@ -57,6 +60,15 @@
             # Itachi is the WSL-based host, so it needs the corresponding module
             systems.hosts.itachi.modules = with inputs; [
                 nixos-wsl.nixosModules.default
+            ];
+
+            # Extra modules for shika, mostly hardware config
+            systems.hosts.shika.modules = with inputs; [
+                nixos-hardware.nixosModules.common-pc
+                nixos-hardware.nixosModules.common-pc-ssd
+                nixos-hardware.nixosModules.common-cpu-intel
+                nixos-hardware.nixosModules.common-gpu-intel
+                nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
             ];
 
             # Additional home modules
