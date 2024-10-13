@@ -7,10 +7,6 @@ with lib.nichts;
       ./users.nix
     ];
 
-#  nichts.desktop = enabled // {
-#    hostname = "shika";
-#  };
-
   boot.enableContainers = false;
 
   # Configure console keymap
