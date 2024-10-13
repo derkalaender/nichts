@@ -32,7 +32,7 @@ with lib.nichts;
   console.keyMap = "de";
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   # Enable proprietary Nvidia drivers instead of poorly-performing open-source drivers
   services.xserver.videoDrivers = [ "nvidia" ];
