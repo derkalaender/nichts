@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, inputs, ... }:
 with lib.nichts;
 {
   # Include man-pages
@@ -14,11 +14,27 @@ with lib.nichts;
   nichts.shell.fish = enabled;
 
   home.packages = (with pkgs; [
-      # spotify
-      unstable.spicetify-cli
       unstable.vesktop # Discord modded client
       # steam
       # insomnia
       # vlc
     ]);
+
+  # Modded Spotify
+  programs.spicetify =
+    let
+      spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+    in
+    enabled // {
+      enabledExtensions = with spicePkgs.extensions; [
+        shuffle # better shuffle algorithm
+        songStats # song statistics like dancability, tempo and key
+        showQueueDuration # show the duration of the queue
+      ];
+      enabledCustomApps = with spicePkgs.apps; [
+        lyricsPlus # better lyrics
+      ];
+      theme = spicePkgs.themes.catppuccin;
+      colorScheme = "mocha";
+    };
 }

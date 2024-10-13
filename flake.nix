@@ -18,8 +18,15 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # NixOS WSL support
         nixos-wsl = {
             url = "github:nix-community/NixOS-WSL";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        # Modded Spotify
+        spicetify-nix = {
+            url = "github:Gerg-L/spicetify-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
@@ -50,6 +57,11 @@
             # Itachi is the WSL-based host, so it needs the corresponding module
             systems.hosts.itachi.modules = with inputs; [
                 nixos-wsl.nixosModules.default
+            ];
+
+            # Additional home modules
+            homes.modules = with inputs; [
+                spicetify-nix.homeManagerModules.default
             ];
         };
 }
