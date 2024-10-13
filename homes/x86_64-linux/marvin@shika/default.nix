@@ -6,29 +6,19 @@ with lib.nichts;
   manual.manpages = enabled;
   manual.html = enabled;
 
-  nichts.cli-apps.modern = enabled;
+  nichts.cli.nix-tooling = enabled;
+  nichts.cli.modern = enabled;
   nichts.editor.helix = enabled;
   nichts.editor.jetbrains = enabled;
-  nichts.fish = enabled;
+  nichts.editor.vscode = enabled;
+  nichts.shell.fish = enabled;
 
   home.packages = (with pkgs; [
-      unstable.vscode.fhs
       # spotify
       unstable.spicetify-cli
-      unstable.vesktop
+      unstable.vesktop # Discord modded client
       # steam
-      killall
-      cowsay
-      docker-compose
       # insomnia
       # vlc
-      # android-studio
-    ]) ++ (with pkgs.jetbrains; [
-      # idea-ultimate
-      # goland
-      # pycharm-professional
-      # phpstorm
-      # clion
-      # (plugins.addPlugins idea-ultimate [ "github-copilot" ])
     ]);
 }

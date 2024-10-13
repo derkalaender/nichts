@@ -8,6 +8,7 @@ in
   options.nichts.editor = {
     helix = mkEnableOpt "Helix editor";
     jetbrains = mkEnableOpt "JetBrains IDEs";
+    vscode = mkEnableOpt "Visual Studio Code";
   };
 
   config = mkMerge [
@@ -27,6 +28,12 @@ in
       (with pkgs.unstable.jetbrains; [
         (plugins.addPlugins idea-ultimate [ "github-copilot" ])
         (plugins.addPlugins clion [ "github-copilot" ])
+      ]);
+    })
+
+    (mkIf cfg.vscode.enable {
+      home.packages = (with pkgs; [
+        unstable.vscode.fhs
       ]);
     })
   ];

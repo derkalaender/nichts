@@ -6,14 +6,11 @@ with lib.nichts;
   manual.manpages = enabled;
   manual.html = enabled;
 
-  nichts.cli-apps.modern = enabled;
+  nichts.cli.modern = enabled;
   nichts.editor.helix = enabled;
-  nichts.fish = enabled;
+  nichts.shell.fish = enabled;
 
   home.packages = (with pkgs; [
-      killall
-      cowsay
-
       # containers
       dive
       docker-compose

@@ -10,7 +10,6 @@ with lib.nichts;
 #  nichts.desktop = enabled // {
 #    hostname = "shika";
 #  };
-  nichts.cli-apps.nix-tooling = enabled;
 
   boot.enableContainers = false;
 
