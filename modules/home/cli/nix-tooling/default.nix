@@ -12,7 +12,7 @@ in
       unstable.nil # nix lsp
       unstable.nixd # another nix lsp
       unstable.alejandra # nix code formatter
-      unstable.nh # better nix build output
+      # unstable.nh # Already included system-wide
       unstable.nix-index # nix package search
     ];
   };

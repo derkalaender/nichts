@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   inputs,
   ...
 }:
@@ -18,10 +19,20 @@ with lib.nichts; {
     registry = lib.mapAttrs (_: flake: {inherit flake;}) inputs;
     nixPath = lib.mapAttrsToList (name: _: "${name}=flake:${name}") inputs;
 
-    gc = {
-      automatic = true;
+    # not needed because of nh below
+    # gc = {
+    #   automatic = true;
+    #   dates = "weekly";
+    #   options = "--delete-older-than 30d";
+    # };
+  };
+
+  # Enable nh, which is a nicer frontend for nix
+  programs.nh = enabled // {
+    package = pkgs.unstable.nh;
+    clean = enabled // {
       dates = "weekly";
-      options = "--delete-older-than 30d";
+      extraArgs = "--keep 5 --keep-since 30d"; # keep at least the last 5 generations and everything from the last 30 dayss
     };
   };
 }

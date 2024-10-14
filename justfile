@@ -1,10 +1,10 @@
 # Activate the configuration, add it to boot loader and mark it as default
 switch:
-    sudo nixos-rebuild switch
+    nh os switch .
 
 # Activate the configuration without adding it to boot loader (after reboot, the changes are lost)
 test:
-    sudo nixos-rebuild test
+    nh os test .
 
 # Rollback to the previous configuration, add it to boot loader and mark it as default
 [confirm]
