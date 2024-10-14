@@ -48,11 +48,6 @@ with lib.nichts; {
     # Enable GNOME
     displayManager.gdm = enabled;
     desktopManager.gnome = enabled;
-    # Keyboard layout
-    xkb = {
-      layout = "de";
-      variant = "";
-    };
   };
 
   # Filesystems
@@ -69,9 +64,6 @@ with lib.nichts; {
   swapDevices =
     [ { device = "/dev/disk/by-uuid/301146be-b026-4efd-95ce-d7e43bd36239"; }
     ];
-
-  # Configure console keymap
-  console.keyMap = "de";
 
   # Disable CUPS because of security vuln.
   services.printing.enable = false;
