@@ -4,11 +4,7 @@ with lib.nichts; {
     ./users.nix
   ];
 
-  nichts.desktop =
-    enabled
-    // {
-      hostname = "shika";
-    };
+  nichts.desktop = enabled;
 
   # Boot options
   boot = {

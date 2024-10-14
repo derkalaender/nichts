@@ -1,27 +1,13 @@
-# TODO refactor this old legacy code
-
 { lib, config, ... }:
 with lib;
-with lib.nichts;
+with nichts;
 let
   cfg = config.nichts.desktop;
 in
 {
-  options.nichts.desktop = mkEnableOpt "default desktop configuration" // {
-    hostname = mkOption {
-      type = types.str;
-      example = "shika";
-      description = "The hostname of the system";
-    };
-  };
+  options.nichts.desktop = mkEnableOpt "Default desktop configuration";
 
   config = mkIf cfg.enable {
-    # Networking
-    networking = {
-      hostName = cfg.hostname;
-      nameservers = [ "1.1.1.1" "1.0.0.1" ];
-    };
-
     # Sound
     sound = enabled;
     hardware.pulseaudio = disabled;
