@@ -23,6 +23,10 @@ info:
 repl:
     nix repl --expr 'builtins.getFlake "{{justfile_directory()}}"'
 
+# Add missing inputs to lockfile, but don't update existing ones
+lock:
+    nix flake lock
+
 # Update flake inputs. If no inputs specified, updates all inputs
 update *inputs:
-    nix flake {{ if inputs == "" { "update" } else { "lock --update-input " + inputs } }}
+    nix flake update {{inputs}}
