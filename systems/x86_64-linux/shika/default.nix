@@ -43,14 +43,6 @@ with lib.nichts; {
     };
   };
 
-  # X11 Windowing System
-  # TODO replace with Wayland
-  services.xserver = enabled // {
-    # Enable GNOME
-    displayManager.gdm = enabled;
-    desktopManager.gnome = enabled;
-  };
-
   # Filesystems
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/c1c2f7f0-7f88-4e30-acc8-556ef01dc391";
