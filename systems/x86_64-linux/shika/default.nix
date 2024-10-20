@@ -2,6 +2,7 @@
 with lib.nichts; {
   imports = [
     ./users.nix
+    ./sops.nix
   ];
 
   nichts.desktop = enabled;

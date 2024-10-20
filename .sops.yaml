@@ -1,0 +1,55 @@
+# I use age keys directly instead of converting SSH keys to age.
+# This is simpler as I don't have to create SSH keys stored on the machine (I store them in the sops secrets file instead which would be a chicken-egg problem).
+
+# Hosts and users have their own keys and own secrets file for better separation and a bit of RBAC.
+
+### Key Location ###
+# The keys are stored in ~/.config/sops/age/keys.txt
+# That is, for each user it's in their home directory and for each host it's in /root.
+# TODO: use impermanence and store the user & host keys under /persist
+
+### Usage: User ###
+
+# Create the key with:
+# mkdir -p ~/.config/sops/age
+# nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt
+
+# Display the public key with:
+# nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
+
+# Edit secrets with:
+# nix shell nixpkgs#sops -c sops secrets/user_something.yaml
+
+# Rekey after editing recipients in .sops.yaml with:
+# nix shell nixpkgs#sops -c sops updatekeys secrets/user_something.yaml
+
+### Usage: Host ###
+
+# Create the key with:
+# sudo sh -c "mkdir -p ~/.config/sops/age"
+# nix shell nixpkgs#age -c sudo sh -c "age-keygen -o ~/.config/sops/age/keys.txt"
+
+# Display the public key with:
+# nix shell nixpkgs#age -c sudo sh -c "age-keygen -y ~/.config/sops/age/keys.txt"
+
+# Edit secrets with:
+# nix shell nixpkgs#sops -c sudo sops secrets/host_something.yaml
+
+# Rekey after editing recipients in .sops.yaml with:
+# nix shell nixpkgs#sops -c sudo sops updatekeys secrets/host_something.yaml
+
+keys:
+  - &bitwarden age1grp897uk453xrpmq6ed8qcqjwgjwm0s4usptwkkxa7ujy60cpawstq6tu5
+  - &user_marvin age1t9mlz7cg7d27syfx66lnn2eh7stczmy7ncjak5ha4tw607lc04psqq5ts9
+  - &host_shika age1c0glnhd0w95xnpvv63934rq8acmdme3ees5aker7pz23uqpdcutsmmt2f8
+creation_rules:
+  - path_regex: secrets/user_marvin.yaml
+    key_groups:
+      - age:
+          - *bitwarden
+          - *user_marvin
+  - path_regex: secrets/host_shika.yaml
+    key_groups:
+      - age:
+          - *bitwarden
+          - *host_shika

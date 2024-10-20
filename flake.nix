@@ -18,6 +18,12 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # Secret management
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
         # NixOS WSL support
         nixos-wsl = {
             url = "github:nix-community/NixOS-WSL";
@@ -71,9 +77,15 @@
                 nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
             ];
 
+            # Additional modules for every host
+            systems.modules.nixos = with inputs; [
+                sops-nix.nixosModules.sops
+            ];
+
             # Additional home modules
             homes.modules = with inputs; [
                 spicetify-nix.homeManagerModules.default
+                sops-nix.homeManagerModules.sops
             ];
         };
 }
