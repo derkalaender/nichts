@@ -1,6 +1,10 @@
 { lib, pkgs, ... }:
 with lib.nichts;
 {
+  imports = [
+  	./sops.nix
+  ];
+
   # Include man-pages
   programs.man = enabled;
   manual.manpages = enabled;

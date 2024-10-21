@@ -25,7 +25,7 @@ with lib;
   ];
 
   # Set micro as the default editor. Can be overriden
-  environment.variables = mkDefault {
+  environment.variables = {
   	EDITOR = "micro";
   };
 }
