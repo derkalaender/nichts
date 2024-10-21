@@ -9,9 +9,6 @@ with lib.nichts;
 
   boot.enableContainers = false;
 
-  # Configure console keymap
-  console.keyMap = "de";
-
   # Enable docker & podman
   virtualisation = {
     containers = enabled;

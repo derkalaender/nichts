@@ -6,6 +6,7 @@ with lib.nichts;
     nativeSystemd = true;
     wslConf = {
       automount.enabled = true;
+      network.generateResolvConf = false;
     };
   };
 }

@@ -1,5 +1,9 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+with lib;
 {
+  # Yeet perl
+  environment.defaultPackages = [ ];
+
   # Default cli packages that every system should have
   environment.systemPackages = with pkgs; [
     coreutils-full
@@ -16,5 +20,12 @@
     time
 
     unstable.just # task runner, used here in the flake
+
+    unstable.micro # easy visual code editor
   ];
+
+  # Set micro as the default editor. Can be overriden
+  environment.variables = mkDefault {
+  	EDITOR = "micro";
+  };
 }
