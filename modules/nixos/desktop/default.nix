@@ -34,5 +34,8 @@ in
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.gdm.enableGnomeKeyring = true;
     programs.ssh.startAgent = true;
+
+    # Activate special dns config
+    nichts.networking.dns = enabled;
   };
 }
