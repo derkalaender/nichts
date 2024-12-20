@@ -19,11 +19,12 @@ with lib.nichts;
 
   home.packages = (with pkgs; [
       unstable.vesktop # Discord modded client
-      # steam
       # insomnia
       # vlc
       unstable.gitkraken # Git client
       unstable.termius # SSH client
+      unstable.google-chrome
+      unstable.steam
     ]);
 
   # Modded Spotify
