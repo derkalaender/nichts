@@ -13,11 +13,10 @@ with lib.nichts; {
     initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
     kernelModules = [
       "kvm-intel"
-      "nvidia"
-      # TODO intel gpu module
+      "nvidia" # Enable nvidia driver
     ];
 
-    # Use latest kernel
+    # Use latest kernel. 6.12.5 as of now.
     kernelPackages = pkgs.linuxPackages_latest;
 
     # Bootloader
@@ -28,19 +27,19 @@ with lib.nichts; {
   # Hardware configuration
   hardware = {
     enableRedistributableFirmware = true; # Enable non-free firmware
-    graphics = enabled; # TODO not sure if this is necessary
+    graphics = enabled; # Enable graphics drivers
+
     nvidia = {
-      # need newer Nvidia driver because of newer Kernel version
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "560.35.03";
-        sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
-        sha256_aarch64 = "sha256-s8ZAVKvRNXpjxRYqM3E5oss5FdqW+tv1qQC2pDjfG+s=";
-        openSha256 = "sha256-/32Zf0dKrofTmPZ3Ratw4vDM7B+OgpC4p7s+RHUjCrg=";
-        settingsSha256 = "sha256-kQsvDgnxis9ANFmwIwB7HX5MkIAcpEEAHc8IBOLdXvk=";
-        persistencedSha256 = "sha256-E2J2wYYyRu7Kc3MMZz/8ZIemcZg68rkzvqEwFAL3fFs=";
-      };
-      nvidiaSettings = false; # can't have this enabled with the newer driver for some reason?
+      # Required for better compatibility
+      modesetting.enable = true;
+      # This is unstable
+      powerManagement.enable = false;
+      # Settings panel
+      nvidiaSettings = true;
+      # I have a GTX1060 which doesn't support the new open module parts
       open = false;
+      # Use latest driver version. 565.77 as of now.
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
   };
 
