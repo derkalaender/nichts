@@ -17,17 +17,23 @@ in
       pulse = enabled;
     };
 
-    # X11 Windowing System
-    # TODO replace with Wayland
-    services.xserver = enabled // {
+    # Disable X11, but enable GDM & Mutter, which support Wayland
+    services.xserver = disabled // {
       # Enable GNOME
-      displayManager.gdm = enabled;
+      displayManager.gdm = enabled // {
+        wayland = true;
+      };
       desktopManager.gnome = enabled;
     };
 
+    # XWayland
+    programs.xwayland = enabled;
+    # Allow Chromium to be run without XWayland
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
     # Copy and paste
     environment.systemPackages = with pkgs; [
-      pkgs.xsel
+      wl-clipboard
     ];
 
     # SSH Agent

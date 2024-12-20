@@ -42,6 +42,9 @@ with lib.nichts; {
     };
   };
 
+  # Make Wayland use the NVIDIA driver
+  services.xserver.videoDrivers = ["nvidia"];
+
   # Disable CUPS because of security vuln.
   services.printing.enable = false;
 
