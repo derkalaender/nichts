@@ -9,7 +9,7 @@ in
 
   config = mkIf cfg.enable {
     # Sound
-    sound = enabled;
+    # sound = enabled;
     hardware.pulseaudio = disabled;
     security.rtkit = enabled;
     services.pipewire = enabled // {

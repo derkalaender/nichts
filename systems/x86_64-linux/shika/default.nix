@@ -28,7 +28,7 @@ with lib.nichts; {
   # Hardware configuration
   hardware = {
     enableRedistributableFirmware = true; # Enable non-free firmware
-    opengl = enabled; # TODO not sure if this is necessary
+    graphics = enabled; # TODO not sure if this is necessary
     nvidia = {
       # need newer Nvidia driver because of newer Kernel version
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
@@ -40,6 +40,7 @@ with lib.nichts; {
         persistencedSha256 = "sha256-E2J2wYYyRu7Kc3MMZz/8ZIemcZg68rkzvqEwFAL3fFs=";
       };
       nvidiaSettings = false; # can't have this enabled with the newer driver for some reason?
+      open = false;
     };
   };
 
