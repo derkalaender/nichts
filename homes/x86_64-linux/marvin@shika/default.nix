@@ -22,6 +22,8 @@ with lib.nichts;
       # steam
       # insomnia
       # vlc
+      unstable.gitkraken # Git client
+      unstable.termius # SSH client
     ]);
 
   # Modded Spotify
