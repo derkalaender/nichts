@@ -1,4 +1,9 @@
-{lib, pkgs, config, ...}:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 with lib.nichts; {
   imports = [
     ./hardware-configuration.nix
@@ -15,6 +20,11 @@ with lib.nichts; {
       "nvidia" # Enable nvidia driver
     ];
 
+    # Load Intel integrated graphics at stage 1 (https://github.com/NixOS/nixos-hardware/blob/master/common/gpu/intel/default.nix)
+    initrd.kernelModules = [
+      "i915"
+    ];
+
     # Use latest kernel. 6.12.5 as of now.
     kernelPackages = pkgs.linuxPackages_latest;
 
@@ -26,7 +36,23 @@ with lib.nichts; {
   # Hardware configuration
   hardware = {
     enableRedistributableFirmware = true; # Enable non-free firmware
-    graphics = enabled; # Enable graphics drivers
+    # Enable hardware acceleration
+    graphics =
+      enabled
+      // {
+        # Intel
+        extraPackages = with pkgs; [
+          intel-media-driver
+          intel-compute-runtime
+          vpl-gpu-rt
+        ];
+
+        # 32-bit support (e.g. for Wine)
+        enable32Bit = true;
+        extraPackages32 = with pkgs; [
+          driversi686Linux.intel-media-driver
+        ];
+      };
 
     nvidia = {
       # Required for better compatibility
