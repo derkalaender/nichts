@@ -1,6 +1,7 @@
 {lib, pkgs, config, ...}:
 with lib.nichts; {
   imports = [
+    ./hardware-configuration.nix
     ./users.nix
     ./sops.nix
   ];
@@ -10,9 +11,7 @@ with lib.nichts; {
   # Boot options
   boot = {
     # Kernel modules
-    initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
     kernelModules = [
-      "kvm-intel"
       "nvidia" # Enable nvidia driver
     ];
 
@@ -42,21 +41,6 @@ with lib.nichts; {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
   };
-
-  # Filesystems
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/c1c2f7f0-7f88-4e30-acc8-556ef01dc391";
-      fsType = "ext4";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4B2D-30F9";
-      fsType = "vfat";
-    };
-
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/301146be-b026-4efd-95ce-d7e43bd36239"; }
-    ];
 
   # Disable CUPS because of security vuln.
   services.printing.enable = false;
