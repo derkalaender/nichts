@@ -20,6 +20,10 @@ with lib.nichts; {
       "nvidia" # Enable nvidia driver
     ];
 
+    kernelParams = [
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # Save VRAM before suspend
+    ];
+
     # Use latest kernel. 6.12.5 as of now.
     kernelPackages = pkgs.linuxPackages_latest;
 
@@ -54,8 +58,8 @@ with lib.nichts; {
     nvidia = {
       # Required for better compatibility
       modesetting.enable = true;
-      # This is unstable
-      powerManagement.enable = false;
+      # Experimental. Needed for proper suspend/resume
+      powerManagement.enable = true;
       # Settings panel
       nvidiaSettings = true;
       # I have a GTX1060 which doesn't support the new open module parts
