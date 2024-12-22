@@ -9,6 +9,7 @@ with lib.nichts; {
     ./hardware-configuration.nix
     ./users.nix
     ./sops.nix
+    ./disko.nix
   ];
 
   nichts.desktop = enabled;

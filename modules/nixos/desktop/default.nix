@@ -43,5 +43,11 @@ in
 
     # Activate special dns config
     nichts.networking.dns = enabled;
+
+    # Use zram as swap -> more responsive
+    zramSwap = {
+      enable = true;
+      memoryPercent = 50;
+    };
   };
 }
