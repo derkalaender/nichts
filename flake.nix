@@ -44,6 +44,12 @@
             url = "github:nix-community/disko";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        # Secure Boot
+        lanzaboote = {
+            url = "github:nix-community/lanzaboote/v0.4.1";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = inputs@{snowfall-lib, ...}:
@@ -87,6 +93,7 @@
             systems.modules.nixos = with inputs; [
                 sops-nix.nixosModules.sops
                 disko.nixosModules.disko
+                lanzaboote.nixosModules.lanzaboote
             ];
 
             # Additional home modules

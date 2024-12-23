@@ -28,9 +28,15 @@ with lib.nichts; {
     # Use latest kernel. 6.12.5 as of now.
     kernelPackages = pkgs.linuxPackages_latest;
 
-    # Bootloader
-    loader.systemd-boot = enabled;
+    # Bootloader, we forcefully deactivate systemd-boot for Lanzaboote
+    loader.systemd-boot.enable = lib.mkForce false;
     loader.efi.canTouchEfiVariables = true;
+
+    # Enable Lanzaboote
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
   };
 
   # Hardware configuration
