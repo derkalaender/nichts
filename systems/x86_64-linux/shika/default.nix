@@ -37,6 +37,17 @@ with lib.nichts; {
       enable = true;
       pkiBundle = "/etc/secureboot";
     };
+
+    # Enable Plymouth Boot Screen
+    plymouth = {
+      enable = true;
+      theme = "catppuccin-mocha";
+      themePackages = with pkgs; [
+      	(catppuccin-plymouth.override {
+      	  variant = "mocha";
+      	})
+      ];
+    };
   };
 
   # Hardware configuration
@@ -77,7 +88,7 @@ with lib.nichts; {
   };
 
   # Make Wayland use the NVIDIA driver
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Disable CUPS because of security vuln.
   services.printing.enable = false;
