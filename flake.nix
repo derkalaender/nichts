@@ -50,6 +50,11 @@
             url = "github:nix-community/lanzaboote/v0.4.1";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        # home-manager autostart
+        xdg-autostart = {
+            url = "github:Zocker1999NET/home-manager-xdg-autostart";
+        };
     };
 
     outputs = inputs@{snowfall-lib, ...}:
@@ -100,6 +105,7 @@
             homes.modules = with inputs; [
                 spicetify-nix.homeManagerModules.default
                 sops-nix.homeManagerModules.sops
+                xdg-autostart.homeManagerModules.xdg-autostart
             ];
         };
 }
