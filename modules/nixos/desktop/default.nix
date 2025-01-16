@@ -1,10 +1,13 @@
-{ lib, pkgs, config, ... }:
-with lib;
-with nichts;
-let
-  cfg = config.nichts.desktop;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
+with nichts; let
+  cfg = config.nichts.desktop;
+in {
   options.nichts.desktop = mkEnableOpt "Default desktop configuration";
 
   config = mkIf cfg.enable {
@@ -12,19 +15,25 @@ in
     # sound = enabled;
     hardware.pulseaudio = disabled;
     security.rtkit = enabled;
-    services.pipewire = enabled // {
-      alsa = enabled // { support32Bit = true; };
-      pulse = enabled;
-    };
+    services.pipewire =
+      enabled
+      // {
+        alsa = enabled // {support32Bit = true;};
+        pulse = enabled;
+      };
 
     # Disable X11, but enable GDM & Mutter, which support Wayland
-    services.xserver = disabled // {
-      # Enable GNOME
-      displayManager.gdm = enabled // {
-        wayland = true;
+    services.xserver =
+      disabled
+      // {
+        # Enable GNOME
+        displayManager.gdm =
+          enabled
+          // {
+            wayland = true;
+          };
+        desktopManager.gnome = enabled;
       };
-      desktopManager.gnome = enabled;
-    };
 
     # XWayland
     programs.xwayland = enabled;
@@ -48,6 +57,18 @@ in
     zramSwap = {
       enable = true;
       memoryPercent = 50;
+    };
+
+    # Disable hibernate (not supported with no real swap)
+    systemd.targets = let
+      sleepTarget = state: {
+        enable = false;
+        unitConfig.DefaultDependencies = false;
+      };
+    in {
+      hibernate = sleepTarget "hibernate";
+      hybrid-sleep = sleepTarget "hybrid-sleep";
+      suspend-then-hibernate = sleepTarget "suspend-then-hibernate";
     };
   };
 }

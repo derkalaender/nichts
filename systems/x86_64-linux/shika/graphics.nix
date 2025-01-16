@@ -59,4 +59,45 @@
     libva-utils
     vdpauinfo
   ];
+
+  # Fix bug where gnome-shell is trying to talk to the NVIDIA driver after already having gone to suspend
+  # https://bbs.archlinux.org/viewtopic.php?pid=2044189#p2044189
+  systemd.services = {
+    # Stop gnome-shell on suspend
+    suspend-gnome-shell = {
+      description = "Suspend gnome-shell";
+      before = [
+        "systemd-suspend.service"
+        "systemd-hibernate.service"
+        "nvidia-suspend.service"
+        "nvidia-hibernate.service"
+      ];
+      wantedBy = [
+        "systemd-suspend.service"
+        "systemd-hibernate.service"
+      ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.procps}/bin/pkill -f -STOP gnome-shell";
+      };
+    };
+
+    # Continue gnome-shell on resume
+    resume-gnome-shell = {
+      description = "Resume gnome-shell";
+      after = [
+        "systemd-suspend.service"
+        "systemd-hibernate.service"
+        "nvidia-resume.service"
+      ];
+      wantedBy = [
+        "systemd-suspend.service"
+        "systemd-hibernate.service"
+      ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.procps}/bin/pkill -f -CONT gnome-shell";
+      };
+    };
+  };
 }
