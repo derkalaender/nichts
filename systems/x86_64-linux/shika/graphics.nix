@@ -47,6 +47,10 @@
     }
   ];
 
+  # Load NVIDIA kernel module in early boot for prettier boot screen
+  boot.initrd.kernelModules = ["nvidia"];
+  boot.extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
+
   # Environment variables so that programs can pick up on it
   # We want to use NVIDIA for both
   environment.sessionVariables = {
