@@ -70,5 +70,20 @@ in {
       hybrid-sleep = sleepTarget "hybrid-sleep";
       suspend-then-hibernate = sleepTarget "suspend-then-hibernate";
     };
+
+    # Font management
+    fonts = {
+      enableDefaultPackages = true;
+      packages = with pkgs; [
+        noto-fonts
+        noto-fonts-cjk-sans # Chinese, Japanese, Korean
+        noto-fonts-color-emoji
+        nerdfonts # Getting all of them. Includes Jetbrains Mono, Fira Code, Meslo, etc. See https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/data/fonts/nerdfonts/shas.nix
+
+        # Icons
+        material-icons
+        font-awesome
+      ];
+    };
   };
 }
