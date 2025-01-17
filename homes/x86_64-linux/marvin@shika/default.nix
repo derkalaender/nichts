@@ -32,6 +32,13 @@ with lib.nichts; {
     unstable.steam
   ];
 
+  # Ghostty Terminal
+  programs.ghostty = {
+    enable = true;
+    package = pkgs.unstable.ghostty;
+    enableFishIntegration = true;
+  };
+
   # Modded Spotify
   programs.spicetify = let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
