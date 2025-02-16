@@ -30,6 +30,7 @@ with lib.nichts; {
     unstable.termius # SSH client
     unstable.google-chrome
     unstable.steam
+    distrobox # Easy dev environments
   ];
 
   # Ghostty Terminal

@@ -60,8 +60,8 @@ with lib.nichts; {
   # Disable CUPS because of security vuln.
   services.printing.enable = false;
 
-  # Enable docker
-  virtualisation.docker.enable = true;
+  # Enable podman
+  virtualisation.podman.enable = true;
 
   # Enable flatpak
   services.flatpak.enable = true;
