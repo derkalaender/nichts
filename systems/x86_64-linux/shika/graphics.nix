@@ -3,7 +3,17 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  # Use new beta 570.86.16 driver (see here for a list https://forums.developer.nvidia.com/t/current-graphics-driver-releases/28500)
+  # To generate hashes: use lib.fakeSha256, run once and copy the hash from the error message
+  nvidiaDriver = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    version = "570.86.16";
+    sha256_64bit = "sha256-RWPqS7ZUJH9JEAWlfHLGdqrNlavhaR1xMyzs8lJhy9U=";
+    openSha256 = "sha256-DuVNA63+pJ8IB7Tw2gM4HbwlOh1bcDg2AN2mbEU9VPE=";
+    settingsSha256 = "sha256-9rtqh64TyhDF5fFAYiWl3oDHzKJqyOW3abpcf2iNRT8=";
+    usePersistenced = false; # we don't run in headless mode
+  };
+in {
   # Enable NVIDIA graphics for Wayland
   services.xserver.videoDrivers = ["nvidia"];
 
@@ -19,8 +29,7 @@
         nvidiaSettings = true;
         # I have a GTX1060 which doesn't support the new open module parts
         open = false;
-        # Use latest driver version. 565.77 as of now.
-        package = config.boot.kernelPackages.nvidiaPackages.latest;
+        package = nvidiaDriver;
       };
     }
 
@@ -49,7 +58,7 @@
 
   # Load NVIDIA kernel module in early boot for prettier boot screen
   boot.initrd.kernelModules = ["nvidia"];
-  boot.extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
+  boot.extraModulePackages = [nvidiaDriver];
 
   # Environment variables so that programs can pick up on it
   # We want to use NVIDIA for both
