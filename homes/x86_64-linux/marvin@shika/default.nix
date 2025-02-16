@@ -31,6 +31,7 @@ with lib.nichts; {
     unstable.google-chrome
     unstable.steam
     distrobox # Easy dev environments
+    unstable.anki
   ];
 
   # Ghostty Terminal
