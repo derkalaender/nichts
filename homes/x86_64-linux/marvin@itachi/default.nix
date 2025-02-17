@@ -11,6 +11,7 @@ with lib.nichts;
   manual.html = enabled;
 
   nichts.cli.modern = enabled;
+  nichts.cli.nix-tooling = enabled;
   nichts.editor.helix = enabled;
   nichts.shell.fish = enabled;
 
@@ -21,5 +22,8 @@ with lib.nichts;
       podman-compose
       podman-tui
       runc
+
+      # Git GUI
+      gitkraken
   ]);
 }

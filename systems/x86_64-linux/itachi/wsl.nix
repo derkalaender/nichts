@@ -7,5 +7,6 @@ with lib.nichts;
     wslConf = {
       automount.enabled = true;
     };
+    interop.includePath = false;
   };
 }

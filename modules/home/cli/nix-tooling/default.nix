@@ -14,6 +14,7 @@ in
       unstable.alejandra # nix code formatter
       # unstable.nh # Already included system-wide
       unstable.nix-index # nix package search
+      unstable.direnv # switching envs automatically
     ];
   };
 }

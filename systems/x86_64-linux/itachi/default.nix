@@ -20,5 +20,8 @@ with lib.nichts;
     nerdctl
   ];
 
+  # Dynamic linking
+  programs.nix-ld.enable = true;
+
   system.stateVersion = "23.11";
 }
