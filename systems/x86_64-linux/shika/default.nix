@@ -66,5 +66,8 @@ with lib.nichts; {
   # Enable flatpak
   services.flatpak.enable = true;
 
+  # Allow running Non-NixOS binaries
+  programs.nix-ld.enable = true;
+
   system.stateVersion = "23.11";
 }
