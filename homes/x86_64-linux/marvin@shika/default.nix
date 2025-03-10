@@ -30,8 +30,9 @@ with lib.nichts; {
     unstable.termius # SSH client
     unstable.google-chrome
     unstable.steam
-    distrobox # Easy dev environments
+    unstable.distrobox # Easy dev environments
     unstable.anki
+    rclone
   ];
 
   # Ghostty Terminal

@@ -9,19 +9,18 @@ with lib.nichts; {
   nix = {
     settings = {
       # Enable Flakes and new nix cmd
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       # Give anyone with root access special permissions when talking to the Nix daemon
-      trusted-users = [ "root" "@wheel"];
+      trusted-users = ["root" "@wheel"];
     };
 
     # Periodically gets rid of duplicate files in the store
-    optimise.automatic = true; 
+    optimise.automatic = true;
     # Don't remove any dependencies needed to build alive (non-GC'd) packages
-    extraOptions =
-      ''
-        keep-outputs = true
-        keep-derivations = true
-      '';
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
 
     # Disable channels
     channel = disabled;
@@ -32,11 +31,15 @@ with lib.nichts; {
   };
 
   # Enable nh, which is a nicer frontend for nix
-  programs.nh = enabled // {
-    package = pkgs.unstable.nh;
-    clean = enabled // {
-      dates = "weekly";
-      extraArgs = "--keep 10 --keep-since 60d"; # keep at least the last 10 generations and everything from the last 60 dayss
+  programs.nh =
+    enabled
+    // {
+      package = pkgs.unstable.nh;
+      clean =
+        enabled
+        // {
+          dates = "weekly";
+          extraArgs = "--keep 5 --keep-since 60d"; # keep at least the last 5 generations and everything from the last 60 dayss
+        };
     };
-  };
 }

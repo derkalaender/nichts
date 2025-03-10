@@ -29,6 +29,7 @@ with lib.nichts; {
     lanzaboote = {
       enable = true;
       pkiBundle = "/etc/secureboot";
+      configurationLimit = 5;
     };
 
     # Enable Plymouth Boot Screen
@@ -65,6 +66,9 @@ with lib.nichts; {
 
   # Enable flatpak
   services.flatpak.enable = true;
+
+  # Allow running Non-NixOS binaries
+  programs.nix-ld.enable = true;
 
   system.stateVersion = "23.11";
 }
