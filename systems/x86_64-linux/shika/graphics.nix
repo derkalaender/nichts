@@ -22,13 +22,13 @@ in {
       nvidiaSettings = true;
       # I have a GTX1060 which doesn't support the new open module parts
       open = false;
-      # Use new beta 570.86.16 driver (see here for a list https://forums.developer.nvidia.com/t/current-graphics-driver-releases/28500)
+      # Use new beta 575.51.02 driver (see here for a list https://forums.developer.nvidia.com/t/current-graphics-driver-releases/28500)
       # To generate hashes: use lib.fakeSha256, run once and copy the hash from the error message
       package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "570.86.16";
-        sha256_64bit = "sha256-RWPqS7ZUJH9JEAWlfHLGdqrNlavhaR1xMyzs8lJhy9U=";
-        openSha256 = "sha256-DuVNA63+pJ8IB7Tw2gM4HbwlOh1bcDg2AN2mbEU9VPE=";
-        settingsSha256 = "sha256-9rtqh64TyhDF5fFAYiWl3oDHzKJqyOW3abpcf2iNRT8=";
+        version = "575.51.02";
+        sha256_64bit = "sha256-XZ0N8ISmoAC8p28DrGHk/YN1rJsInJ2dZNL8O+Tuaa0=";
+        openSha256 = "sha256-NQg+QDm9Gt+5bapbUO96UFsPnz1hG1dtEwT/g/vKHkw=";
+        settingsSha256 = "sha256-6n9mVkEL39wJj5FB1HBml7TTJhNAhS/j5hqpNGFQE4w=";
         usePersistenced = false; # we don't run in headless mode
       };
     };
@@ -40,7 +40,10 @@ in {
     };
 
     # Enable NVIDIA in containers
-    nvidia-container-toolkit.enable = true;
+    nvidia-container-toolkit = {
+      enable = true;
+      package = pkgs.unstable.nvidia-container-toolkit;
+    };
   };
 
   # Load NVIDIA kernel module in early boot for prettier boot screen

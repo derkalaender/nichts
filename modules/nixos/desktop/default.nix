@@ -12,19 +12,20 @@ in {
 
   config = mkIf cfg.enable {
     # Sound
-    # sound = enabled;
-    hardware.pulseaudio = disabled;
-    security.rtkit = enabled;
-    services.pipewire =
-      enabled
-      // {
-        alsa = enabled // {support32Bit = true;};
-        pulse = enabled;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
       };
+      jack.enable = true;
+    };
 
     # Disable X11, but enable GDM & Mutter, which support Wayland
     services.xserver =
-      disabled
+      enabled
       // {
         # Enable GNOME
         displayManager.gdm =
@@ -40,10 +41,56 @@ in {
     # Allow Chromium to be run without XWayland
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    # Copy and paste
-    environment.systemPackages = with pkgs; [
-      wl-clipboard
+    environment.systemPackages =
+      (with pkgs; [
+        # Copy and paste
+        wl-clipboard
+      ])
+      ++ (with pkgs.gnomeExtensions; [
+        # System tray
+        appindicator
+        # Tweaks
+        just-perfection
+        # Better dock
+        dash-to-dock
+        # Clipboard manager
+        pano
+        # Pretty blur
+        blur-my-shell
+        # Bluetooth battery
+        bluetooth-quick-connect
+      ]);
+
+    # Exclude unused gnome packages
+    environment.gnome.excludePackages = with pkgs; [
+      orca
+      evince
+      geary
+      epiphany
+      gnome-text-editor
+      gnome-calendar
+      gnome-characters
+      gnome-console
+      gnome-contacts
+      gnome-maps
+      gnome-music
+      gnome-weather
+      gnome-logs
+      simple-scan
+      totem
     ];
+
+    # Required for system tray
+    services.udev.packages = with pkgs; [
+      gnome-settings-daemon
+    ];
+
+    # Bluetooth show battery
+    hardware.bluetooth.settings = {
+      General = {
+        Experimental = true;
+      };
+    };
 
     # SSH Agent
     services.gnome.gnome-keyring.enable = true;
