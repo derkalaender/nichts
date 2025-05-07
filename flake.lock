@@ -165,6 +165,27 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "inputs": {
+        "systems": [
+          "xmc-nix",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -364,7 +385,8 @@
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "unstable": "unstable",
-        "xdg-autostart": "xdg-autostart"
+        "xdg-autostart": "xdg-autostart",
+        "xmc-nix": "xmc-nix"
       }
     },
     "rust-overlay": {
@@ -500,6 +522,21 @@
         "type": "github"
       }
     },
+    "systems_4": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "unstable": {
       "locked": {
         "lastModified": 1746461020,
@@ -528,6 +565,28 @@
       "original": {
         "owner": "Zocker1999NET",
         "repo": "home-manager-xdg-autostart",
+        "type": "github"
+      }
+    },
+    "xmc-nix": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems_4"
+      },
+      "locked": {
+        "lastModified": 1746608244,
+        "narHash": "sha256-aZuGkwZS1hl5GEw2cLoCexn7AnK9hQgNMU2QksJDafo=",
+        "owner": "derkalaender",
+        "repo": "xmc-nix",
+        "rev": "1e61afe0af039fd622fc4893d059beb58659e7ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "derkalaender",
+        "repo": "xmc-nix",
         "type": "github"
       }
     }

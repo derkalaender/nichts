@@ -61,6 +61,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # XMC on nixos
+    xmc-nix.url = "github:derkalaender/xmc-nix";
+    xmc-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {snowfall-lib, ...}:
@@ -106,6 +110,7 @@
         disko.nixosModules.disko
         lanzaboote.nixosModules.lanzaboote
         nix-index-database.nixosModules.nix-index
+        xmc-nix.nixosModules.jlink
       ];
 
       # Additional home modules
