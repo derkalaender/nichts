@@ -22,7 +22,8 @@ with nichts; {
   };
 
   # German keyboard layout
-  services.xserver.xkb = { # desktop
+  services.xserver.xkb = {
+    # desktop
     layout = "de";
     variant = "";
   };

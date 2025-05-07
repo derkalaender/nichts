@@ -1,8 +1,11 @@
-{ lib, pkgs, ... }:
-with lib;
 {
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   # Yeet perl
-  environment.defaultPackages = [ ];
+  environment.defaultPackages = [];
 
   # Default cli packages that every system should have
   environment.systemPackages = with pkgs; [
@@ -26,6 +29,6 @@ with lib;
 
   # Set micro as the default editor. Can be overriden
   environment.variables = {
-  	EDITOR = "micro";
+    EDITOR = "micro";
   };
 }
