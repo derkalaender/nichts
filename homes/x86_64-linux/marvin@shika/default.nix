@@ -66,10 +66,4 @@ with lib.nichts; {
       unstable.discord
     ];
   };
-
-  # direnv for automatic environment management
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
 }
