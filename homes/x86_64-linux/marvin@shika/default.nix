@@ -22,6 +22,7 @@ with lib.nichts; {
   nichts.editor.vscode = enabled;
   nichts.shell.fish = enabled;
   nichts.spotify.enable = true;
+  nichts.gaming.enable = true;
 
   home.packages = with pkgs; [
     unstable.vesktop # Discord modded client
@@ -30,7 +31,6 @@ with lib.nichts; {
     unstable.gitkraken # Git client
     unstable.termius # SSH client
     unstable.google-chrome
-    unstable.steam
     unstable.distrobox # Easy dev environments
     unstable.anki
     rclone

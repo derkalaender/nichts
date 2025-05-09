@@ -15,6 +15,7 @@ with lib.nichts; {
 
   nichts.desktop = enabled;
   nichts.shell.fish = enabled;
+  nichts.gaming.enable = true;
 
   # Boot options
   boot = {
