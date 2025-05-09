@@ -21,6 +21,7 @@ with lib.nichts; {
   nichts.editor.jetbrains = enabled;
   nichts.editor.vscode = enabled;
   nichts.shell.fish = enabled;
+  nichts.spotify.enable = true;
 
   home.packages = with pkgs; [
     unstable.vesktop # Discord modded client
@@ -41,24 +42,6 @@ with lib.nichts; {
     package = pkgs.unstable.ghostty;
     enableFishIntegration = true;
   };
-
-  # Modded Spotify
-  programs.spicetify = let
-    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-  in
-    enabled
-    // {
-      enabledExtensions = with spicePkgs.extensions; [
-        shuffle # better shuffle algorithm
-        songStats # song statistics like dancability, tempo and key
-        showQueueDuration # show the duration of the queue
-      ];
-      enabledCustomApps = with spicePkgs.apps; [
-        lyricsPlus # better lyrics
-      ];
-      theme = spicePkgs.themes.catppuccin;
-      colorScheme = "mocha";
-    };
 
   # Autostart Discord
   xdg.autoStart = {
