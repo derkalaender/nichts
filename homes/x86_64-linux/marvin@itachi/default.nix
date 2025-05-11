@@ -1,8 +1,11 @@
-{ lib, pkgs, ... }:
-with lib.nichts;
 {
+  lib,
+  pkgs,
+  ...
+}:
+with lib.nichts; {
   imports = [
-  	./sops.nix
+    ./sops.nix
   ];
 
   # Include man-pages
@@ -15,15 +18,15 @@ with lib.nichts;
   nichts.editor.helix = enabled;
   nichts.shell.fish = enabled;
 
-  home.packages = (with pkgs; [
-      # containers
-      dive
-      docker-compose
-      podman-compose
-      podman-tui
-      runc
+  home.packages = with pkgs; [
+    # containers
+    dive
+    docker-compose
+    podman-compose
+    podman-tui
+    runc
 
-      # Git GUI
-      gitkraken
-  ]);
+    # Git GUI
+    gitkraken
+  ];
 }

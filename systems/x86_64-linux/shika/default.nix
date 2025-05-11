@@ -15,6 +15,7 @@ with lib.nichts; {
 
   nichts.desktop = enabled;
   nichts.shell.fish = enabled;
+  nichts.gaming.enable = true;
 
   # Boot options
   boot = {
@@ -69,6 +70,14 @@ with lib.nichts; {
 
   # Allow running Non-NixOS binaries
   programs.nix-ld.enable = true;
+
+  # Enable JLink
+  programs.jlink = {
+    enable = true;
+    trustedUsers = [
+      "marvin"
+    ];
+  };
 
   system.stateVersion = "23.11";
 }

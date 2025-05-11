@@ -1,11 +1,13 @@
-{ lib, pkgs, ... }:
-with lib.nichts;
 {
-  imports =
-    [
-      ./wsl.nix
-      ./users.nix
-    ];
+  lib,
+  pkgs,
+  ...
+}:
+with lib.nichts; {
+  imports = [
+    ./wsl.nix
+    ./users.nix
+  ];
 
   boot.enableContainers = false;
 

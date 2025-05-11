@@ -1,8 +1,6 @@
-{ lib, ... }:
-with lib;
-{
-  mkEnableOpt = name:
-    { enable = mkEnableOption name; };
+{lib, ...}:
+with lib; {
+  mkEnableOpt = name: {enable = mkEnableOption name;};
 
   enabled = {
     enable = true;
