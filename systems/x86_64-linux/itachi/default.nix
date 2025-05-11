@@ -9,6 +9,8 @@ with lib.nichts; {
     ./users.nix
   ];
 
+  nichts.shell.fish = enabled;
+
   boot.enableContainers = false;
 
   # Enable docker & podman
