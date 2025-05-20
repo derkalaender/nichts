@@ -43,3 +43,7 @@ sops-edit file:
 # Rekey all secrets
 sops-rekey:
     find secrets -name '*.yaml' -exec nix run nixpkgs#sops -- updatekeys {} \;
+
+# Generate installer iso
+iso:
+    nix build .#install-isoConfigurations.installer

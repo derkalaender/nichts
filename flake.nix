@@ -65,6 +65,10 @@
     # XMC on nixos
     xmc-nix.url = "github:derkalaender/xmc-nix";
     xmc-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # ISO generation
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {snowfall-lib, ...}:
