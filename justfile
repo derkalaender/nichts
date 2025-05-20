@@ -30,3 +30,16 @@ lock:
 # Update flake inputs. If no inputs specified, updates all inputs
 update *inputs:
     nix flake update {{inputs}}
+
+# Generate a new key at $HOME/.config/sops/age/keys.txt but ask to proceed if already exists
+sops-genkey:
+    mkdir -p ~/.config/sops/age
+    nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt
+
+# Edit a secret using sops
+sops-edit file:
+    nix run nixpkgs#sops -- {{file}}
+
+# Rekey all secrets
+sops-rekey:
+    find secrets -name '*.yaml' -exec nix run nixpkgs#sops -- updatekeys {} \;
