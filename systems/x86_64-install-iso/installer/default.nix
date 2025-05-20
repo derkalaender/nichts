@@ -1,6 +1,11 @@
-{...}: {
+{pkgs, ...}: {
   config = {
     nichts.shell.fish.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      croc
+      nixos-facter
+    ];
 
     services.openssh.enable = true;
 
