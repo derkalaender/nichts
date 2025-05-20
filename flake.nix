@@ -69,9 +69,20 @@
     # ISO generation
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Hardware configuration
+    nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
+
+    # Remote deployment
+    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ {snowfall-lib, ...}:
+  outputs = inputs @ {
+    self,
+    snowfall-lib,
+    ...
+  }:
     snowfall-lib.mkFlake {
       # Snowfall-specific
       inherit inputs;
@@ -91,7 +102,7 @@
 
       # External overlays
       overlays = with inputs; [
-        #
+        inputs.deploy-rs.overlays.default
       ];
 
       # Itachi is the WSL-based host, so it needs the corresponding module
@@ -123,5 +134,23 @@
         sops-nix.homeManagerModules.sops
         xdg-autostart.homeManagerModules.xdg-autostart
       ];
+
+      # deploy-rs configuration
+      deploy = {
+        sshUser = "otta"; # Will use this to SSH into the host
+        activationTimeout = 60 * 5; # 5 minutes
+        confirmTimeout = 60;
+
+        nodes = let
+          mkSystemPath = config: (inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${config});
+        in {
+          kawauso = {
+            hostname = "192.168.178.55";
+            profiles.system.path = mkSystemPath "kawauso";
+          };
+        };
+      };
+
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
     };
 }

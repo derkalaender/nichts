@@ -18,6 +18,14 @@ in {
         path = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
         mode = "0644";
       };
+      ssh_colmena_private = {
+        path = "${config.home.homeDirectory}/.ssh/colmena";
+        mode = "0600";
+      };
+      ssh_colmena_public = {
+        path = "${config.home.homeDirectory}/.ssh/colmena.pub";
+        mode = "0644";
+      };
     };
   };
 }
