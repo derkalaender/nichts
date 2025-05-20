@@ -53,7 +53,7 @@ with lib.nichts; {
   # Autostart Discord
   xdg.autoStart = {
     packages = with pkgs; [
-      unstable.discord
+      unstable.vesktop
     ];
   };
 }
