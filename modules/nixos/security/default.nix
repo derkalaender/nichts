@@ -6,13 +6,12 @@
     networking.firewall.enable = true;
 
     # Configure sudo
-    # We use memory-safe sudo-rs Rust implementation
-    security.sudo.enable = false; # Disable default sudo
-    security.sudo-rs = {
-      enable = true;
+    # FIXME Ideally, we'd use sudo-rs, but currently no other module really supports it (the options don't transfer implicitly)
+    security.sudo = {
       execWheelOnly = true; # Prevent potential CVEs by making only wheel users able to use sudo
-      # Show asterisks when typing password
+      # Show asterisks when typing password, no intro text
       extraConfig = ''
+        Defaults lecture = never
         Defaults pwfeedback
       '';
     };
