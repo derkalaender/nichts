@@ -7,6 +7,7 @@
 with lib.nichts; {
   imports = [
     ./sops.nix
+    ./ssh-agent.nix
   ];
 
   # Include man-pages

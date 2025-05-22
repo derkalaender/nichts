@@ -8,6 +8,7 @@ with lib.nichts; {
     ./wsl.nix
     ./users.nix
     ./sops.nix
+    ./ssh-agent.nix
   ];
 
   nichts.shell.fish = enabled;
