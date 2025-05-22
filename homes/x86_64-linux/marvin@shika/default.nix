@@ -24,6 +24,13 @@ with lib.nichts; {
   nichts.spotify.enable = true;
   nichts.gaming.enable = true;
 
+  nichts.git = {
+    enable = true;
+    sshSigningKey = config.sops.secrets.ssh_public.path;
+    username = "derkalaender";
+    email = "git@derkalaender.de";
+  };
+
   home.packages = with pkgs; [
     unstable.vesktop # Discord modded client
     # insomnia
@@ -46,7 +53,7 @@ with lib.nichts; {
   # Autostart Discord
   xdg.autoStart = {
     packages = with pkgs; [
-      unstable.discord
+      unstable.vesktop
     ];
   };
 }

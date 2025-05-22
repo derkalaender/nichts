@@ -53,6 +53,7 @@ with lib.nichts; {
       "rd.systemd.show_status=false"
       "rd.udev.log_level=3"
       "udev.log_priority=3"
+      "kvm.enable_virt_at_load=0" # Fixes VirtualBox on newer kernels (see https://github.com/NixOS/nixpkgs/issues/363887)
     ];
   };
 
@@ -64,6 +65,10 @@ with lib.nichts; {
 
   # Enable podman
   virtualisation.podman.enable = true;
+
+  # Virtualbox
+  virtualisation.virtualbox.host.enable = true;
+  users.users.marvin.extraGroups = ["vboxusers"];
 
   # Enable flatpak
   services.flatpak.enable = true;

@@ -44,6 +44,7 @@ keys:
   - &user_marvin_itachi age1gadtzqahmsgvh0ugx00lrs7ug5dqrjs4ltqhpcngxxa0lv8xe5ushmxrzr
   - &host_shika age1c0glnhd0w95xnpvv63934rq8acmdme3ees5aker7pz23uqpdcutsmmt2f8
   - &host_itachi age18d6mqxn5jf7ukuxm5ly933jpcntql9xw4ndrp75mpznm9j0nd34quf86fq
+  - &host_kawauso age1uh0w7n0gdmxfy2ha07qycslgxkkmd5qlv0w3xw5gszsxmg4wcczsyfkex8
 creation_rules:
   - path_regex: secrets/user_marvin.yaml
     key_groups:
@@ -63,5 +64,12 @@ creation_rules:
       - age:
           - *bitwarden
           - *host_itachi
+          - *user_marvin_shika
+          - *user_marvin_itachi
+  - path_regex: secrets/host_kawauso.yaml
+    key_groups:
+      - age:
+          - *bitwarden
+          - *host_kawauso
           - *user_marvin_shika
           - *user_marvin_itachi
