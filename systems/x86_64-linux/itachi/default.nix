@@ -7,6 +7,7 @@ with lib.nichts; {
   imports = [
     ./wsl.nix
     ./users.nix
+    ./sops.nix
   ];
 
   nichts.shell.fish = enabled;

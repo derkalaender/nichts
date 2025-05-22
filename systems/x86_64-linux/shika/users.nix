@@ -1,8 +1,8 @@
 {config, ...}: {
-  # Declarative user management.
+  # Declarative user management
   users.mutableUsers = false;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account
   users.users.marvin = {
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."user_passwords/marvin".path;
