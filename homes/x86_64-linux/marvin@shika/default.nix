@@ -37,7 +37,13 @@ with lib.nichts; {
     vlc
     gitkraken # Git client
     unstable.termius # SSH client
-    unstable.google-chrome
+    (unstable.google-chrome.override
+      {
+        commandLineArgs = [
+          # Enable Wayland, fixes some issues, e.g. allows dragging tabs around
+          "--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true"
+        ];
+      })
     unstable.distrobox # Easy dev environments
     unstable.anki
     rclone

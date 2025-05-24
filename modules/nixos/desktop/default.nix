@@ -36,6 +36,7 @@ in {
     # XWayland
     programs.xwayland.enable = true;
     # Allow Chromium to be run without XWayland
+    # BUG: This is experimental and breaks many Electron apps. Instead, we just enable Wayland specifically for Chrome.
     # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.systemPackages =
