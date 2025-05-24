@@ -52,7 +52,7 @@ with lib.nichts; {
   # Ghostty Terminal
   programs.ghostty = {
     enable = true;
-    package = pkgs.unstable.ghostty;
+    enableBashIntegration = true;
     enableFishIntegration = true;
   };
 

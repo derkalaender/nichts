@@ -12,11 +12,5 @@ in {
   # TODO
   config = mkIf cfg.enable {
     programs.fish = enabled;
-
-    # set as default for Ghostty
-    programs.ghostty = {
-      enableFishIntegration = true;
-      settings.command = "${config.programs.fish.package}/bin/fish --login --interactive";
-    };
   };
 }
