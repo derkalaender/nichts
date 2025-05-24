@@ -29,8 +29,8 @@ with lib.nichts; {
     # Enable Lanzaboote
     lanzaboote = {
       enable = true;
-      pkiBundle = "/etc/secureboot";
-      configurationLimit = 5;
+      pkiBundle = "/var/lib/sbctl";
+      configurationLimit = 10;
     };
 
     # Enable Plymouth Boot Screen
