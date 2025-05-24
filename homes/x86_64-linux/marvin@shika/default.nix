@@ -32,10 +32,10 @@ with lib.nichts; {
   };
 
   home.packages = with pkgs; [
-    unstable.vesktop # Discord modded client
+    vesktop # Discord modded client
     # insomnia
-    # vlc
-    unstable.gitkraken # Git client
+    vlc
+    gitkraken # Git client
     unstable.termius # SSH client
     unstable.google-chrome
     unstable.distrobox # Easy dev environments
@@ -53,7 +53,7 @@ with lib.nichts; {
   # Autostart Discord
   xdg.autoStart = {
     packages = with pkgs; [
-      unstable.vesktop
+      vesktop
     ];
   };
 }

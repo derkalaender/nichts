@@ -34,7 +34,7 @@ in {
 
     (mkIf cfg.vscode.enable {
       home.packages = with pkgs; [
-        unstable.vscode.fhs
+        vscode.fhs
       ];
     })
   ];

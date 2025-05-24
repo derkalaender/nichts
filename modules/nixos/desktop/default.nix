@@ -3,12 +3,11 @@
   pkgs,
   config,
   ...
-}:
-with lib;
-with nichts; let
+}: let
+  inherit (lib) mkEnableOption mkIf isDerivation;
   cfg = config.nichts.desktop;
 in {
-  options.nichts.desktop = mkEnableOpt "Default desktop configuration";
+  options.nichts.desktop.enable = mkEnableOption "Default desktop configuration";
 
   config = mkIf cfg.enable {
     # Sound
@@ -24,22 +23,20 @@ in {
     };
 
     # Disable X11, but enable GDM & Mutter, which support Wayland
-    services.xserver =
-      enabled
-      // {
-        # Enable GNOME
-        displayManager.gdm =
-          enabled
-          // {
-            wayland = true;
-          };
-        desktopManager.gnome = enabled;
+    services.xserver = {
+      enable = true;
+      # Enable GNOME
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
       };
+      desktopManager.gnome.enable = true;
+    };
 
     # XWayland
-    programs.xwayland = enabled;
+    programs.xwayland.enable = true;
     # Allow Chromium to be run without XWayland
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.systemPackages =
       (with pkgs; [
@@ -78,6 +75,7 @@ in {
       gnome-logs
       simple-scan
       totem
+      decibels
     ];
 
     # Required for system tray
@@ -98,7 +96,7 @@ in {
     programs.ssh.startAgent = true;
 
     # Activate special dns config
-    nichts.networking.dns = enabled;
+    nichts.networking.dns.enable = true;
 
     # Use zram as swap -> more responsive
     zramSwap = {
@@ -119,18 +117,24 @@ in {
     };
 
     # Font management
+    # https://wiki.nixos.org/wiki/Fonts
     fonts = {
       enableDefaultPackages = true;
-      packages = with pkgs; [
-        noto-fonts
-        noto-fonts-cjk-sans # Chinese, Japanese, Korean
-        noto-fonts-color-emoji
-        nerdfonts # Getting all of them. Includes Jetbrains Mono, Fira Code, Meslo, etc. See https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/data/fonts/nerdfonts/shas.nix
+      packages = with pkgs;
+        [
+          noto-fonts
+          noto-fonts-cjk-sans # Chinese, Japanese, Korean
+          noto-fonts-color-emoji
 
-        # Icons
-        material-icons
-        font-awesome
-      ];
+          # Icons
+          material-icons
+          font-awesome
+        ]
+        # Getting all of them. Includes Jetbrains Mono, Fira Code, Meslo, etc.
+        # See https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/data/fonts/nerd-fonts/manifests/fonts.json
+        ++ (pkgs.nerd-fonts
+          |> builtins.attrValues
+          |> builtins.filter isDerivation);
     };
   };
 }
