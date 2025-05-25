@@ -123,7 +123,6 @@
       systems.modules.nixos = with inputs; [
         sops-nix.nixosModules.sops
         disko.nixosModules.disko
-        lanzaboote.nixosModules.lanzaboote
         nix-index-database.nixosModules.nix-index
         xmc-nix.nixosModules.jlink
       ];

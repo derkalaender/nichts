@@ -16,22 +16,12 @@ with lib.nichts; {
   nichts.desktop = enabled;
   nichts.shell.fish = enabled;
   nichts.gaming.enable = true;
+  nichts.security.secureboot.enable = true;
 
   # Boot options
   boot = {
     # Use latest kernel. 6.12.5 as of now.
     kernelPackages = pkgs.linuxPackages_latest;
-
-    # Bootloader, we forcefully deactivate systemd-boot for Lanzaboote
-    loader.systemd-boot.enable = lib.mkForce false;
-    loader.efi.canTouchEfiVariables = true;
-
-    # Enable Lanzaboote
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/var/lib/sbctl";
-      configurationLimit = 10;
-    };
 
     # Enable Plymouth Boot Screen
     plymouth = {

@@ -73,3 +73,10 @@ creation_rules:
           - *host_kawauso
           - *user_marvin_shika
           - *user_marvin_itachi
+  - path_regex: secrets/secureboot/*
+    key_groups:
+      - age:
+          - *bitwarden
+          - *host_shika
+          - *user_marvin_shika
+          - *user_marvin_itachi
