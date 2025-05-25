@@ -42,18 +42,6 @@ in {
 
     programs = {
       aria2 = enabled; # Download manager
-      atuin =
-        enabled
-        // {
-          # Better shell history
-          enableBashIntegration = true;
-          enableFishIntegration = true;
-          enableNushellIntegration = true;
-          enableZshIntegration = true;
-          settings = {
-            # TODO configure syncing between shells [needs secret management]
-          };
-        };
       bat =
         enabled
         // {

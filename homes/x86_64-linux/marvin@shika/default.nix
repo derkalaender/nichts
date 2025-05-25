@@ -17,6 +17,10 @@ with lib.nichts; {
 
   nichts.cli.nix-tooling = enabled;
   nichts.cli.modern = enabled;
+  nichts.cli.atuin = {
+    enable = true;
+    sync = true;
+  };
   nichts.editor.helix = enabled;
   nichts.editor.jetbrains = enabled;
   nichts.editor.vscode = enabled;

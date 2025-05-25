@@ -80,3 +80,9 @@ creation_rules:
           - *host_shika
           - *user_marvin_shika
           - *user_marvin_itachi
+  - path_regex: secrets/atuin.yaml
+    key_groups:
+      - age:
+          - *bitwarden
+          - *user_marvin_shika
+          - *user_marvin_itachi
