@@ -17,6 +17,10 @@ with lib.nichts; {
 
   nichts.cli.modern = enabled;
   nichts.cli.nix-tooling = enabled;
+  nichts.cli.atuin = {
+    enable = true;
+    sync = true;
+  };
   nichts.editor.helix = enabled;
   nichts.shell.fish = enabled;
 
