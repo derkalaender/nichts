@@ -29,6 +29,7 @@ in {
         android-studio
         jetbrains.idea-ultimate
         jetbrains.clion
+        jetbrains.pycharm-professional
       ];
     })
 

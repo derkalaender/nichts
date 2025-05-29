@@ -51,6 +51,10 @@ with lib.nichts; {
     unstable.distrobox # Easy dev environments
     unstable.anki
     rclone
+
+    eduvpn-client
+
+    uv
   ];
 
   # Ghostty Terminal
