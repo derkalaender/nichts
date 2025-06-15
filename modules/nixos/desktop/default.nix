@@ -42,7 +42,7 @@ in {
     };
 
     # Activate special dns config
-    nichts.networking.dns.enable = true;
+    # nichts.networking.dns.enable = true;
 
     # Use zram as swap -> more responsive
     zramSwap = {

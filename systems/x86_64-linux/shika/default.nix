@@ -13,7 +13,8 @@ with lib.nichts; {
     ./disko.nix
   ];
 
-  nichts.desktop = enabled;
+  nichts.desktop.enable = true;
+  nichts.desktop.flavor = "hyprland";
   nichts.shell.fish = enabled;
   nichts.gaming.enable = true;
   nichts.security.secureboot.enable = true;
