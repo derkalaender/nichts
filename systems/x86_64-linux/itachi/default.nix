@@ -29,5 +29,13 @@ with lib.nichts; {
   # Dynamic linking
   programs.nix-ld.enable = true;
 
+  # Enable JLink
+  programs.jlink = {
+    enable = true;
+    trustedUsers = [
+      "marvin"
+    ];
+  };
+
   system.stateVersion = "23.11";
 }
