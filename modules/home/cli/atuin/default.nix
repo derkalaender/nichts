@@ -24,6 +24,7 @@ in {
       settings = mkMerge [
         {
           search_mode = "fuzzy";
+          enter_accept = true;
         }
         (mkIf cfg.sync {
           auto_sync = true;
