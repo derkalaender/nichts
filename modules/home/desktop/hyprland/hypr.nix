@@ -15,11 +15,16 @@ in {
         "$menu" = "rofi -show drun";
         "$browser" = "google-chrome-stable";
 
+        exec-once = [
+          "gnome-keyring-daemon --start" # Initialize the GNOME Keyring so that apps can access it
+        ];
+
         monitor = ", preferred, auto, auto";
 
         env = [
           "XCURSOR_SIZE, 24"
           "HYPRCURSOR_SIYE, 24"
+          "SSH_AUTH_SOCK, $XDG_RUNTIME_DIR/keyring/ssh" # Use GNOME Keyring SSH agent
         ];
 
         general = {

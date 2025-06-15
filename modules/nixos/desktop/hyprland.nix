@@ -29,6 +29,9 @@ in {
 
     # Secrets management
     services.gnome.gnome-keyring.enable = true;
-    security.pam.services.ssdm.enableGnomeKeyring = true; # automatically unlocks keyring on login
+    programs.seahorse.enable = true;
+    # automatically unlocks keyring on login
+    security.pam.services.sddm.enableGnomeKeyring = true;
+    security.pam.services.login.enableGnomeKeyring = true;
   };
 }
