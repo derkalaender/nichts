@@ -11,6 +11,7 @@ in {
     ./mako.nix
     ./rofi.nix
     ./apps.nix
+    ./clipboard.nix
   ];
 
   config = mkIf (cfg.enable && cfg.flavor == "hyprland") {

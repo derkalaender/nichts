@@ -77,11 +77,12 @@ in {
         "$mod" = "SUPER";
         bind = [
           "$mod, Q, killactive"
-          "$mod, V, togglefloating"
+          "$mod, F, togglefloating"
           "$mod, T, exec, $terminal"
           "$mod, E, exec, $fileManager"
           "$mod, R, exec, $menu"
           "$mod, B, exec, $browser"
+          "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
         ];
 
         bindm = [
