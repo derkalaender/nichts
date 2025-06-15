@@ -4,84 +4,34 @@
   config,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf isDerivation;
+  inherit (lib) mkEnableOption mkOption types mkIf isDerivation;
   cfg = config.nichts.desktop;
 in {
-  options.nichts.desktop.enable = mkEnableOption "Default desktop configuration";
+  imports = [
+    ./audio.nix
+    ./gnome.nix
+    ./hyprland.nix
+  ];
+
+  options.nichts.desktop = {
+    enable = mkEnableOption "Default desktop configuration";
+    flavor = mkOption {
+      type = types.enum ["gnome" "hyprland"];
+      default = "gnome";
+      description = ''
+        The desktop environment to use.
+      '';
+    };
+  };
 
   config = mkIf cfg.enable {
-    # Sound
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      pulse.enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      jack.enable = true;
-    };
-
-    # Disable X11, but enable GDM & Mutter, which support Wayland
-    services.xserver = {
-      enable = true;
-      # Enable GNOME
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
-      desktopManager.gnome.enable = true;
-    };
-
-    # XWayland
-    programs.xwayland.enable = true;
     # Allow Chromium to be run without XWayland
     # BUG: This is experimental and breaks many Electron apps. Instead, we just enable Wayland specifically for Chrome.
     # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    environment.systemPackages =
-      (with pkgs; [
-        # Copy and paste
-        wl-clipboard
-      ])
-      ++ (with pkgs.gnomeExtensions; [
-        # System tray
-        appindicator
-        # Tweaks
-        just-perfection
-        # Better dock
-        dash-to-dock
-        # Clipboard manager
-        pano
-        # Pretty blur
-        blur-my-shell
-        # Bluetooth battery
-        bluetooth-quick-connect
-      ]);
-
-    # Exclude unused gnome packages
-    environment.gnome.excludePackages = with pkgs; [
-      orca
-      evince
-      geary
-      epiphany
-      gnome-text-editor
-      gnome-calendar
-      gnome-characters
-      gnome-console
-      gnome-contacts
-      gnome-maps
-      gnome-music
-      gnome-weather
-      gnome-logs
-      simple-scan
-      totem
-      decibels
-    ];
-
-    # Required for system tray
-    services.udev.packages = with pkgs; [
-      gnome-settings-daemon
+    environment.systemPackages = with pkgs; [
+      # Copy and paste
+      wl-clipboard
     ];
 
     # Bluetooth show battery
@@ -90,11 +40,6 @@ in {
         Experimental = true;
       };
     };
-
-    # SSH Agent
-    services.gnome.gnome-keyring.enable = true;
-    security.pam.services.gdm.enableGnomeKeyring = true;
-    programs.ssh.startAgent = true;
 
     # Activate special dns config
     nichts.networking.dns.enable = true;
