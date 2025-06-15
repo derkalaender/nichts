@@ -46,6 +46,7 @@ in {
     services.libinput.enable = true;
     services.avahi.enable = true; # TODO: consider moving to networking module
     programs.dconf.enable = true; # for GTK apps config
+    programs.file-roller.enable = true; # Archive manager
 
     # Icon fixes
     xdg.mime.enable = true;
