@@ -10,6 +10,7 @@ in {
     ./hypr.nix
     ./mako.nix
     ./rofi.nix
+    ./apps.nix
   ];
 
   config = mkIf (cfg.enable && cfg.flavor == "hyprland") {
