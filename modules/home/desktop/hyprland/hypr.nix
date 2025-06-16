@@ -12,11 +12,12 @@ in {
       settings = {
         "$terminal" = "ghostty";
         "$fileManager" = "nautilus";
-        "$menu" = "rofi -show drun";
+        "$menu" = "rofi -show drun -run-command \"uwsm app -- {cmd}\"";
         "$browser" = "google-chrome-stable";
+        "$asApp" = "uwsm app --";
 
         exec-once = [
-          "gnome-keyring-daemon --start" # Initialize the GNOME Keyring so that apps can access it
+          "gnome-keyring-daemon --start -d --components=pkcs11,secrets,ssh" # Initialize the GNOME Keyring so that apps can access it
         ];
 
         monitor = ", preferred, auto, auto";
@@ -78,10 +79,10 @@ in {
         bind = [
           "$mod, Q, killactive"
           "$mod, F, togglefloating"
-          "$mod, T, exec, $terminal"
-          "$mod, E, exec, $fileManager"
+          "$mod, T, exec, $asApp $terminal"
+          "$mod, E, exec, $asApp $fileManager"
           "$mod, R, exec, $menu"
-          "$mod, B, exec, $browser"
+          "$mod, B, exec, $asApp $browser"
           "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
         ];
 
