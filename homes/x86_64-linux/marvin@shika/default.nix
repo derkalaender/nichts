@@ -36,7 +36,10 @@ with lib.nichts; {
   };
 
   home.packages = with pkgs; [
-    vesktop # Discord modded client
+    (discord.override {
+      withOpenASAR = true;
+      withVencord = true;
+    })
     # insomnia
     vlc
     gitkraken # Git client
@@ -62,12 +65,5 @@ with lib.nichts; {
     enable = true;
     enableBashIntegration = true;
     enableFishIntegration = true;
-  };
-
-  # Autostart Discord
-  xdg.autoStart = {
-    packages = with pkgs; [
-      vesktop
-    ];
   };
 }
