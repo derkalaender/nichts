@@ -17,7 +17,7 @@ in {
         "$asApp" = "uwsm app --";
 
         exec-once = [
-          "gnome-keyring-daemon --start -d --components=pkcs11,secrets,ssh" # Initialize the GNOME Keyring so that apps can access it
+          "gnome-keyring-daemon --start" # Initialize the GNOME Keyring so that apps can access it
         ];
 
         monitor = ", preferred, auto, auto";
