@@ -1,10 +1,10 @@
 # Activate the configuration, add it to boot loader and mark it as default
 switch:
-    nh os switch .
+    nh os switch . -- --option accept-flake-config true
 
 # Activate the configuration without adding it to boot loader (after reboot, the changes are lost)
 test:
-    nh os test .
+    nh os test .  -- --option accept-flake-config true
 
 # Rollback to the previous configuration, add it to boot loader and mark it as default
 [confirm]
@@ -13,7 +13,7 @@ rollback:
 
 # Validates the flake
 check:
-    nix flake check
+    nix flake check --option accept-flake-config true
 
 # List flake inputs
 info:

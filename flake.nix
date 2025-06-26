@@ -1,6 +1,27 @@
 {
   description = "Nichts";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://install.determinate.systems"
+    ];
+
+    extra-trusted-public-keys = [
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+    ];
+
+    # Enable Flakes and new nix cmd
+    experimental-features = ["nix-command" "flakes" "pipe-operators"];
+    # Give anyone with root access special permissions when talking to the Nix daemon
+    trusted-users = ["root" "@wheel"];
+
+    warn-dirty = false;
+    show-trace = true;
+
+    # https://determinate.systems/posts/changelog-determinate-nix-352/
+    lazy-trees = true;
+  };
+
   inputs = {
     # Package repositories
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
@@ -108,7 +129,7 @@
 
       # External overlays
       overlays = with inputs; [
-        inputs.deploy-rs.overlays.default
+        deploy-rs.overlays.default
       ];
 
       # Itachi is the WSL-based host, so it needs the corresponding module
