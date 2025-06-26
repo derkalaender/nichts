@@ -10,7 +10,7 @@ with lib.nichts; {
       interop.includePath = false;
       usbip = {
         enable = true;
-        autoAttach = ["2-2"];
+        autoAttach = ["1-2" "2-2"];
         snippetIpAddress = "localhost";
       };
     };
