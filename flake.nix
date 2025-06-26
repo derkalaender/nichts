@@ -76,6 +76,9 @@
     # Remote deployment
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Custom Nix with more features
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
   };
 
   outputs = inputs @ {
@@ -86,7 +89,10 @@
     snowfall-lib.mkFlake {
       # Snowfall-specific
       inherit inputs;
-      src = ./.;
+      src = builtins.path {
+        path = ./.;
+        name = "nichts-source";
+      };
       snowfall = {
         namespace = "nichts";
         meta = {
@@ -125,6 +131,7 @@
         disko.nixosModules.disko
         nix-index-database.nixosModules.nix-index
         xmc-nix.nixosModules.jlink
+        determinate.nixosModules.default
       ];
 
       # Additional home modules
