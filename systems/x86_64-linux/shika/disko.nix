@@ -16,6 +16,7 @@
                 format = "vfat";
                 mountpoint = "/boot";
                 mountOptions = ["umask=0077"];
+                extraArgs = ["-n" "ESP"]; # needed for rEFInd
               };
             };
             root = {
