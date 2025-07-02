@@ -21,8 +21,8 @@ with lib.nichts; {
 
   # Boot options
   boot = {
-    # # Use latest kernel. 6.12.5 as of now.
-    # kernelPackages = pkgs.linuxPackages_latest;
+    # Use Zen Kernel for better responsiveness
+    kernelPackages = pkgs.linuxPackages_zen;
 
     # Enable Plymouth Boot Screen
     plymouth = {

@@ -23,15 +23,27 @@ in {
       nvidiaSettings = true;
       # I have a GTX1060 which doesn't support the new open module parts
       open = false;
-      # Use new beta 575.51.02 driver (see here for a list https://forums.developer.nvidia.com/t/current-graphics-driver-releases/28500)
-      # To generate hashes: use lib.fakeSha256, run once and copy the hash from the error message
-      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        version = "575.51.02";
-        sha256_64bit = "sha256-XZ0N8ISmoAC8p28DrGHk/YN1rJsInJ2dZNL8O+Tuaa0=";
-        openSha256 = "sha256-NQg+QDm9Gt+5bapbUO96UFsPnz1hG1dtEwT/g/vKHkw=";
-        settingsSha256 = "sha256-6n9mVkEL39wJj5FB1HBml7TTJhNAhS/j5hqpNGFQE4w=";
-        usePersistenced = false; # we don't run in headless mode
-      };
+      # Use new beta 575.57.08 driver (see here for a list https://forums.developer.nvidia.com/t/current-graphics-driver-releases/28500)
+      # To generate hashes: use lib.fakeSha256, run once and copy the hash from the error message.
+      # Make sure to change the hash every time you change the version, otherwise it will still think the old version is wanted.
+      # TODO (temporary on 25.05 with Linux Kernel 6.15.x): add patch to make this build. See https://github.com/NixOS/nixpkgs/issues/412299#issuecomment-2955980698 and https://github.com/NixOS/nixpkgs/pull/412157
+      package = let
+        gpl_symbols_linux_615_patch = pkgs.fetchpatch {
+          url = "https://github.com/CachyOS/kernel-patches/raw/914aea4298e3744beddad09f3d2773d71839b182/6.15/misc/nvidia/0003-Workaround-nv_vm_flags_-calling-GPL-only-code.patch";
+          hash = "sha256-YOTAvONchPPSVDP9eJ9236pAPtxYK5nAePNtm2dlvb4=";
+          stripLen = 1;
+          extraPrefix = "kernel/";
+        };
+      in
+        config.boot.kernelPackages.nvidiaPackages.mkDriver {
+          version = "575.57.08";
+          sha256_64bit = "sha256-KqcB2sGAp7IKbleMzNkB3tjUTlfWBYDwj50o3R//xvI=";
+          openSha256 = "sha256-DOJw73sjhQoy+5R0GHGnUddE6xaXb/z/Ihq3BKBf+lg=";
+          settingsSha256 = "sha256-AIeeDXFEo9VEKCgXnY3QvrW5iWZeIVg4LBCeRtMs5Io=";
+          usePersistenced = false; # we don't run in headless mode
+
+          patches = [gpl_symbols_linux_615_patch];
+        };
     };
 
     # Enable hardware video acceleration
