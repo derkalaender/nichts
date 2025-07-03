@@ -65,7 +65,14 @@ with lib.nichts; {
   services.flatpak.enable = true;
 
   # Allow running Non-NixOS binaries
-  programs.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    # Steam contains most necessary libraries. See https://wiki.nixos.org/wiki/FAQ#I've_downloaded_a_binary,_but_I_can't_run_it,_what_can_I_do?
+    libraries = pkgs.steam-run.args.multiPkgs pkgs;
+  };
+  environment.systemPackages = with pkgs; [
+    nix-alien
+  ];
 
   # Firmware updates
   services.fwupd.enable = true;

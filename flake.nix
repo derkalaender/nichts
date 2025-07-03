@@ -100,6 +100,11 @@
 
     # Custom Nix with more features
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
+    # Run arbitrary binaries on NixOS
+    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien.inputs.nixpkgs.follows = "nixpkgs";
+    nix-alien.inputs.nix-index-database.follows = "nix-index-database";
   };
 
   outputs = inputs @ {
@@ -130,6 +135,7 @@
       # External overlays
       overlays = with inputs; [
         deploy-rs.overlays.default
+        nix-alien.overlays.default
       ];
 
       # Itachi is the WSL-based host, so it needs the corresponding module
