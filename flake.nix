@@ -17,6 +17,9 @@
 
     warn-dirty = false;
     show-trace = true;
+    http-connections = 50;
+    max-jobs = "auto";
+    max-substitution-jobs = 32;
 
     # https://determinate.systems/posts/changelog-determinate-nix-352/
     lazy-trees = true;
