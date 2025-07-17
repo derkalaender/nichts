@@ -25,7 +25,7 @@ in {
     in (
       with pkgs; [
         (lutris.override lutris-overrides) # game launcher for basically everything
-        unstable.prismlauncher # minecraft
+        prismlauncher # minecraft
       ]
     );
   };

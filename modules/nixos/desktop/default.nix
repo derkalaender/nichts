@@ -70,17 +70,32 @@ in {
         [
           noto-fonts
           noto-fonts-cjk-sans # Chinese, Japanese, Korean
+          noto-fonts-lgc-plus
           noto-fonts-color-emoji
+          liberation_ttf
+          dejavu_fonts
+          ubuntu-sans
+          roboto
+          inter
+          open-sans
+          lato
+          corefonts
 
           # Icons
           material-icons
           font-awesome
         ]
-        # Getting all of them. Includes Jetbrains Mono, Fira Code, Meslo, etc.
         # See https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/data/fonts/nerd-fonts/manifests/fonts.json
-        ++ (pkgs.nerd-fonts
-          |> builtins.attrValues
-          |> builtins.filter isDerivation);
+        ++ (with pkgs.nerd-fonts; [
+          dejavu-sans-mono
+          fira-code
+          fira-mono
+          geist-mono
+          hack
+          jetbrains-mono
+          mononoki
+          noto
+        ]);
     };
   };
 }

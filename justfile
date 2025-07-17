@@ -17,7 +17,7 @@ check:
 
 # List flake inputs
 info:
-    nix flake info
+    nix flake metadata
 
 # Starts repl, allows inspection
 repl:
@@ -25,11 +25,11 @@ repl:
 
 # Add missing inputs to lockfile, but don't update existing ones
 lock:
-    nix flake lock
+    nix flake lock --option accept-flake-config true
 
 # Update flake inputs. If no inputs specified, updates all inputs
 update *inputs:
-    nix flake update {{inputs}}
+    nix flake update {{inputs}} --option accept-flake-config true
 
 # Generate a new key at $HOME/.config/sops/age/keys.txt but ask to proceed if already exists
 sops-genkey:
@@ -46,4 +46,4 @@ sops-rekey:
 
 # Generate installer iso
 iso:
-    nix build .#install-isoConfigurations.installer
+    nix build .#install-isoConfigurations.installer --option accept-flake-config true

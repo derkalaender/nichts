@@ -25,7 +25,8 @@ in {
     })
 
     (mkIf cfg.jetbrains.enable {
-      home.packages = with pkgs.unstable; [
+      # TODO: Use unstable again. https://github.com/NixOS/nixpkgs/issues/425328
+      home.packages = with pkgs; [
         android-studio
         jetbrains.idea-ultimate
         jetbrains.clion
