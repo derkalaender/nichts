@@ -1,5 +1,5 @@
 {config, ...}: let
-  rdpUser = "otta";
+  deployUser = "deploy";
 in {
   # Declarative user management
   users.mutableUsers = false;
@@ -14,7 +14,7 @@ in {
     ];
   };
 
-  users.users.${rdpUser} = {
+  users.users.${deployUser} = {
     isNormalUser = true;
     description = "Remote Deployment User";
     extraGroups = ["wheel"];
@@ -27,12 +27,14 @@ in {
   # This is needed for the deployment-tool to perform a non-interactive deployment
   security.sudo.extraRules = [
     {
-      users = [rdpUser];
+      users = [deployUser];
       commands = [
         {
-          command = "ALL";
+          command = "ALL"; # TODO restrict this to the actually required commands
           options = ["NOPASSWD"];
         }
+
+        # TODO: the deployment user should not be able to run anything else as root
       ];
     }
   ];

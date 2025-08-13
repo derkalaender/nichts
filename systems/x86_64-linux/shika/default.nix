@@ -59,7 +59,7 @@ with lib.nichts; {
 
   # Virtualbox
   virtualisation.virtualbox.host.enable = true;
-  users.users.marvin.extraGroups = ["vboxusers"];
+  users.users.marvin.extraGroups = ["vboxusers" "wireshark"];
 
   # Enable flatpak
   services.flatpak.enable = true;
@@ -73,6 +73,11 @@ with lib.nichts; {
   environment.systemPackages = with pkgs; [
     nix-alien
   ];
+
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
 
   # Firmware updates
   services.fwupd.enable = true;
