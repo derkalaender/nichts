@@ -26,167 +26,104 @@
   };
 
   inputs = {
-    # Package repositories
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Opinionated flake layout
-    snowfall-lib = {
-      url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
-    # User packages and configuration
+    import-tree.url = "github:vic/import-tree";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Secret management
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # NixOS WSL support
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "dedupe_flake-compat";
     };
 
-    # Common hardware configuration
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Modded Spotify
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "dedupe_systems";
     };
 
-    # Declarative disk partitioning
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Secure Boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.flake-compat.follows = "dedupe_flake-compat";
     };
 
-    # home-manager autostart
     xdg-autostart = {
       url = "github:Zocker1999NET/home-manager-xdg-autostart";
     };
 
-    # Automatic database updates for nix-index
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # XMC on nixos
-    xmc-nix.url = "github:derkalaender/xmc-nix";
-    xmc-nix.inputs.nixpkgs.follows = "nixpkgs";
+    xmc-nix = {
+      url = "github:derkalaender/xmc-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "dedupe_flake-utils";
+      inputs.systems.follows = "dedupe_systems";
+    };
 
-    # ISO generation
-    nixos-generators.url = "github:nix-community/nixos-generators";
-    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # Hardware configuration
     nixos-facter-modules.url = "github:numtide/nixos-facter-modules";
 
-    # Remote deployment
-    deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "dedupe_flake-compat";
+      inputs.utils.follows = "dedupe_flake-utils";
+    };
 
-    # Custom Nix with more features
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
-    # Run arbitrary binaries on NixOS
-    nix-alien.url = "github:thiagokokada/nix-alien";
-    nix-alien.inputs.nixpkgs.follows = "nixpkgs";
-    nix-alien.inputs.nix-index-database.follows = "nix-index-database";
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-index-database.follows = "nix-index-database";
+      inputs.flake-compat.follows = "dedupe_flake-compat";
+    };
+  };
+
+  # Additional inputs for flake.lock dedupe
+  inputs = {
+    dedupe_systems.url = "github:nix-systems/default";
+    dedupe_flake-compat.url = "github:edolstra/flake-compat";
+    dedupe_flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "dedupe_systems";
+    };
   };
 
   outputs = inputs @ {
-    self,
-    snowfall-lib,
+    flake-parts,
+    import-tree,
     ...
   }:
-    snowfall-lib.mkFlake {
-      # Snowfall-specific
-      inherit inputs;
-      src = builtins.path {
-        path = ./.;
-        name = "nichts-source";
-      };
-      snowfall = {
-        namespace = "nichts";
-        meta = {
-          name = "nichts";
-          title = "Nichts";
-        };
-      };
-
-      # NixPkgs config
-      channels-config = {
-        allowUnfree = true;
-      };
-
-      # External overlays
-      overlays = with inputs; [
-        deploy-rs.overlays.default
-        nix-alien.overlays.default
-      ];
-
-      # Itachi is the WSL-based host, so it needs the corresponding module
-      systems.hosts.itachi.modules = with inputs; [
-        nixos-wsl.nixosModules.default
-      ];
-
-      # Extra modules for shika, mostly hardware config
-      systems.hosts.shika.modules = with inputs; [
-        nixos-hardware.nixosModules.common-pc
-        nixos-hardware.nixosModules.common-pc-ssd
-        nixos-hardware.nixosModules.common-cpu-intel
-        nixos-hardware.nixosModules.common-gpu-intel
-        nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
-      ];
-
-      # Additional modules for every host
-      systems.modules.nixos = with inputs; [
-        sops-nix.nixosModules.sops
-        disko.nixosModules.disko
-        nix-index-database.nixosModules.nix-index
-        xmc-nix.nixosModules.jlink
-        determinate.nixosModules.default
-      ];
-
-      # Additional home modules
-      homes.modules = with inputs; [
-        spicetify-nix.homeManagerModules.default
-        sops-nix.homeManagerModules.sops
-        xdg-autostart.homeManagerModules.xdg-autostart
-      ];
-
-      # deploy-rs configuration
-      deploy = {
-        sshUser = "otta"; # Will use this to SSH into the host
-        activationTimeout = 60 * 5; # 5 minutes
-        confirmTimeout = 60;
-
-        nodes = let
-          mkSystemPath = config: (inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${config});
-        in {
-          kawauso = {
-            hostname = "192.168.178.55";
-            profiles.system.path = mkSystemPath "kawauso";
-          };
-        };
-      };
-
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
-    };
+  # See https://github.com/vic/import-tree/blob/6ebb8cb87987b20264c09296166543fd3761d274/README.md?plain=1#L9-L17
+    flake-parts.lib.mkFlake {inherit inputs;} (import-tree ./modules);
 }
