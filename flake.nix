@@ -33,6 +33,8 @@
 
     import-tree.url = "github:vic/import-tree";
 
+    systems.url = "github:nix-systems/default";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,7 +56,7 @@
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "dedupe_systems";
+      inputs.systems.follows = "systems";
     };
 
     disko = {
@@ -82,7 +84,7 @@
       url = "github:derkalaender/xmc-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "dedupe_flake-utils";
-      inputs.systems.follows = "dedupe_systems";
+      inputs.systems.follows = "systems";
     };
 
     nixos-generators = {
@@ -111,11 +113,10 @@
 
   # Additional inputs for flake.lock dedupe
   inputs = {
-    dedupe_systems.url = "github:nix-systems/default";
     dedupe_flake-compat.url = "github:edolstra/flake-compat";
     dedupe_flake-utils = {
       url = "github:numtide/flake-utils";
-      inputs.systems.follows = "dedupe_systems";
+      inputs.systems.follows = "systems";
     };
   };
 

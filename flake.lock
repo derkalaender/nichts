@@ -33,7 +33,7 @@
     "dedupe_flake-utils": {
       "inputs": {
         "systems": [
-          "dedupe_systems"
+          "systems"
         ]
       },
       "locked": {
@@ -47,21 +47,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "dedupe_systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
         "type": "github"
       }
     },
@@ -636,7 +621,6 @@
       "inputs": {
         "dedupe_flake-compat": "dedupe_flake-compat",
         "dedupe_flake-utils": "dedupe_flake-utils",
-        "dedupe_systems": "dedupe_systems",
         "deploy-rs": "deploy-rs",
         "determinate": "determinate",
         "disko": "disko",
@@ -653,6 +637,7 @@
         "nixpkgs": "nixpkgs_3",
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
+        "systems": "systems",
         "unstable": "unstable",
         "xdg-autostart": "xdg-autostart",
         "xmc-nix": "xmc-nix"
@@ -705,7 +690,7 @@
           "nixpkgs"
         ],
         "systems": [
-          "dedupe_systems"
+          "systems"
         ]
       },
       "locked": {
@@ -719,6 +704,21 @@
       "original": {
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
         "type": "github"
       }
     },
@@ -762,7 +762,7 @@
           "nixpkgs"
         ],
         "systems": [
-          "dedupe_systems"
+          "systems"
         ]
       },
       "locked": {
