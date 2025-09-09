@@ -4,14 +4,14 @@
   config,
   ...
 }: let
-  inherit (lib) types mkOption mapAttrs;
+  inherit (lib) types mkOption mapAttrs fold recursiveUpdate;
 in {
   options = {
     nichts.hosts = mkOption {
       type = types.attrsOf (types.submodule {
         options = {
           system = mkOption {
-            type = types.enum (import inputs.systems);
+            type = types.enum config.systems;
             description = "The system type of the host, e.g. x86_64-linux.";
           };
         };
@@ -28,8 +28,10 @@ in {
         nixpkgs.lib.nixosSystem {
           inherit (cfg) system;
           specialArgs = {
+            inherit inputs;
             inherit (cfg) system;
             host = name;
+            lib = [nixpkgs.lib config.nichts.lib] |> fold recursiveUpdate {};
           };
           modules = [
             config.flake.modules.nixos.core
