@@ -15,8 +15,6 @@ in {
       unstable.nil # nix lsp
       unstable.nixd # another nix lsp
       unstable.alejandra # nix code formatter
-      # unstable.nh # Already included system-wide
-      unstable.nix-index # nix package search
     ];
 
     # direnv for automatic environment management

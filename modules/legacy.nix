@@ -11,9 +11,7 @@
       inputmodules = with inputs; [
         sops-nix.nixosModules.sops
         disko.nixosModules.disko
-        nix-index-database.nixosModules.nix-index
         xmc-nix.nixosModules.jlink
-        determinate.nixosModules.default
         home-manager.nixosModules.home-manager
       ];
     in
