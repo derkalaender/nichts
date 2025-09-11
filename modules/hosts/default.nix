@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib) types mkOption mapAttrs fold recursiveUpdate;
+  inherit (lib) types mkOption mapAttrs;
 in {
   options = {
     nichts.hosts = mkOption {
@@ -30,8 +30,8 @@ in {
           specialArgs = {
             inherit inputs;
             inherit (cfg) system;
+            inherit lib;
             host = name;
-            lib = [nixpkgs.lib config.nichts.lib] |> fold recursiveUpdate {};
           };
           modules = [
             config.flake.modules.nixos.core

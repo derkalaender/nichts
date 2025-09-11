@@ -121,10 +121,27 @@
   };
 
   outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
     flake-parts,
     import-tree,
     ...
-  }:
-  # See https://github.com/vic/import-tree/blob/6ebb8cb87987b20264c09296166543fd3761d274/README.md?plain=1#L9-L17
-    flake-parts.lib.mkFlake {inherit inputs;} (import-tree ./modules);
+  }: let
+    # Extend nixpkgs.lib with custom lib and Home Manager lib
+    # Home Manager lib is required because it expects certain functions under lib.hm
+    # Exposing this everywhere seems to be the simplest solution
+    # Adapted from https://github.com/bangedorrunt/nix/blob/f5a8a5d2f023f7d6558b0ce7051ff5e258860f55/flake.nix#L60-L78
+    lib = nixpkgs.lib.extend (final: prev:
+      (import ./lib {
+        lib = final;
+        inherit self;
+      })
+      // home-manager.lib);
+  in
+    # See https://github.com/vic/import-tree/blob/6ebb8cb87987b20264c09296166543fd3761d274/README.md?plain=1#L9-L17
+    flake-parts.lib.mkFlake {
+      inherit inputs;
+      specialArgs = {inherit lib;};
+    } (import-tree ./modules);
 }
