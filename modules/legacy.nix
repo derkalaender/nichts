@@ -24,9 +24,11 @@
       channels = {
         nixpkgs = import inputs.nixpkgs {
           inherit system;
+          config.allowUnfree = true;
         };
         unstable = import inputs.unstable {
           inherit system;
+          config.allowUnfree = true;
         };
       };
       myoverlays =
@@ -38,5 +40,20 @@
       ];
     in
       myoverlays ++ inputoverlays;
+  };
+
+  flake.modules.homeManager.core = {
+    # Legacy modules
+    imports = let
+      mymodules = [
+        (inputs.import-tree "${self}/OLD/modules/home")
+      ];
+      inputmodules = with inputs; [
+        spicetify-nix.homeManagerModules.default
+        sops-nix.homeManagerModules.sops
+        xdg-autostart.homeManagerModules.xdg-autostart
+      ];
+    in
+      mymodules ++ inputmodules;
   };
 }
