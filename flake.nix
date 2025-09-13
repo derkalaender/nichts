@@ -15,11 +15,27 @@
     # Give anyone with root access special permissions when talking to the Nix daemon
     trusted-users = ["root" "@wheel"];
 
+    # Don't pollute home with nix files
+    use-xdg-base-directories = true;
+
+    # Better error messages
     warn-dirty = false;
     show-trace = true;
+
+    # Improve performance
     http-connections = 50;
     max-jobs = "auto";
     max-substitution-jobs = 32;
+
+    # Don't remove any dependencies needed to build alive (non-GC'd) packages
+    keep-outputs = true;
+    keep-derivations = true;
+
+    # Saves disk space
+    auto-optimise-store = true;
+
+    # Don't hang forever on unreliable binary caches
+    connect-timeout = 5;
 
     # https://determinate.systems/posts/changelog-determinate-nix-352/
     lazy-trees = true;
