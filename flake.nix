@@ -117,7 +117,7 @@
       inputs.utils.follows = "dedupe_flake-utils";
     };
 
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    nix.url = "github:DeterminateSystems/nix-src";
 
     nix-alien = {
       url = "github:thiagokokada/nix-alien";

@@ -9,10 +9,7 @@
 
     registryMap = inputs |> filterAttrs (const <| isType "flake");
   in {
-    imports = [
-      inputs.determinate.nixosModules.default
-      inputs.nix-index-database.nixosModules.nix-index
-    ];
+    imports = [inputs.nix-index-database.nixosModules.nix-index];
 
     # Configure nix itself. Flakes, GC, etc.
     nix = {
@@ -31,8 +28,10 @@
       nixPath = registryMap |> mapAttrsToList (name: value: "${name}=${value}");
     };
 
-    # Enable nh, which is a nicer frontend for nix
     nixpkgs.overlays = [
+      # Use Determinate Nix
+      inputs.nix.overlays.default
+      # Enable nh, which is a nicer frontend for nix
       (final: prev: {
         inherit (prev.unstable) nh;
       })
