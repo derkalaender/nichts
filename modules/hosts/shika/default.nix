@@ -11,7 +11,6 @@
   flake.modules.nixos.host_shika = {
     imports =
       [
-        "${self}/OLD/systems/x86_64-linux/shika/default.nix"
         config.flake.modules.nixos.gaming
       ]
       ++ (with inputs; [
