@@ -1,12 +1,5 @@
 {
-  lib,
-  config,
-  ...
-}: let
-  inherit (lib) mkIf;
-  cfg = config.nichts.desktop;
-in {
-  config = mkIf cfg.enable {
+  flake.modules.nixos.desktop = {
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;

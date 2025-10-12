@@ -1,5 +1,4 @@
 {
-  self,
   inputs,
   config,
   ...
@@ -8,9 +7,12 @@
     system = "x86_64-linux";
   };
 
+  nichts.desktop.flavor = "gnome";
+
   flake.modules.nixos.host_shika = {
     imports =
       [
+        config.flake.modules.nixos.desktop
         config.flake.modules.nixos.gaming
       ]
       ++ (with inputs; [

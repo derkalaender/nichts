@@ -1,11 +1,5 @@
 {
-  lib,
-  config,
-  ...
-}: let
-  inherit (lib) mkIf;
-in {
-  config = mkIf (config.wayland.windowManager.hyprland.enable) {
+  flake.modules.homeManager.desktop_hyprland = {
     wayland.windowManager.hyprland = {
       systemd.enable = false; # Conflicts with USWM
 

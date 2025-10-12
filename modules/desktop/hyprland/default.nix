@@ -1,13 +1,5 @@
 {
-  lib,
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkIf;
-  cfg = config.nichts.desktop;
-in {
-  config = mkIf (cfg.enable && cfg.flavor == "hyprland") {
+  flake.modules.nixos.desktop_hyprland = {pkgs, ...}: {
     programs.hyprland = {
       enable = true;
       xwayland.enable = true; # Support for old X11 applications
@@ -56,5 +48,9 @@ in {
       enable = true;
       extraPortals = with pkgs; [xdg-desktop-portal-gtk]; # makes GTK apps happy
     };
+  };
+
+  flake.modules.homeManager.desktop_hyprland = {
+    wayland.windowManager.hyprland.enable = true; # This enables Hyprland and allows us to query its status in the other module files
   };
 }

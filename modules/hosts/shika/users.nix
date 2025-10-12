@@ -12,7 +12,10 @@ in {
     ];
 
     home-manager.users.marvin = {
-      imports = ["${self}/OLD/homes/x86_64-linux/marvin@shika"];
+      imports = [
+        "${self}/OLD/homes/x86_64-linux/marvin@shika"
+        flakeConfig.modules.homeManager.desktop
+      ];
     };
 
     # Declarative user management

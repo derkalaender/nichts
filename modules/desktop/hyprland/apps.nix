@@ -1,12 +1,5 @@
 {
-  lib,
-  config,
-  pkgs,
-  ...
-}: let
-  inherit (lib) mkIf;
-in {
-  config = mkIf (config.wayland.windowManager.hyprland.enable) {
+  flake.modules.homeManager.desktop_hyprland = {pkgs, ...}: {
     services.hyprpolkitagent.enable = true;
 
     home.packages = with pkgs; [
