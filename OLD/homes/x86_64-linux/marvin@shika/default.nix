@@ -25,7 +25,6 @@ with lib.nichts; {
   nichts.editor.jetbrains = enabled;
   nichts.editor.vscode = enabled;
   nichts.shell.fish = enabled;
-  nichts.spotify.enable = true;
 
   nichts.git = {
     enable = true;

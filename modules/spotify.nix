@@ -1,18 +1,9 @@
 {
-  lib,
-  pkgs,
-  config,
-  inputs,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkIf;
-  cfg = config.nichts.spotify;
-in {
-  options = {
-    nichts.spotify.enable = mkEnableOption "spotify with modifications (spicetify)";
-  };
-
-  config = mkIf cfg.enable {
+  flake.modules.homeManager.desktop = {
+    inputs,
+    pkgs,
+    ...
+  }: {
     programs.spicetify = let
       spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
     in {
