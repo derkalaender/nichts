@@ -1,20 +1,5 @@
 {
-  lib,
-  pkgs,
-  config,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkIf;
-
-  cfg = config.nichts.gaming;
-in {
-  options = {
-    nichts.gaming = {
-      enable = mkEnableOption "gaming support, games & launchers";
-    };
-  };
-
-  config = mkIf cfg.enable {
+  flake.modules.nixos.gaming = {pkgs, ...}: {
     # This allows games to activate system optimizations
     programs.gamemode.enable = true;
 
@@ -29,8 +14,17 @@ in {
       ];
     };
 
+    nixpkgs.overlays = [
+      (final: prev: {
+        inherit (prev.unstable) heroic;
+      })
+    ];
+
     environment.systemPackages = with pkgs; [
       mangohud
+      heroic
+      lutris
+      prismlauncher # minecraft
     ];
   };
 }

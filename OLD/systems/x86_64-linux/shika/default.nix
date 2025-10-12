@@ -16,7 +16,6 @@ with lib.nichts; {
   nichts.desktop.enable = true;
   nichts.desktop.flavor = "gnome";
   nichts.shell.fish = enabled;
-  nichts.gaming.enable = true;
   nichts.security.secureboot.enable = true;
 
   # Boot options

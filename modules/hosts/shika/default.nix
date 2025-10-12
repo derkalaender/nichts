@@ -1,6 +1,7 @@
 {
   self,
   inputs,
+  config,
   ...
 }: {
   nichts.hosts.shika = {
@@ -11,6 +12,7 @@
     imports =
       [
         "${self}/OLD/systems/x86_64-linux/shika/default.nix"
+        config.flake.modules.nixos.gaming
       ]
       ++ (with inputs; [
         nixos-hardware.nixosModules.common-pc
