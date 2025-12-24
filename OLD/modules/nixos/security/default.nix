@@ -1,8 +1,4 @@
 {...}: {
-  imports = [
-    ./secureboot.nix
-  ];
-
   config = {
     # See more here: https://github.com/cynicsketch/nix-mineral/blob/main/nix-mineral.nix
 

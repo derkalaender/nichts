@@ -6,7 +6,6 @@
   }:
     with lib.nichts; {
       nichts.shell.fish = enabled;
-      nichts.security.secureboot.enable = true;
 
       # Boot options
       boot = {
@@ -40,8 +39,13 @@
       # Enable non-free firmware
       hardware.enableRedistributableFirmware = true;
 
-      # Disable CUPS because of security vuln.
-      services.printing.enable = false;
+      # Disable CUPS because of security vuln. ja brauch ich doch
+      services.printing.enable = true;
+      services.printing.drivers = with pkgs; [
+        gutenprint
+        epson-escpr
+        epson-escpr2
+      ];
 
       # Enable podman
       virtualisation.podman.enable = true;

@@ -28,9 +28,9 @@ in {
       # TODO: Use unstable again. https://github.com/NixOS/nixpkgs/issues/425328
       home.packages = with pkgs; [
         android-studio
-        jetbrains.idea-ultimate
+        jetbrains.idea
         jetbrains.clion
-        jetbrains.pycharm-professional
+        jetbrains.pycharm
       ];
     })
 

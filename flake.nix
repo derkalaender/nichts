@@ -39,10 +39,12 @@
 
     # https://determinate.systems/posts/changelog-determinate-nix-352/
     lazy-trees = true;
+    # https://docs.determinate.systems/determinate-nix/#parallel-evaluation
+    eval-cores = 0;
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -52,7 +54,7 @@
     systems.url = "github:nix-systems/default";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -67,8 +69,6 @@
       inputs.flake-compat.follows = "dedupe_flake-compat";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -78,13 +78,6 @@
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.flake-compat.follows = "dedupe_flake-compat";
     };
 
     xdg-autostart = {

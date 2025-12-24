@@ -41,12 +41,12 @@ in {
       enable = true;
       package = osConfig.programs.git.package;
 
-      userName = cfg.username;
-      userEmail = cfg.email;
+      settings = {
+        user = {
+          name = cfg.username;
+          email = cfg.email;
+        };
 
-      difftastic.enable = true; # difftastic understands languages
-
-      extraConfig = {
         # sign commits and tags by default
         commit.gpgSign = true;
         tag.gpgSign = true;
@@ -77,6 +77,11 @@ in {
         # replaces public http github links with ssh links so that we can always authenticate
         url."ssh://git@github.com/".insteadOf = "https://github.com/";
       };
+    };
+
+    programs.difftastic = {
+      enable = true;
+      git.enable = true;
     };
   };
 }
