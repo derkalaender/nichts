@@ -7,6 +7,7 @@
 
     # SSH Agent
     programs.ssh.startAgent = true;
+    programs.ssh.enableAskPassword = true;
     environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
   };
 }
