@@ -49,10 +49,35 @@
     };
   };
 
-  flake.modules.nixos.desktop = {self, ...}: {
-    # Desktops have secure boot by default
-    imports = [
-      # self.flake.modules.nixos.secureboot
-    ];
+  flake.modules.nixos.desktop = {pkgs, ...}: {
+    boot = {
+      # Use Zen Kernel for better responsiveness
+      kernelPackages = pkgs.linuxPackages_zen;
+
+      # Reduced wait time
+      loader.timeout = 1;
+
+      # Graphical boot
+      plymouth = {
+        enable = true;
+        theme = "colorful_sliced";
+        themePackages = with pkgs; [
+          (adi1090x-plymouth-themes.override {
+            selected_themes = ["colorful_sliced"];
+          })
+        ];
+      };
+
+      # Less log output
+      initrd.verbose = false;
+      kernelParams = [
+        "quiet"
+        "splash"
+        "boot.shell_on_fail"
+        "udev.log_priority=3"
+        "rd.systemd.show_status=auto"
+        # "kvm.enable_virt_at_load=0" # Fixes VirtualBox on newer kernels (see https://github.com/NixOS/nixpkgs/issues/363887)
+      ];
+    };
   };
 }

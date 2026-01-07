@@ -7,35 +7,6 @@
     with lib.nichts; {
       nichts.shell.fish = enabled;
 
-      # Boot options
-      boot = {
-        # Use Zen Kernel for better responsiveness
-        kernelPackages = pkgs.linuxPackages_zen;
-
-        # Enable Plymouth Boot Screen
-        plymouth = {
-          enable = true;
-          theme = "catppuccin-mocha";
-          themePackages = with pkgs; [
-            (catppuccin-plymouth.override {
-              variant = "mocha";
-            })
-          ];
-        };
-
-        # From https://wiki.nixos.org/wiki/Plymouth#Usage
-        kernelParams = [
-          "quiet"
-          "splash"
-          "boot.shell_on_fail"
-          "loglevel=3"
-          "rd.systemd.show_status=false"
-          "rd.udev.log_level=3"
-          "udev.log_priority=3"
-          "kvm.enable_virt_at_load=0" # Fixes VirtualBox on newer kernels (see https://github.com/NixOS/nixpkgs/issues/363887)
-        ];
-      };
-
       # Enable non-free firmware
       hardware.enableRedistributableFirmware = true;
 
