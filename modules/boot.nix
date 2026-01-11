@@ -67,6 +67,9 @@
           })
         ];
       };
+      loader.limine.extraConfig = ''
+        quiet: yes
+      '';
 
       # Less log output
       initrd.verbose = false;
