@@ -34,9 +34,7 @@ with lib.nichts; {
   };
 
   home.packages = with pkgs; [
-    (discord.override {
-      withVencord = true;
-    })
+    vesktop
     # insomnia
     vlc
     gitkraken # Git client
