@@ -13,7 +13,7 @@ rollback:
 
 # Validates the flake
 check:
-    nix flake check --option accept-flake-config true
+    nix flake check --all-systems --option accept-flake-config true
 
 # List flake inputs
 info:
@@ -30,6 +30,9 @@ lock:
 # Update flake inputs. If no inputs specified, updates all inputs
 update *inputs:
     nix flake update {{inputs}} --option accept-flake-config true
+
+write-flake:
+    nix run .#write-flake --option accept-flake-config true
 
 # Generate a new key at $HOME/.config/sops/age/keys.txt but ask to proceed if already exists
 sops-genkey:

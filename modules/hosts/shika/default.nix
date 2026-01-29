@@ -1,17 +1,49 @@
-{config, ...}: {
-  nichts.hosts.shika = {
-    system = "x86_64-linux";
-  };
-
-  flake.modules.nixos.host_shika = {
-    imports = [
-      config.flake.modules.nixos.desktop
-      config.flake.modules.nixos.gaming
+{
+  config,
+  nichts,
+  ...
+}: {
+  nichts.aspects.hosts._.shika = {
+    includes = with nichts.aspects; [
+      hosts._.shika._.users
+      hardware._.amdgpu
+      hardware._.unfree
+      desktop
+      gaming
     ];
 
-    networking.firewall.allowedTCPPorts = [25565];
-    networking.firewall.allowedUDPPorts = [25565];
+    nixos = {pkgs, ...}: {
+      # Disk configuration via disko
+      inherit (config.flake.diskoConfigurations.shika) disko;
 
-    services.hardware.openrgb.enable = true;
+      # Additional hardware config via facter
+      hardware.facter.reportPath = ./facter.json;
+
+      # Set network hostname to host configuration name
+      networking.hostName = "shika";
+
+      virtualisation = {
+        podman.enable = true;
+        virtualbox.host.enable = true;
+      };
+
+      programs.wireshark.enable = true;
+
+      # Minecraft
+      networking.firewall.allowedTCPPorts = [25565];
+      networking.firewall.allowedUDPPorts = [25565];
+
+      environment.systemPackages = with pkgs; [
+        kubectl
+        k9s
+        helm
+        kustomize
+        kind
+        minikube
+        kn
+      ];
+
+      system.stateVersion = "25.11";
+    };
   };
 }

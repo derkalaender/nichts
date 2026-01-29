@@ -1,11 +1,14 @@
 {
-  flake.modules.nixos.host_shika = {lib, ...}: let
-    inherit (lib.nichts) fs;
-  in {
+  self,
+  nichts,
+  ...
+}: let
+  inherit (nichts.lib) fs;
+in {
+  nichts.aspects.hosts._.shika.nixos = {
     sops = {
       age.keyFile = "/root/.config/sops/age/keys.txt";
-      age.generateKey = true;
-      defaultSopsFile = "${fs.secrets}/host_shika.yaml";
+      defaultSopsFile = fs.secret "host_shika.yaml";
 
       secrets = {
         "user_passwords/marvin".neededForUsers = true;
