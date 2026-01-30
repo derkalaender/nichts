@@ -7,5 +7,8 @@
   nichts.aspects.core = {
     nixos.documentation.man.generateCaches = false;
     homeManager.programs.man.generateCaches = false;
+
+    # See https://github.com/nix-community/home-manager/issues/7935#issuecomment-3671184459
+    manual.manpages.enable = false;
   };
 }
