@@ -21,6 +21,13 @@
     homeManager = {
       programs.bash.enable = true;
       programs.fish.enable = true;
+
+      # Nushell
+      programs.nushell.enable = true;
+      programs.carapace = {
+        enable = true;
+        enableNushellIntegration = true;
+      };
     };
   };
 }
