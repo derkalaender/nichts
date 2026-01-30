@@ -56,6 +56,7 @@
       url = "github:fzakaria/nix-auto-follow";
     };
     nix-index-database.url = "github:nix-community/nix-index-database";
+    nixos-generators.url = "github:nix-community/nixos-generators";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-lib.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
