@@ -51,10 +51,6 @@
     import-tree.url = "github:vic/import-tree";
     nix.url = "github:DeterminateSystems/nix-src/v3.15.2";
     nix-alien.url = "github:thiagokokada/nix-alien";
-    nix-auto-follow = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:fzakaria/nix-auto-follow";
-    };
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixos-generators.url = "github:nix-community/nixos-generators";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
