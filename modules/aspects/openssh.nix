@@ -5,7 +5,7 @@
       startWhenNeeded = true; # Socket-based activation
       authorizedKeysInHomedir = false; # Manage solely through NixOS configuration
       settings = {
-        PermitRootLogin = "prohibit-password"; # Disable root login with password
+        PermitRootLogin = "no"; # Disallow root login completely
         # Require public key authentication
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
