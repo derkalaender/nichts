@@ -1,8 +1,4 @@
-{
-  self,
-  nichts,
-  ...
-}: let
+{nichts, ...}: let
   inherit (nichts.lib) fs;
 in {
   nichts.aspects.hosts._.shika.nixos = {

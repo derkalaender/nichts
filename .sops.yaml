@@ -44,7 +44,7 @@ keys:
   - &user_marvin_itachi age1gadtzqahmsgvh0ugx00lrs7ug5dqrjs4ltqhpcngxxa0lv8xe5ushmxrzr
   - &host_shika age14vqkmwzdpz62ly9kpv0rezdq488f638avawfkmg36plhjskmwa5qdt35y6
   - &host_itachi age18d6mqxn5jf7ukuxm5ly933jpcntql9xw4ndrp75mpznm9j0nd34quf86fq
-  - &host_kawauso age1uh0w7n0gdmxfy2ha07qycslgxkkmd5qlv0w3xw5gszsxmg4wcczsyfkex8
+  - &host_kawauso age18veqr2x9td0yqkelue352x8ltrtpqmf7cq5ps2uqsp4hfgxc29wqdjep6s
 creation_rules:
   - path_regex: secrets/user_marvin.yaml
     key_groups:

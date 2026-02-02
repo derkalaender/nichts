@@ -19,4 +19,4 @@ cp keys.txt "$temp/root/.config/sops/age/keys.txt"
 chmod 600 "$temp/root/.config/sops/age/keys.txt"
 
 # Install NixOS to the host system with our secrets
-nix run nixpkgs#nixos-anywhere -- --extra-files "$temp" --flake '.#kawauso' --target-host root@192.168.178.54
+nix run nixpkgs#nixos-anywhere -- --extra-files "$temp" --flake '.#kawauso' --target-host root@192.168.178.70 --option accept-flake-config true

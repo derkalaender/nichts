@@ -20,4 +20,5 @@
     };
 in {
   flake.nixosConfigurations.shika = mkHost "shika" "x86_64-linux";
+  flake.nixosConfigurations.kawauso = mkHost "kawauso" "x86_64-linux";
 }
