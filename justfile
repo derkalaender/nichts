@@ -54,3 +54,11 @@ sops-rekey:
 # Generate installer iso
 iso:
     nix build .#install-isoConfigurations.installer --option accept-flake-config true
+
+# Deploy to remote machine
+deploy host:
+    nix run github:serokell/deploy-rs -- .#{{host}} -- --option accept-flake-config true
+
+# Deploy to remote machine (dry activate)
+deploy-dry host:
+    nix run github:serokell/deploy-rs -- .#{{host}} --dry-activate -- --option accept-flake-config true

@@ -5,6 +5,7 @@
 }: {
   nichts.aspects.deerlab = {
     includes = with nichts.aspects; [
+      deerlab._.users
       openssh
     ];
 

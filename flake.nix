@@ -40,6 +40,7 @@
   };
 
   inputs = {
+    deploy-rs.url = "github:serokell/deploy-rs";
     disko.url = "github:nix-community/disko";
     flake-aspects.url = "github:vic/flake-aspects";
     flake-file.url = "github:vic/flake-file";
