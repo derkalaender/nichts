@@ -16,6 +16,14 @@
           ];
           extraGroups = ["wheel" "networkmanager"];
         };
+
+        kyson = {
+          description = "Kyson";
+          isNormalUser = true;
+          openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIItTurzE0yXGvSH38e6/iMkSGMAPw3lvNl63jjSO6H2H"
+          ];
+        };
       };
 
       home-manager.users.dot = {
@@ -25,8 +33,18 @@
           (deerlab._.users._.dot.resolve {class = "homeManager";}) # User specific stuff
         ];
       };
+
+      home-manager.users.kyson = {
+        imports = with nichts.aspects; [
+          (core.resolve {class = "homeManager";}) # Get defaults
+          (deerlab.resolve {class = "homeManager";}) # Back-include the host HM config for host-specific defaults
+          (deerlab._.users._.kyson.resolve {class = "homeManager";}) # User specific stuff
+        ];
+      };
     };
 
     _.dot = {};
+
+    _.kyson = {};
   };
 }
