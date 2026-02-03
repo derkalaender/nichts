@@ -7,6 +7,7 @@
     includes = with nichts.aspects; [
       deerlab._.users
       openssh
+      fail2ban
       remote-deploy
     ];
 
