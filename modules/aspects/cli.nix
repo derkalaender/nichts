@@ -14,44 +14,51 @@ in {
         micro
         helix
 
+        # Networking
         wget
         curl
         git
         dig
-        htop
-        tree
-        unzip
+        rclone
+        restic
+        rsync
+        croc
+        gping
+        speedtest-go
+        iperf3
+        upterm
+        wget2
+
+        # Data
+        jaq
+        yq-go
         zip
+        unzip
+        tree
+        hexyl
+        fd
+        sd
+        ripgrep
+        tokei
+        dust
+
+        # Monitoring
+        htop
+        bottom
+        procs
         time
+        hyperfine
 
+        # Other
         just
-
+        timer
         asciinema
         asciinema-agg
         chafa
         cpufetch
         gpufetch
         fastfetch
-        fd
-        gping
-        hexyl
-        hyperfine
-        iperf3
-        jaq
-        procs
-        rclone
-        restic
-        rsync
-        ripgrep
-        sd
-        speedtest-go
-        timer
-        tokei
-        upterm
-        wget2
-        yq-go
-
-        bottom
+        zellij
 
         # Nix
         nil
