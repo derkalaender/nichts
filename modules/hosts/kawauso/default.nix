@@ -18,6 +18,10 @@
       # Set network hostname to host configuration name
       networking.hostName = "kawauso";
 
+      # Minecraft
+      networking.firewall.allowedTCPPorts = [25565];
+      networking.firewall.allowedUDPPorts = [25565];
+
       system.stateVersion = "25.11";
     };
   };
