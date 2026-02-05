@@ -1,4 +1,6 @@
-{nichts, ...}: {
+{nichts, ...}: let
+  inherit (nichts.lib) fs;
+in {
   nichts.aspects.deerlab._.users = {
     nixos = {config, ...}: {
       # Explicitly import the user NixOS module to avoid including aspects multiple times / recursion
@@ -6,6 +8,13 @@
         (deerlab._.users._.dot.resolve {class = "nixos";})
       ];
 
+      # User passwords
+      sops.secrets."user_passwords/dot" = {
+        sopsFile = fs.secret "deerlab.yaml";
+        neededForUsers = true;
+      };
+
+      # User definitions
       users.users = {
         dot = {
           description = "Dot the Deer";

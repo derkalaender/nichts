@@ -86,3 +86,10 @@ creation_rules:
           - *bitwarden
           - *user_marvin_shika
           - *user_marvin_itachi
+  - path_regex: secrets/deerlab.yaml
+    key_groups:
+      - age:
+          - *bitwarden
+          - *user_marvin_shika
+          - *user_marvin_itachi
+          - *host_kawauso
