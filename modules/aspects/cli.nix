@@ -49,6 +49,10 @@ in {
         time
         hyperfine
 
+        # Secret management
+        sops
+        age
+
         # Other
         just
         timer
