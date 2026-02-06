@@ -6,6 +6,7 @@
       services.k3s = {
         enable = true;
         gracefulNodeShutdown.enable = true;
+        disable = ["traefik"];
       };
 
       # https://docs.k3s.io/installation/requirements#inbound-rules-for-k3s-nodes
