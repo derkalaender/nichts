@@ -49,9 +49,10 @@ in {
         time
         hyperfine
 
-        # Secret management
+        # Secret management / Cryptography
         sops
         age
+        openssl
 
         # Other
         just
