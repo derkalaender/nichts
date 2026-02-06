@@ -6,6 +6,8 @@
   nichts.aspects.hosts._.kawauso = {
     includes = with nichts.aspects; [
       deerlab
+      deerlab._.k3s
+      deerlab._.k3s._.server
     ];
 
     nixos = {

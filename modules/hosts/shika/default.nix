@@ -41,6 +41,7 @@
         kind
         minikube
         kn
+        fluxcd
       ];
 
       system.stateVersion = "25.11";
