@@ -1,5 +1,5 @@
 {
-  nichts.aspects.core.nixos = {
+  nichts.aspects.core.nixos = {pkgs, ...}: {
     networking = {
       # By default, block all incoming connections
       firewall.enable = true;
@@ -26,6 +26,15 @@
         ipv6_servers = true; # We also want IPv6 support
         require_dnssec = true;
         http3 = true;
+
+        # Make the tailscale domain resolve to the Tailscale MagicDNS resolver
+        # TODO: This is such a hack!!! Tailscale DNS should just work...
+        # See https://github.com/tailscale/tailscale/issues/4254
+        forwarding_rules =
+          builtins.concatStringsSep "\n" [
+            "tail4cf748.ts.net 100.100.100.100"
+          ]
+          |> pkgs.writeText "forwarding-rules.txt";
       };
     };
   };

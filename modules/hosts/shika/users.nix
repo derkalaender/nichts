@@ -69,6 +69,8 @@ in {
               signingKey = "${config.home.homeDirectory}/.ssh/id_git_signing.pub";
             };
 
+            services.tailscale-systray.enable = true;
+
             # Set Git signing key
             home.file.".ssh/id_git_signing.pub".text = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJvy9JFQDNhfbOXft1V8AHp1exrz1nzTp4KUZ7vqlK3p";
 

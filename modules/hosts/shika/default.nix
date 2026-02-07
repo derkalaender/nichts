@@ -10,6 +10,7 @@
       hardware._.unfree
       desktop
       gaming
+      tailscale
     ];
 
     nixos = {pkgs, ...}: {
@@ -42,6 +43,7 @@
         minikube
         kn
         fluxcd
+        cloudflared
       ];
 
       system.stateVersion = "25.11";

@@ -9,6 +9,7 @@
       openssh
       fail2ban
       remote-deploy
+      tailscale
     ];
 
     nixos = {
