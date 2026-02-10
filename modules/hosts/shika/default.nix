@@ -37,7 +37,7 @@
       environment.systemPackages = with pkgs; [
         kubectl
         k9s
-        helm
+        kubernetes-helm
         kustomize
         kind
         minikube
