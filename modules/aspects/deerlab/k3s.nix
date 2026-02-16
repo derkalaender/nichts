@@ -7,9 +7,10 @@
         enable = true;
         gracefulNodeShutdown.enable = true;
         disable = [
-          "traefik"
-          "local-storage"
-          "metrics-server"
+          "traefik" # customized version
+          "local-storage" # customized version
+          "metrics-server" # buggy? prevents namespaces from being deleted sometimes
+          "servicelb" # we use metallb
         ];
       };
 
