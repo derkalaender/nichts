@@ -24,6 +24,14 @@
       networking.firewall.allowedTCPPorts = [25565 80 443];
       networking.firewall.allowedUDPPorts = [25565];
 
+      # Tailscale subnet routing
+      services.tailscale = {
+        useRoutingFeatures = "server";
+        extraSetFlags = [
+          "--advertise-routes=192.168.169.0/24"
+        ];
+      };
+
       system.stateVersion = "25.11";
     };
   };
