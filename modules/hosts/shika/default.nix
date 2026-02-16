@@ -35,6 +35,7 @@
       networking.firewall.allowedUDPPorts = [25565];
 
       environment.systemPackages = with pkgs; [
+        podman-compose
         kubectl
         k9s
         kubernetes-helm

@@ -47,7 +47,7 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixos-generators.url = "github:nix-community/nixos-generators";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-lib.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
