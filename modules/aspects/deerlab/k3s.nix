@@ -22,6 +22,11 @@
     _.server.nixos = {
       services.k3s = {
         role = "server";
+        extraFlags = [
+          "--cluster-cidr 10.69.0.0/16,fd69:693b:00d9:100::/56"
+          "--service-cidr 10.70.0.0/16,fd69:693b:00d9:200::/112"
+          "--flannel-ipv6-masq"
+        ];
       };
     };
   };
