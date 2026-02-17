@@ -28,7 +28,7 @@
       services.tailscale = {
         useRoutingFeatures = "server";
         extraSetFlags = [
-          "--advertise-routes=192.168.169.0/24"
+          "--advertise-routes=192.168.169.0/24,fd69:693b:d9::/64" # LAN subnets
         ];
       };
 
