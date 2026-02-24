@@ -51,7 +51,6 @@
     nixpkgs-lib.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    systems.url = "github:nix-systems/default";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
