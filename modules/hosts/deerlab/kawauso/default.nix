@@ -32,6 +32,14 @@
         ];
       };
 
+      # Forwarding and still accept Router Advertisements for IPv6
+      boot.kernel.sysctl = {
+        "net.ipv4.conf.all.forwarding" = 1;
+        "net.ipv6.conf.all.forwarding" = 1;
+        "net.ipv6.conf.all.accept_ra_rt_info_max_plen" = 64;
+        "net.ipv6.conf.all.accept_ra" = 2;
+      };
+
       system.stateVersion = "25.11";
     };
   };
