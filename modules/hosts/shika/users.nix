@@ -41,6 +41,7 @@ in {
         git
         ssh
         bitwarden
+        mail
       ];
 
       homeManager = {
