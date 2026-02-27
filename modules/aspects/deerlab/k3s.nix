@@ -2,7 +2,7 @@
   # See https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/cluster/k3s/docs/USAGE.md
 
   nichts.aspects.deerlab._.k3s = {
-    nixos = {
+    nixos = {config, ...}: {
       services.k3s = {
         enable = true;
         gracefulNodeShutdown.enable = true;
@@ -17,6 +17,17 @@
       # https://docs.k3s.io/installation/requirements#inbound-rules-for-k3s-nodes
       networking.firewall.allowedTCPPorts = [6443];
       networking.firewall.allowedUDPPorts = [8472];
+
+      # Required by longhorn
+      # https://github.com/longhorn/longhorn/issues/2166#issuecomment-2994323945
+      services.openiscsi = {
+        enable = true;
+        name = "${config.networking.hostName}-initiator";
+      };
+      systemd.services.iscsid.serviceConfig = {
+        PrivateMounts = "yes";
+        BindPaths = "/run/current-system/sw/bin:/bin";
+      };
     };
 
     _.server.nixos = {
