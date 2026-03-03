@@ -69,6 +69,7 @@ in {
         nil
         nixd
         alejandra
+        devenv
       ];
 
       programs.direnv.enable = true;
