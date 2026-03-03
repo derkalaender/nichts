@@ -21,6 +21,23 @@
         };
       };
 
+      services.pipewire.extraConfig.pipewire."92-low-latency" = {
+        "context.properties" = {
+          "default.clock.rate" = 48000;
+          "default.clock.quantum" = 2048; # Was likely 1024
+          "default.clock.min-quantum" = 1024;
+          "default.clock.max-quantum" = 8192;
+        };
+      };
+
+      services.pipewire.extraConfig.pipewire-pulse."92-pulse-low-latency" = {
+        "pulse.properties" = {
+          "pulse.min.req" = "1024/48000";
+          "pulse.min.frag" = "1024/48000";
+          "pulse.min.quantum" = "1024/48000";
+        };
+      };
+
       # Fixes issue with sound volume ramping up and short sounds getting swollowed
       "99-disable-suspend" = {
         "monitor.alsa.rules" = [
