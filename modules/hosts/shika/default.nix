@@ -43,7 +43,6 @@
       networking.firewall.allowedUDPPorts = [25565];
 
       environment.systemPackages = with pkgs; [
-        podman-compose
         kubectl
         k9s
         kubernetes-helm
@@ -53,6 +52,8 @@
         kn
         fluxcd
         cloudflared
+        docker-credential-helpers
+        docker-compose
       ];
 
       system.stateVersion = "25.11";
