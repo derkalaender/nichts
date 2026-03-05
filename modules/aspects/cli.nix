@@ -17,6 +17,7 @@ in {
         # Networking
         wget
         curl
+        httpie
         git
         dig
         rclone
