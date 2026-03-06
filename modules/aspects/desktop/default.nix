@@ -23,7 +23,7 @@
     };
 
     # Disable hibernate (not supported with no real swap)
-    systemd.sleep.extraConfig = "AllowHibernation=no";
+    systemd.sleep.settings.Sleep.AllowHibernation = false;
 
     # Font management
     # https://wiki.nixos.org/wiki/Fonts
