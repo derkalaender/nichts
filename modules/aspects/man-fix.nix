@@ -5,7 +5,7 @@
   # https://discourse.nixos.org/t/slow-build-at-building-man-cache/52365
 
   nichts.aspects.core = {
-    nixos.documentation.man.generateCaches = false;
+    nixos.documentation.man.cache.enable = false;
     homeManager.programs.man.generateCaches = false;
 
     # See https://github.com/nix-community/home-manager/issues/7935#issuecomment-3671184459

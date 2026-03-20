@@ -17,7 +17,6 @@
 
     programs.zen-browser = {
       enable = true;
-      suppressXdgMigrationWarning = true; # Already migrated
       policies = {
         DisableAppUpdate = true;
         DisableTelemetry = true;

@@ -9,7 +9,7 @@ in {
   options = {
     nichts.aspects = mkOption {
       description = "Nichts aspects.";
-      type = nichts.lib.aspects.types.aspectsType;
+      type = nichts.lib.aspects.types.aspectsType {};
       default = {};
     };
   };
