@@ -24,16 +24,9 @@
       networking.hostName = "shika";
 
       virtualisation = {
-        # podman = {
-        #   enable = true;
-        #   dockerCompat = true;
-        #   dockerSocket.enable = true;
-        #   defaultNetwork.settings.dns_enabled = true;
-        # };
         docker = {
           enable = true;
         };
-        virtualbox.host.enable = true;
       };
 
       programs.wireshark.enable = true;
