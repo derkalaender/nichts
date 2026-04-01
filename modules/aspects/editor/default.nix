@@ -12,17 +12,10 @@
       defaultEditor = true;
     };
 
-    home.packages = with pkgs;
-      [
-        android-studio
-
-        (vscode.fhsWithPackages (_: [patched-openssh]))
-        zed-editor
-      ]
-      ++ (with pkgs.jetbrains; [
-        idea
-        clion
-        pycharm
-      ]);
+    home.packages = with pkgs; [
+      jetbrains-toolbox
+      (vscode.fhsWithPackages (_: [patched-openssh]))
+      zed-editor
+    ];
   };
 }
