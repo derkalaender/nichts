@@ -30,7 +30,10 @@
                       "-d single -m dup" # Metadata duplication
                     ];
                     subvolumes = let
-                      mountOptions = ["compress=zstd" "noatime"];
+                      mountOptions = [
+                        "compress=zstd:1" # Default is zstd:3, but lower is faster and still good compression
+                        "noatime"
+                      ];
                     in {
                       "@" = {
                         mountpoint = "/";
@@ -50,6 +53,10 @@
                       };
                       "@var_log" = {
                         mountpoint = "/var/log";
+                        inherit mountOptions;
+                      };
+                      "@games" = {
+                        mountpoint = "/games";
                         inherit mountOptions;
                       };
                     };

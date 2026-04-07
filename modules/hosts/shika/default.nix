@@ -49,6 +49,16 @@
         docker-compose
       ];
 
+      services.btrfs.autoScrub = {
+        enable = true;
+        interval = "weekly";
+      };
+
+      # Games should not have CoW for better performance and less storage overhead
+      systemd.tmpfiles.rules = [
+        "C /games - - - - +C" # C=create dir, +C=NoCoW
+      ];
+
       system.stateVersion = "25.11";
     };
   };
