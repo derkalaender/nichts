@@ -6,7 +6,6 @@
   nixConfig = {
     auto-optimise-store = true;
     connect-timeout = 5;
-    eval-cores = 0;
     experimental-features = [
       "nix-command"
       "flakes"
@@ -17,7 +16,6 @@
     http-connections = 50;
     keep-derivations = true;
     keep-outputs = true;
-    lazy-trees = true;
     max-jobs = "auto";
     max-substitution-jobs = 32;
     show-trace = true;
@@ -42,7 +40,6 @@
     };
     home-manager.url = "github:nix-community/home-manager";
     import-tree.url = "github:vic/import-tree";
-    nix.url = "github:DeterminateSystems/nix-src/v3.15.2";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nixos-generators.url = "github:nix-community/nixos-generators";

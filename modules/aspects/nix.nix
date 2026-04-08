@@ -8,13 +8,13 @@
   inherit (lib) mapAttrsToList filterAttrs const isType;
 in {
   flake-file.inputs = {
-    nix.url = "github:DeterminateSystems/nix-src/v3.15.2";
+    # nix.url = "github:DeterminateSystems/nix-src/v3.15.2";
     nix-index-database.url = "github:nix-community/nix-index-database";
   };
 
   nichts.overlays = [
     # Use Determinate Nix
-    inputs.nix.overlays.default
+    # inputs.nix.overlays.default
   ];
 
   nichts.aspects.core.nixos = {pkgs, ...}: let

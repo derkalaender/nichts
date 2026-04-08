@@ -60,9 +60,9 @@ in {
     # Don't hang forever on unreliable binary caches
     connect-timeout = 5;
 
-    # https://determinate.systems/posts/changelog-determinate-nix-352/
-    lazy-trees = true;
-    # https://docs.determinate.systems/determinate-nix/#parallel-evaluation
-    eval-cores = 0;
+    # # https://determinate.systems/posts/changelog-determinate-nix-352/
+    # lazy-trees = true;
+    # # https://docs.determinate.systems/determinate-nix/#parallel-evaluation
+    # eval-cores = 0;
   };
 }
