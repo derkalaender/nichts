@@ -54,9 +54,10 @@
         interval = "weekly";
       };
 
-      # Games should not have CoW for better performance and less storage overhead
+      # Games directory with correct permissions and no CoW for better performance
       systemd.tmpfiles.rules = [
-        "C /games - - - - +C" # C=create dir, +C=NoCoW
+        "d /games 0755 marvin users -"
+        "h /games - - - - +C"
       ];
 
       boot.tmp.useTmpfs = true;
