@@ -59,6 +59,8 @@
         "C /games - - - - +C" # C=create dir, +C=NoCoW
       ];
 
+      boot.tmp.useTmpfs = true;
+
       system.stateVersion = "25.11";
     };
   };
