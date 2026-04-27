@@ -44,9 +44,11 @@
         minikube
         kn
         fluxcd
+        telepresence2
         cloudflared
         docker-credential-helpers
         docker-compose
+        rquickshare
       ];
 
       services.btrfs.autoScrub = {
