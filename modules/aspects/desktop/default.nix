@@ -1,8 +1,7 @@
 {
   nichts.aspects.desktop.nixos = {pkgs, ...}: {
-    # Allow Chromium to be run without XWayland
-    # BUG: This is experimental and breaks many Electron apps. Instead, we just enable Wayland specifically for Chrome.
-    # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    # Allow Chromium and Electron to use Wayland natively instead of XWayland
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.systemPackages = with pkgs; [
       # Copy and paste

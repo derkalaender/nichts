@@ -23,6 +23,8 @@ in {
     };
 
     homeManager = {osConfig, ...}: {
+      xdg.enable = true;
+
       home.stateVersion = mkDefault osConfig.system.stateVersion;
     };
   };
