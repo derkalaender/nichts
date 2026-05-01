@@ -5,8 +5,12 @@ in {
     nixos = {pkgs, ...}: {
       # Yeet perl (as much as possible)
       environment.defaultPackages = mkForce [];
-      documentation.info.enable = false;
-      documentation.nixos.enable = false;
+      documentation = {
+        man.enable = true;
+        doc.enable = false;
+        info.enable = false;
+        nixos.enable = false;
+      };
 
       environment.systemPackages = with pkgs; [
         # Editors
