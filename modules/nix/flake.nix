@@ -34,7 +34,7 @@ in {
     extra-trusted-public-keys = [];
 
     # Enable Flakes and new nix cmd
-    experimental-features = ["nix-command" "flakes" "pipe-operators"];
+    experimental-features = ["nix-command" "flakes" "pipe-operator"];
     # Give anyone with root access special permissions when talking to the Nix daemon
     trusted-users = ["root" "@wheel"];
 

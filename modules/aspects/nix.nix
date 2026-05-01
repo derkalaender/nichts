@@ -13,8 +13,10 @@ in {
   };
 
   nichts.overlays = [
-    # Use Determinate Nix
-    # inputs.nix.overlays.default
+    # Use Lix instead of Nix (https://lix.systems/add-to-config/)
+    (final: prev: {
+      nix = prev.lixPackageSets.stable.lix;
+    })
   ];
 
   nichts.aspects.core.nixos = {pkgs, ...}: let

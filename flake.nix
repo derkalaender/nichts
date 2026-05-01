@@ -9,7 +9,7 @@
     experimental-features = [
       "nix-command"
       "flakes"
-      "pipe-operators"
+      "pipe-operator"
     ];
     extra-substituters = [ ];
     extra-trusted-public-keys = [ ];
