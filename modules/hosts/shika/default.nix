@@ -29,7 +29,7 @@
         };
       };
 
-      programs.wireshark.enable = true;
+      programs.wireshark.enable = false; # TODO: wait for https://github.com/NixOS/nixpkgs/issues/516051 https://nixpk.gs/pr-tracker.html?pr=515269
 
       # Minecraft
       networking.firewall.allowedTCPPorts = [25565];
@@ -63,6 +63,14 @@
       ];
 
       boot.tmp.useTmpfs = true;
+
+      services.ollama = {
+        enable = true;
+        package = pkgs.ollama-rocm;
+      };
+      services.open-webui = {
+        enable = true;
+      };
 
       system.stateVersion = "25.11";
     };
