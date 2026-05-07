@@ -11,6 +11,7 @@
       desktop
       gaming
       tailscale
+      comfyui
     ];
 
     nixos = {pkgs, ...}: {

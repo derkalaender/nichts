@@ -30,6 +30,7 @@
   };
 
   inputs = {
+    comfyui-nix.url = "github:utensils/comfyui-nix";
     deploy-rs.url = "github:serokell/deploy-rs";
     disko.url = "github:nix-community/disko";
     flake-aspects.url = "github:vic/flake-aspects";
