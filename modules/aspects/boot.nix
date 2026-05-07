@@ -50,6 +50,11 @@
         "udev.log_priority=3"
         "rd.systemd.show_status=auto"
       ];
+
+      # Dirty Frag mitigation
+      # See https://github.com/V4bel/dirtyfrag/blob/master/README.md
+      # TODO remove me once fixed upstream (no CVE yet)
+      blacklistedKernelModules = ["esp4" "esp6" "rxrpc"];
     };
   };
 }
