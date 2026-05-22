@@ -48,6 +48,7 @@ in {
         ripgrep
         tokei
         dust
+        btdu
 
         # Monitoring
         htop
