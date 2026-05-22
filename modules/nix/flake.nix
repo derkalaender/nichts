@@ -6,6 +6,12 @@ let
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     }
+    {
+      url = "https://cache.garnix.io";
+      keys = [
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      ];
+    }
     # Determinate system's cache times out frequently, disabling for now
     # {
     #   url = "https://install.determinate.systems";

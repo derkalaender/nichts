@@ -43,6 +43,7 @@ in {
         bitwarden
         mail
         blender
+        affinity
       ];
 
       homeManager = {

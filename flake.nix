@@ -19,8 +19,14 @@
     max-jobs = "auto";
     max-substitution-jobs = 32;
     show-trace = true;
-    substituters = [ "https://cache.nixos.org" ];
-    trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+    substituters = [
+      "https://cache.nixos.org"
+      "https://cache.garnix.io"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+    ];
     trusted-users = [
       "root"
       "@wheel"
@@ -30,6 +36,7 @@
   };
 
   inputs = {
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
     comfyui-nix.url = "github:utensils/comfyui-nix";
     deploy-rs.url = "github:serokell/deploy-rs";
     disko.url = "github:nix-community/disko";
