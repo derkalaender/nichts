@@ -18,7 +18,7 @@ in {
           description = "Marvin UwU";
           isNormalUser = true;
           hashedPasswordFile = config.sops.secrets."user_passwords/marvin".path;
-          extraGroups = ["wheel" "networkmanager" "gamemode" "wireshark" "dialout" "docker" "video" "render"];
+          extraGroups = ["wheel" "networkmanager" "gamemode" "wireshark" "dialout" "docker" "video" "render" "fuse"];
         };
       };
 

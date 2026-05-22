@@ -46,11 +46,14 @@
         kn
         fluxcd
         telepresence2
+        sshfs # needed by telepresence2
         cloudflared
         docker-credential-helpers
         docker-compose
         rquickshare
       ];
+
+      programs.fuse.userAllowOther = true;
 
       services.btrfs.autoScrub = {
         enable = true;
