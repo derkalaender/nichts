@@ -58,6 +58,7 @@ in {
     environment.systemPackages = with pkgs; [
       nix-output-monitor
       nix-prefetch
+      nix-tree
     ];
   };
 }

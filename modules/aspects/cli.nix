@@ -39,6 +39,8 @@ in {
         yq-go
         zip
         unzip
+        rar
+        unrar
         tree
         hexyl
         fd
