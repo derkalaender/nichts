@@ -15,7 +15,7 @@
     imports = ["${inputs.comfyui-nix}/nix/modules/comfyui.nix"];
 
     services.comfyui = {
-      enable = true;
+      enable = false; # TODO: currently broken, see: https://github.com/utensils/comfyui-nix/pull/55
       gpuSupport = "rocm";
       enableManager = true;
       extraArgs = [

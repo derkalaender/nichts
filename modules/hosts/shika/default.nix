@@ -73,7 +73,7 @@
         package = pkgs.ollama-rocm;
       };
       services.open-webui = {
-        enable = true;
+        enable = false; # TODO: currently broken, see: https://github.com/NixOS/nixpkgs/issues/523304
       };
 
       system.stateVersion = "25.11";
