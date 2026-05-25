@@ -30,7 +30,7 @@
         };
       };
 
-      programs.wireshark.enable = false; # TODO: wait for https://github.com/NixOS/nixpkgs/issues/516051 https://nixpk.gs/pr-tracker.html?pr=515269
+      programs.wireshark.enable = true;
 
       # Minecraft
       networking.firewall.allowedTCPPorts = [25565];
