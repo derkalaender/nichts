@@ -1,10 +1,10 @@
 {
-  # Lutris uses openldap for some strange reasons. Tests currently fail, we disable those.
-  # TODO remove me once fixed upstream
+  # TODO: Lutris uses openldap for some strange reasons. Tests currently fail, we disable those.
+  # See https://github.com/NixOS/nixpkgs/issues/513245
   nichts.overlays = [
     (final: prev: {
       openldap = prev.openldap.overrideAttrs (old: {
-        doCheck = false;
+        doCheck = !prev.stdenv.hostPlatform.isi686; # Only on i686, otherwise KDE will be recompiled
       });
     })
   ];
