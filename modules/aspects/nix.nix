@@ -9,7 +9,10 @@
 in {
   flake-file.inputs = {
     # nix.url = "github:DeterminateSystems/nix-src/v3.15.2";
-    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nichts.overlays = [

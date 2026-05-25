@@ -2,7 +2,11 @@
   # Allow running all kinds of non-nix software
 
   flake-file.inputs = {
-    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-index-database.follows = "nix-index-database";
+    };
   };
 
   nichts.overlays = [inputs.nix-alien.overlays.default];

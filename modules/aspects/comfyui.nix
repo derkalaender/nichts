@@ -1,6 +1,10 @@
 {inputs, ...}: {
   flake-file.inputs = {
-    comfyui-nix.url = "github:utensils/comfyui-nix";
+    comfyui-nix = {
+      url = "github:utensils/comfyui-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   nichts.overlays = [inputs.comfyui-nix.overlays.default];

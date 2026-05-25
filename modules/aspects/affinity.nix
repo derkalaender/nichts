@@ -6,7 +6,11 @@
   inherit (lib) singleton;
 in {
   flake-file.inputs = {
-    affinity-nix.url = "github:mrshmllow/affinity-nix";
+    affinity-nix = {
+      url = "github:mrshmllow/affinity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   nichts.overlays = singleton inputs.affinity-nix.overlays.default;

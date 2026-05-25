@@ -6,7 +6,10 @@
   inherit (lib) mkDefault;
 in {
   flake-file.inputs = {
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nichts.aspects.core = {

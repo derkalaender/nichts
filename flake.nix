@@ -36,24 +36,69 @@
   };
 
   inputs = {
-    affinity-nix.url = "github:mrshmllow/affinity-nix";
-    comfyui-nix.url = "github:utensils/comfyui-nix";
-    deploy-rs.url = "github:serokell/deploy-rs";
-    disko.url = "github:nix-community/disko";
+    affinity-nix = {
+      url = "github:mrshmllow/affinity-nix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    comfyui-nix = {
+      url = "github:utensils/comfyui-nix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-aspects.url = "github:vic/flake-aspects";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     import-tree.url = "github:vic/import-tree";
-    nix-alien.url = "github:thiagokokada/nix-alien";
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nixos-generators.url = "github:nix-community/nixos-generators";
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs = {
+        nix-index-database.follows = "nix-index-database";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    sops-nix.url = "github:Mic92/sops-nix";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 }
