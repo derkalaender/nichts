@@ -55,6 +55,10 @@
                         mountpoint = "/var/log";
                         inherit mountOptions;
                       };
+                      "@var_lib" = {
+                        mountpoint = "/var/lib";
+                        inherit mountOptions;
+                      };
                       "@games" = {
                         mountpoint = "/games";
                         inherit mountOptions;

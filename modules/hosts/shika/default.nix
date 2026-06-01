@@ -58,6 +58,7 @@
       services.btrfs.autoScrub = {
         enable = true;
         interval = "weekly";
+        fileSystems = ["/"];
       };
 
       # Games directory with correct permissions and no CoW for better performance
