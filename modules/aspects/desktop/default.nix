@@ -16,9 +16,19 @@
     };
 
     # Use zram as swap -> more responsive
+    # Used by Fedora, Bazzite and CachyOS
+    # CachyOS sets to 100% by default (https://github.com/CachyOS/CachyOS-Settings/blob/9c623471493d8faa22614ee5eecbd59a6d028b53/usr/lib/systemd/zram-generator.conf)
     zramSwap = {
       enable = true;
-      memoryPercent = 50;
+      memoryPercent = 100;
+    };
+    boot.kernel.sysctl = {
+      # With zram, we want to "swap" into it, so more gets compressed
+      # Taken from CachyOS (https://github.com/CachyOS/CachyOS-Settings/blob/9c623471493d8faa22614ee5eecbd59a6d028b53/usr/lib/udev/rules.d/30-zram.rules)
+      "vm.swappiness" = 150;
+      # With zram, reading from swap is basically free. Reading several swap pages at once is therefore just overhead.
+      # Taken from CachyOS (https://github.com/CachyOS/CachyOS-Settings/blob/9c623471493d8faa22614ee5eecbd59a6d028b53/usr/lib/sysctl.d/70-cachyos-settings.conf#L18)
+      "vm.page-cluster" = 0;
     };
 
     # Disable hibernate (not supported with no real swap)
