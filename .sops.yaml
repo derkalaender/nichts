@@ -86,6 +86,12 @@ creation_rules:
           - *bitwarden
           - *user_marvin_shika
           - *user_marvin_itachi
+  - path_regex: secrets/backup_shika.yaml
+    key_groups:
+      - age:
+          - *bitwarden
+          - *host_shika
+          - *user_marvin_shika
   - path_regex: secrets/deerlab.yaml
     key_groups:
       - age:
