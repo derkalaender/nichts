@@ -60,7 +60,7 @@ in {
               distrobox
               # anki # TODO: Build failure
               eduvpn-client
-              # stremio # TODO: Re-enable once https://github.com/NixOS/nixpkgs/issues/437992 is fixed and https://github.com/NixOS/nixpkgs/pull/468728 is merged; TLDR: old stremio client uses insecure qt5 package, new one isn't ready yet
+              stremio-linux-shell
               rapidraw
             ];
 
