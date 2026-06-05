@@ -67,6 +67,7 @@ in {
           |> concatStringsSep "\n";
       in {
         startAt = "daily";
+        persistentTimer = true;
         preHook = ''
           mkdir -p "${snapshotDir}/backup"
           # Clean up old snapshots
