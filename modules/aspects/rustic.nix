@@ -74,7 +74,7 @@
           # Run backup (uses [global], [repository], [backup] etc. from the profile TOML)
           ${backupCmd}
 
-          # Optionally run forget/prune according to [forget] options in the profile TOML[file:2]
+          # Optionally run forget/prune according to [forget] options in the profile TOML
           ${optionalString profCfg.runForget forgetCmd}
         '';
 

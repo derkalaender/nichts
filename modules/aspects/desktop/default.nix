@@ -52,6 +52,7 @@
           open-sans
           lato
           corefonts
+          newcomputermodern
 
           # Icons
           material-icons

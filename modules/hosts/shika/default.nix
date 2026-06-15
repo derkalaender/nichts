@@ -51,6 +51,7 @@
         docker-credential-helpers
         docker-compose
         rquickshare
+        colord
       ];
 
       programs.fuse.userAllowOther = true;

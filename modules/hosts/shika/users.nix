@@ -62,6 +62,7 @@ in {
               eduvpn-client
               stremio-linux-shell
               rapidraw
+              bruno
             ];
 
             programs.vesktop = {
