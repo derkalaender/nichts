@@ -110,7 +110,7 @@ in {
           embed-metadata = true;
           embed-subs = true;
           embed-thumbnail = true;
-          remux-video = "aac>m4a/mov>mp4/mkv";
+          # remux-video = "aac>m4a/mov>mp4/mkv";
           sponsorblock-mark = "sponsor";
           sub-langs = "all";
         };

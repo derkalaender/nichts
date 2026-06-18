@@ -22,7 +22,7 @@
                   };
                 };
                 root = {
-                  size = "100%";
+                  end = "-64G"; # Leave space for swap
                   content = {
                     type = "btrfs";
                     extraArgs = [
@@ -64,6 +64,17 @@
                         inherit mountOptions;
                       };
                     };
+                  };
+                };
+                swap = {
+                  size = "100%";
+                  content = {
+                    type = "swap";
+                    extraArgs = [
+                      "-L Swap" # Label
+                    ];
+                    discardPolicy = "pages";
+                    resumeDevice = true;
                   };
                 };
               };
