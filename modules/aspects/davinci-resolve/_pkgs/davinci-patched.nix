@@ -7,6 +7,7 @@
   davinci-resolve-studio,
   ffmpeg-encoder-plugin,
   aac-encoder-plugin,
+  aac-fdk-encoder-plugin,
 }: let
   wrapped = davinci-resolve-studio;
   unwrapped = davinci-resolve-studio-unwrapped;
@@ -63,6 +64,7 @@
     paths = [
       ffmpeg-encoder-plugin
       aac-encoder-plugin
+      aac-fdk-encoder-plugin
     ];
   };
   patchedDavinci = symlinkJoin {

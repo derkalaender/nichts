@@ -21,6 +21,7 @@ in {
 
       ffmpeg-encoder-plugin = pkgs.callPackage ./_pkgs/ffmpeg-encoder-plugin.nix {};
       aac-encoder-plugin = pkgs.callPackage ./_pkgs/aac-encoder-plugin.nix {};
+      aac-fdk-encoder-plugin = pkgs.callPackage ./_pkgs/aac-fdk-encoder-plugin.nix {};
     };
   };
 
@@ -28,7 +29,7 @@ in {
     withSystem prev.stdenv.hostPlatform.system ({config, ...}: {
       inherit (config.packages) davinci-resolve-unwrapped davinci-resolve;
       inherit (config.packages) davinci-resolve-studio-unwrapped davinci-resolve-studio;
-      inherit (config.packages) ffmpeg-encoder-plugin aac-encoder-plugin;
+      inherit (config.packages) ffmpeg-encoder-plugin aac-encoder-plugin aac-fdk-encoder-plugin;
     })
   ));
 

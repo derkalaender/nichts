@@ -26,10 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
       --replace " -I/usr/include/c++/x86_64-redhat-linux/14" ""
   '';
 
-  installPhase = ''
+  installPhase = let
+    plugin = "aac_encoder_plugin.dvcp";
+  in ''
     runHook preInstall
-    mkdir -p $out/aac_encoder_plugin.dvcp.bundle/Contents/Linux-x86-64
-    cp bin/aac_encoder_plugin.dvcp $out/aac_encoder_plugin.dvcp.bundle/Contents/Linux-x86-64/
+    mkdir -p $out/${plugin}.bundle/Contents/Linux-x86-64
+    cp bin/${plugin} $out/${plugin}.bundle/Contents/Linux-x86-64/
     runHook postInstall
   '';
 })

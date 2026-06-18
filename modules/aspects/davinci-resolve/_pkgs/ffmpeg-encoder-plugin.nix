@@ -19,10 +19,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ffmpeg-full];
 
-  installPhase = ''
+  installPhase = let
+    plugin = "ffmpeg_encoder_plugin.dvcp";
+  in ''
     runHook preInstall
-    mkdir -p $out/ffmpeg_encoder_plugin.dvcp.bundle/Contents/Linux-x86-64
-    cp ffmpeg_encoder_plugin.dvcp $out/ffmpeg_encoder_plugin.dvcp.bundle/Contents/Linux-x86-64/
+    mkdir -p $out/${plugin}.bundle/Contents/Linux-x86-64
+    cp ${plugin} $out/${plugin}.bundle/Contents/Linux-x86-64/
     runHook postInstall
   '';
 })
