@@ -24,6 +24,7 @@ in {
     _module.args.pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true; # Allow all unfree packages by default
+      config.permittedInsecurePackages = ["electron-39.8.10"]; # For bitwarden
       overlays = config.nichts.overlays;
     };
   };

@@ -30,9 +30,6 @@
           fetch.fsckObjects = true;
           receive.fsckObjects = true;
           transfer.fsckobjects = true;
-
-          # replaces public http github links with ssh links so that we can always authenticate
-          url."ssh://git@github.com/".insteadOf = "https://github.com/";
         };
       };
 

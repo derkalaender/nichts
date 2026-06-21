@@ -104,11 +104,11 @@ in {
             ]
             |> map (entry: {
               home.file.".ssh/id_${entry.name}.pub".text = "${entry.publicKey}\n";
-              programs.ssh.matchBlocks.${entry.name} = {
-                user = entry.user;
-                hostname = entry.host;
-                identityFile = "${config.home.homeDirectory}/.ssh/id_${entry.name}.pub";
-                identitiesOnly = true;
+              programs.ssh.settings.${entry.name} = {
+                User = entry.user;
+                HostName = entry.host;
+                IdentityFile = "${config.home.homeDirectory}/.ssh/id_${entry.name}.pub";
+                IdentitiesOnly = true;
               };
             })
             |> mkMerge

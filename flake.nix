@@ -4,7 +4,7 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   nixConfig = {
-    auto-optimise-store = true;
+    auto-optimise-store = false;
     connect-timeout = 5;
     experimental-features = [
       "nix-command"

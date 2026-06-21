@@ -60,8 +60,8 @@ in {
     keep-outputs = true;
     keep-derivations = true;
 
-    # Saves disk space
-    auto-optimise-store = true;
+    # ~~Saves disk space~~ Not needed on btrfs and hitting hard link limits.
+    auto-optimise-store = false;
 
     # Don't hang forever on unreliable binary caches
     connect-timeout = 5;
