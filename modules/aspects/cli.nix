@@ -49,6 +49,7 @@ in {
         tokei
         dust
         btdu
+        ffmpeg-full
 
         # Monitoring
         htop
