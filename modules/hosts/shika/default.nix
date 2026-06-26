@@ -86,6 +86,11 @@
         enable = false; # TODO: currently broken, see: https://github.com/NixOS/nixpkgs/issues/523304
       };
 
+      # Brother Printer
+      services.udev.extraRules = ''
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="04f9", TAG+="uaccess"
+      '';
+
       system.stateVersion = "25.11";
     };
   };

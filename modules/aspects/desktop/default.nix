@@ -35,7 +35,8 @@
         enable = true;
         decompressFonts = true;
       };
-      fontconfig.useEmbeddedBitmaps = true;
+      fontconfig.enable = true;
+      fontconfig.useEmbeddedBitmaps = false;
       enableDefaultPackages = true;
       packages = with pkgs;
         [
@@ -67,6 +68,9 @@
           jetbrains-mono
           mononoki
           noto
+          victor-mono
+          zed-mono
+          lilex
         ]);
     };
   };
