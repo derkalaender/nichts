@@ -53,7 +53,7 @@ in {
 
         # Monitoring
         htop
-        bottom
+        btop
         procs
         time
         hyperfine
@@ -70,7 +70,7 @@ in {
         asciinema-agg
         chafa
         cpufetch
-        gpufetch
+        hyfetch
         fastfetch
         zellij
 
