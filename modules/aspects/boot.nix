@@ -7,6 +7,7 @@
       limine = {
         enable = true;
         efiSupport = true;
+        efiInstallAsRemovable = true; # Anti-Lockout: uses the standard EFI path install of relying on EFI vars, which may be wiped on firmware updates.
         enableEditor = false; # Otherwise, can easily get root
         validateChecksums = true; # Verify integrity
         panicOnChecksumMismatch = true;
