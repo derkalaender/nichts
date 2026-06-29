@@ -16,6 +16,7 @@
 
     programs.zen-browser = {
       enable = true;
+      nativeMessagingHosts = [pkgs.jabref];
       policies = {
         DisableAppUpdate = true;
         DisableTelemetry = true;

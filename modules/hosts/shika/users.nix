@@ -63,6 +63,7 @@ in {
               stremio-linux-shell
               rapidraw
               bruno
+              jabref
             ];
 
             programs.vesktop = {
