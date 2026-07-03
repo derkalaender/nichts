@@ -12,6 +12,7 @@
       gaming
       tailscale
       comfyui
+      llama
     ];
 
     nixos = {pkgs, ...}: {
@@ -81,10 +82,6 @@
         "vm.vfs_cache_pressure" = 50; # default is 100, lower means the kernel will prefer to keep file data in RAM which is good on btrfs where metadata can be large
       };
 
-      services.ollama = {
-        enable = true;
-        package = pkgs.ollama-rocm;
-      };
       services.open-webui = {
         enable = false; # TODO: currently broken, see: https://github.com/NixOS/nixpkgs/issues/523304
       };
