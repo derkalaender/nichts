@@ -63,6 +63,10 @@
                         mountpoint = "/games";
                         inherit mountOptions;
                       };
+                      "@models" = {
+                        mountpoint = "/models";
+                        inherit mountOptions;
+                      };
                     };
                   };
                 };

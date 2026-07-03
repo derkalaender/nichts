@@ -62,10 +62,13 @@
         fileSystems = ["/"];
       };
 
-      # Games directory with correct permissions and no CoW for better performance
+      # Games and models directory with correct permissions and no CoW for better performance
       systemd.tmpfiles.rules = [
         "d /games 0755 marvin users -"
         "h /games - - - - +C"
+
+        "d /models 0755 marvin users -"
+        "h /models - - - - +C"
       ];
 
       boot.tmp.useTmpfs = true;
