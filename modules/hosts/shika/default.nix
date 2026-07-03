@@ -88,8 +88,20 @@
 
       # Brother Printer
       services.udev.extraRules = ''
+        # Brother Printer
         SUBSYSTEM=="usb", ATTRS{idVendor}=="04f9", TAG+="uaccess"
+
+        # GPUs
+        # /dev/dri/igpu -> 7800X3D
+        SUBSYSTEM=="drm", KERNEL=="card*", SUBSYSTEMS=="pci", ATTRS{vendor}=="0x1002", KERNELS=="0000:10:00.0", SYMLINK+="dri/igpu"
+        # /dev/dri/dgpu -> RX 9070 XT
+        SUBSYSTEM=="drm", KERNEL=="card*", SUBSYSTEMS=="pci", ATTRS{vendor}=="0x1002", KERNELS=="0000:03:00.0", SYMLINK+="dri/dgpu"
       '';
+
+      # Prefer iGPU for Desktop
+      environment.sessionVariables = {
+        KWIN_DRM_DEVICES = "/dev/dri/igpu:/dev/dri/dgpu";
+      };
 
       system.stateVersion = "25.11";
     };
