@@ -2,6 +2,10 @@
 switch:
     nh os switch . -- --option accept-flake-config true
 
+# Add the configuration to the bootloader with activating it
+boot:
+    nh os boot . -- --option accept-flake-config true
+
 # Activate the configuration without adding it to boot loader (after reboot, the changes are lost)
 test:
     nh os test .  -- --option accept-flake-config true
