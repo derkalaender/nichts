@@ -15,12 +15,6 @@
 
     programs.steam = {
       enable = true;
-      package = pkgs.steam.override {
-        # Always use dedicated GPU
-        extraProfile = ''
-          export DRI_PRIME=/dev/dri/dgpu!
-        '';
-      };
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
       protontricks.enable = true;
