@@ -27,7 +27,7 @@ in {
         rclone
         restic
         rsync
-        croc
+        # croc # TODO: hash mismatch
         gping
         speedtest-go
         iperf3
