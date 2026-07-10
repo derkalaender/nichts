@@ -72,6 +72,15 @@
               repeat-penalty = 1.0;
             };
           };
+          "sweep-next-edit-1.5b" = mkModel {
+            name = "Sweep Next Edit 1.5B (Q8_0)";
+            file = "sweep-next-edit-1.5b.q8_0.v2.gguf";
+            ctxSize = 32 * 1024;
+            ttl = 10 * 60;
+            args = {
+              n-gpu-layers = "all";
+            };
+          };
         };
       };
     };
