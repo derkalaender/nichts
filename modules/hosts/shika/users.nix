@@ -45,6 +45,7 @@ in {
         blender
         affinity
         davinci-resolve
+        llm-agents
       ];
 
       homeManager = {

@@ -22,10 +22,12 @@
     substituters = [
       "https://cache.nixos.org"
       "https://cache.garnix.io"
+      "https://cache.numtide.com"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
     ];
     trusted-users = [
       "root"
@@ -69,6 +71,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:vic/import-tree";
+    llm-agents.url = "github:numtide/llm-agents.nix";
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs = {
