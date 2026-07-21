@@ -48,7 +48,7 @@
           "qwen3.6-35b-a3b" = mkModel {
             name = "Qwen3.6 35B A3B (UD Q6_K)";
             file = "Qwen3.6-35B-A3B-UD-Q6_K.gguf";
-            ctxSize = 128 * 1024;
+            ctxSize = 2 * 128 * 1024;
             ttl = 30 * 60;
             args = {
               # Performance
@@ -60,7 +60,6 @@
               ubatch-size = 4 * 1024;
               cache-reuse = 256; # cache more partials
               parallel = 2; # number of parallel threads
-              kv-unified = true; # share KV cache between threads
               # Cache quality
               cache-type-k = "q8_0";
               cache-type-v = "q8_0";
@@ -78,13 +77,12 @@
           "qwen3.5-4b" = mkModel {
             name = "Qwen3.5 4B (Q4_K_M)";
             file = "Qwen3.5-4B-Q4_K_M.gguf";
-            ctxSize = 64 * 1024;
+            ctxSize = 2 * 32 * 1024;
             ttl = 5 * 60;
             args = {
               n-gpu-layers = "all";
               cache-reuse = 256;
-              parallel = 4;
-              kv-unified = true;
+              parallel = 2;
               # Cache quality
               cache-type-k = "q8_0";
               cache-type-v = "q8_0";
