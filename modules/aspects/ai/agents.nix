@@ -8,6 +8,7 @@
       llm-agents = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
     in
       with pkgs; [
+        llm-agents.omp
         llm-agents.pi
         llm-agents.agent-browser
         pnpm
@@ -16,6 +17,8 @@
         go
         delta
         glow
+        jq
+        yq
       ];
   };
 }
