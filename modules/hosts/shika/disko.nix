@@ -59,10 +59,6 @@
                         mountpoint = "/var/lib";
                         inherit mountOptions;
                       };
-                      "@games" = {
-                        mountpoint = "/games";
-                        inherit mountOptions;
-                      };
                       "@models" = {
                         mountpoint = "/models";
                         inherit mountOptions;
@@ -82,6 +78,131 @@
                   };
                 };
               };
+            };
+          };
+
+          games = {
+            type = "disk";
+            device = "/dev/disk/by-id/ata-CT1000MX500SSD1_2130E5BBF0C9";
+            content = {
+              type = "gpt";
+              partitions = {
+                games = {
+                  size = "100%";
+                  content = {
+                    type = "filesystem";
+                    format = "btrfs";
+                    mountpoint = "/games";
+                    mountOptions = ["noatime" "nodatacow"];
+                    extraArgs = [
+                      "-L Games"
+                      "-d single -m dup"
+                    ];
+                  };
+                };
+              };
+            };
+          };
+
+          projects = {
+            type = "disk";
+            device = "/dev/disk/by-id/nvme-CT1000P5SSD8_21313086879A";
+            content = {
+              type = "gpt";
+              partitions = {
+                projects = {
+                  size = "100%";
+                  content = {
+                    type = "filesystem";
+                    format = "btrfs";
+                    mountpoint = "/projects";
+                    mountOptions = [
+                      "noatime"
+                      "compress=zstd:1"
+                    ];
+                    extraArgs = [
+                      "-L Projects"
+                      "-d single -m dup"
+                    ];
+                  };
+                };
+              };
+            };
+          };
+
+          archive1 = {
+            type = "disk";
+            device = "/dev/disk/by-id/ata-SanDisk_Ultra_II_480GB_161223800955";
+            content = {
+              type = "gpt";
+              partitions = {
+                archive1 = {
+                  size = "100%";
+                  content = {
+                    type = "filesystem";
+                    format = "btrfs";
+                    mountpoint = "/mnt/archive1";
+                    mountOptions = [
+                      "noatime"
+                      "compress=zstd:1"
+                    ];
+                    extraArgs = [
+                      "-L Archive1"
+                      "-d single -m dup"
+                    ];
+                  };
+                };
+              };
+            };
+          };
+
+          archive2 = {
+            type = "disk";
+            device = "/dev/disk/by-id/ata-CT2000BX500SSD1_2245E682AD76";
+            content = {
+              type = "gpt";
+              partitions = {
+                archive2 = {
+                  size = "100%";
+                  content = {
+                    type = "filesystem";
+                    format = "btrfs";
+                    mountpoint = "/mnt/archive2";
+                    mountOptions = [
+                      "noatime"
+                      "compress=zstd:1"
+                    ];
+                    extraArgs = [
+                      "-L Archive2"
+                      "-d single -m dup"
+                    ];
+                  };
+                };
+              };
+            };
+          };
+
+          archive = {
+            type = "filesystem";
+            device = "/mnt/archive1:/mnt/archive2";
+            content = {
+              type = "filesystem";
+              format = "fuse.mergerfs";
+              mountpoint = "/archive";
+
+              mountOptions = [
+                "noatime"
+                "defaults"
+                "allow_other"
+                "use_ino"
+                "cache.files=partial"
+                "cache.readdir=true"
+                "dropcacheonclose=true"
+                "category.create=pfrd"
+                "minfreespace=25G"
+                "moveonenospc=true"
+                "fsname=Archive"
+              ];
             };
           };
         };

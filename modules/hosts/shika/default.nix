@@ -15,7 +15,11 @@
       llama
     ];
 
-    nixos = {pkgs, ...}: {
+    nixos = {
+      pkgs,
+      lib,
+      ...
+    }: {
       # Disk configuration via disko
       inherit (config.flake.diskoConfigurations.shika) disko;
 
@@ -53,21 +57,25 @@
         docker-compose
         rquickshare
         colord
+        mergerfs
       ];
 
       programs.fuse.userAllowOther = true;
-
+      fileSystems."/archive" = {
+        noCheck = lib.mkForce true; # Disable fsck on mergerfs
+        depends = [
+          "/mnt/archive1"
+          "/mnt/archive2"
+        ];
+      };
       services.btrfs.autoScrub = {
         enable = true;
         interval = "weekly";
-        fileSystems = ["/"];
+        fileSystems = ["/" "/projects" "/games" "/mnt/archive1" "/mnt/archive2"];
       };
 
-      # Games and models directory with correct permissions and no CoW for better performance
+      # Models directory with correct permissions and no CoW for better performance
       systemd.tmpfiles.rules = [
-        "d /games 0755 marvin users -"
-        "h /games - - - - +C"
-
         "d /models 0755 marvin users -"
         "h /models - - - - +C"
       ];
