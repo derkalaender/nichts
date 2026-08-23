@@ -33,6 +33,7 @@
         docker = {
           enable = true;
         };
+        # virtualbox.host.enable = true;
       };
 
       programs.wireshark.enable = true;

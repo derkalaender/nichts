@@ -1,23 +1,33 @@
 {inputs, ...}: {
-  flake-file.inputs = {
-    comfyui-nix = {
-      url = "github:utensils/comfyui-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-  };
+  # flake-file.inputs = {
+  #   comfyui-nix = {
+  #     url = "github:utensils/comfyui-nix";
+  #     inputs.nixpkgs.follows = "nixpkgs";
+  #     inputs.flake-parts.follows = "flake-parts";
+  #   };
+  # };
 
-  nichts.overlays = [inputs.comfyui-nix.overlays.default];
+  # nichts.overlays = [inputs.comfyui-nix.overlays.default];
 
-  nichts.aspects.comfyui.nixos = {
-    # Upstream sets nixpkgs.overlays which is incompatible with the read-only way we're doing.
-    # This ugly hack imports the module directly.
-    imports = ["${inputs.comfyui-nix}/nix/modules/comfyui.nix"];
+  nichts.aspects.comfyui.nixos = {pkgs, ...}: {
+    # # Upstream sets nixpkgs.overlays which is incompatible with the read-only way we're doing.
+    # # This ugly hack imports the module directly.
+    # imports = ["${inputs.comfyui-nix}/nix/modules/comfyui.nix"];
+
+    # services.comfyui = {
+    #   enable = false; # TODO: currently broken, see: https://github.com/utensils/comfyui-nix/pull/55
+    #   gpuSupport = "rocm";
+    #   enableManager = true;
+    #   extraArgs = [
+    #     "--use-pytorch-cross-attention" # TODO: wait for upstream to update to ROCm 7.2 and update comfyui, as this isnt needed there anymore
+    #   ];
+    # };
 
     services.comfyui = {
-      enable = false; # TODO: currently broken, see: https://github.com/utensils/comfyui-nix/pull/55
-      gpuSupport = "rocm";
-      enableManager = true;
+      enable = true;
+      package = pkgs.comfyui.override {
+        withManager = true;
+      };
       extraArgs = [
         "--use-pytorch-cross-attention" # TODO: wait for upstream to update to ROCm 7.2 and update comfyui, as this isnt needed there anymore
       ];

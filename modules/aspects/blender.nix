@@ -1,19 +1,24 @@
 {...}: {
   nichts.aspects.blender.homeManager = {pkgs, ...}: {
     home.packages = [
-      (pkgs.symlinkJoin {
-        name = "blender-wrapped";
-        paths = [
-          (pkgs.pkgsRocm.blender.override {
-            waylandSupport = true;
-          })
-        ];
-        buildInputs = [pkgs.makeWrapper];
-        postBuild = ''
-          wrapProgram $out/bin/blender \
-            --set LD_PRELOAD "${pkgs.rocmPackages.rocm-comgr}/lib/libamd_comgr.so.3" \
-        '';
-      })
+      (
+        pkgs.pkgsRocm.blender.override {
+          waylandSupport = true;
+        }
+      )
+      # (pkgs.symlinkJoin {
+      #   name = "blender-wrapped";
+      #   paths = [
+      #     (pkgs.pkgsRocm.blender.override {
+      #       waylandSupport = true;
+      #     })
+      #   ];
+      #   buildInputs = [pkgs.makeWrapper];
+      #   postBuild = ''
+      #     wrapProgram $out/bin/blender \
+      #       --set LD_PRELOAD "${pkgs.rocmPackages.rocm-comgr}/lib/libamd_comgr.so.3" \
+      #   '';
+      # })
       # (pkgs.pkgsRocm.blender.overrideAttrs (old: {
       #   # Disable OSL entirely to avoid the LLVM ABI mismatch between
       #   # libamd_comgr's internal LLVM and openshadinglanguage's LLVM.
