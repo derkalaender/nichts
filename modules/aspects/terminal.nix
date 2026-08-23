@@ -12,6 +12,7 @@
         config.enable_scroll_bar = true
 
         config.color_scheme = 'catppuccin-mocha'
+        config.font = wezterm.font 'Lilex Nerd Font Mono'
 
         return config
       '';
