@@ -46,6 +46,7 @@ in {
         affinity
         davinci-resolve
         llm-agents
+        nuvio
       ];
 
       homeManager = {
