@@ -24,6 +24,10 @@
   # Native Linux video player (JNI) compiles against GStreamer headers;
   # plugin sets are needed at playback runtime.
   gst_all_1,
+  # Linux player bridge (JNI) links against system libmpv + WebKitGTK.
+  mpv,
+  webkitgtk_4_1,
+  libxcomposite,
   # Libraries linked by the bundled AWT/Skiko natives at runtime:
   gtk3,
   glib,
@@ -38,7 +42,7 @@
   freetype,
   xdg-utils,
 }: let
-  version = "0.1.20-alpha";
+  version = "0.1.21-alpha";
 
   # Upstream pins jvmToolchain(17) in vendored compose-media-player;
   # JDK 21 launches Gradle and serves as the packaged runtime.
@@ -63,9 +67,12 @@
     libxtst
     libxi
     libxcursor
+    libxcomposite
     fontconfig
     freetype
     stdenv.cc.cc.lib # libstdc++ required by libskiko
+    mpv
+    webkitgtk_4_1
   ];
 in
   stdenv.mkDerivation (finalAttrs: {
@@ -76,7 +83,7 @@ in
       owner = "NuvioMedia";
       repo = "NuvioDesktop";
       rev = version;
-      hash = "sha256-gmh1TXd9QTlm7ORUyqS3alep3XZpv98sOifM0MB+8XE=";
+      hash = "sha256-12TQYCon+atu0+V/xyGuaqX7UfrsTQXkHp6UZqVpB1Y=";
     };
 
     # Records every Maven artifact Gradle fetches into pkgs/deps.json.
@@ -169,6 +176,13 @@ in
       glib
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-base
+      # buildLinuxPlayerBridge compiles against these via pkg-config
+      mpv
+      webkitgtk_4_1
+      gtk3
+      libx11
+      libxcomposite
+      libxext
     ];
 
     # Installs the hicolor icon; the .desktop entry itself is generated via
@@ -178,7 +192,7 @@ in
     # package name. Icon file name verified against the 0.1.20-alpha tag
     # (main branch renamed it to *-transparent.png).
     postInstall = ''
-      install -Dm644 composeApp/src/desktopMain/resources/icons/nuvio-app-icon.png \
+      install -Dm644 composeApp/src/desktopMain/resources/icons/nuvio-app-icon-transparent.png \
         $out/share/icons/hicolor/256x256/apps/nuvio.png
     '';
 

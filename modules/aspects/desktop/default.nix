@@ -6,6 +6,8 @@
     environment.systemPackages = with pkgs; [
       # Copy and paste
       wl-clipboard
+      kdePackages.kcalc
+      kdePackages.kcolorchooser
     ];
 
     # Bluetooth show battery

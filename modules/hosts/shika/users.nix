@@ -62,7 +62,7 @@ in {
               distrobox
               # anki # TODO: Build failure
               eduvpn-client
-              stremio-linux-shell
+              # stremio-linux-shell
               rapidraw
               bruno
               jabref
