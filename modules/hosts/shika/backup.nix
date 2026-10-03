@@ -68,6 +68,9 @@ in {
       in {
         startAt = "daily";
         persistentTimer = true;
+        # persistentTimer catches up a missed run at boot, which raced DNS: the
+        # service failed with "Could not resolve hostname u530494.your-storagebox.de".
+        waitForNetwork = true;
         preHook = ''
           mkdir -p "${snapshotDir}/backup"
           # Clean up old snapshots
