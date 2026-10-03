@@ -42,7 +42,7 @@
   freetype,
   xdg-utils,
 }: let
-  version = "0.1.21-alpha";
+  version = "0.1.24-alpha-beta";
 
   # Upstream pins jvmToolchain(17) in vendored compose-media-player;
   # JDK 21 launches Gradle and serves as the packaged runtime.
@@ -83,7 +83,7 @@ in
       owner = "NuvioMedia";
       repo = "NuvioDesktop";
       rev = version;
-      hash = "sha256-12TQYCon+atu0+V/xyGuaqX7UfrsTQXkHp6UZqVpB1Y=";
+      hash = "sha256-NbNftls0rXOpvLu5yuVsu+EGWqbZIJbJK24StZcobVg=";
     };
 
     # Records every Maven artifact Gradle fetches into pkgs/deps.json.

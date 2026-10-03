@@ -51,7 +51,7 @@ in {
       clean = {
         enable = true;
         dates = "weekly";
-        extraArgs = "--keep 5 --keep-since 60d"; # keep at least the last 5 generations and everything from the last 60 days
+        extraArgs = "--keep 5 --keep-since 30d"; # keep at least the last 5 generations and everything from the last 30 days
       };
     };
 

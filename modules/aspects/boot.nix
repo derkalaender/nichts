@@ -23,7 +23,7 @@
   nichts.aspects.desktop.nixos = {pkgs, ...}: {
     boot = {
       # Use Zen Kernel for better responsiveness
-      kernelPackages = pkgs.linuxPackages_zen;
+      # kernelPackages = pkgs.linuxPackages_zen;
 
       # Reduced wait time
       loader.timeout = 1;

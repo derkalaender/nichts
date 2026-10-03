@@ -95,6 +95,29 @@
               repeat-penalty = 1.0;
             };
           };
+          "qwen3.8-27b" = mkModel {
+            name = "Swift 1.5 Qwen3.8 27B (Q3_S)";
+            file = "Swift-1.5-Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf";
+            ctxSize = 16 * 1024;
+            ttl = 5 * 60;
+            args = {
+              n-gpu-layers = "all";
+              spec-type = "draft-mtp";
+              spec-draft-n-max = 3;
+              # Cache quality
+              cache-type-k = "q8_0";
+              cache-type-v = "q8_0";
+              cache-type-k-draft = "q8_0";
+              cache-type-v-draft = "q8_0";
+              # Behavior
+              temp = 1.0;
+              top-p = 0.95;
+              top-k = 20;
+              min-p = 0.0;
+              presence-penalty = 0.0;
+              repeat-penalty = 1.0;
+            };
+          };
           # "sweep-next-edit-1.5b" = mkModel {
           #   name = "Sweep Next Edit 1.5B (Q8_0)";
           #   file = "sweep-next-edit-1.5b.q8_0.v2.gguf";
