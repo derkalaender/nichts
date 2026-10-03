@@ -71,6 +71,11 @@ in {
         # persistentTimer catches up a missed run at boot, which raced DNS: the
         # service failed with "Could not resolve hostname u530494.your-storagebox.de".
         waitForNetwork = true;
+        # The forget command is gated on this and defaults to false, so the
+        # [forget] policy below (prune + keep-*) was never applied and the
+        # repository grew without bound. With set -e it only runs after a
+        # successful backup.
+        runForget = true;
         preHook = ''
           mkdir -p "${snapshotDir}/backup"
           # Clean up old snapshots
