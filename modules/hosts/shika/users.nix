@@ -72,6 +72,29 @@ in {
               enable = true;
             };
 
+            # Vesktop writes ~/.config/autostart/vesktop.desktop itself, with the
+            # absolute /nix/store paths that existed the day autostart was enabled.
+            # Those go stale on the next update: the pinned electron's glibc no
+            # longer matches the system mesa, so it dies with SIGILL at login while
+            # still starting fine from the launcher. Own the file here so it is
+            # regenerated with the current package on every switch.
+            #
+            # xdg.desktopEntries cannot be used for this: it installs launcher
+            # entries into ~/.local/share/applications, and autostart is read from
+            # ~/.config/autostart.
+            xdg.configFile."autostart/vesktop.desktop" = {
+              force = true;
+              source = "${pkgs.makeDesktopItem {
+                name = "vesktop";
+                desktopName = "Vesktop";
+                comment = "Vesktop autostart script";
+                exec = "${config.programs.vesktop.package}/bin/vesktop %U";
+                icon = "vesktop";
+                terminal = false;
+                startupNotify = false;
+              }}/share/applications/vesktop.desktop";
+            };
+
             programs.git.settings.user = {
               name = "Marvin";
               email = "git@mrvnbr.de";
