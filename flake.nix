@@ -51,7 +51,7 @@
       url = "github:utensils/comfyui-nix";
       inputs = {
         flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-comfy";
       };
     };
     deploy-rs = {
@@ -90,6 +90,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-comfy.url = "github:NixOS/nixpkgs/20f328cd6386a6a1efb410c81fa764eb6d3d73d0";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

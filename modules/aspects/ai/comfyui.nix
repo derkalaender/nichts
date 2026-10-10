@@ -1,8 +1,15 @@
 {inputs, ...}: {
   flake-file.inputs = {
+    # comfyui-nix builds ComfyUI's Python runtime from its own nixpkgs import, so our
+    # overlays can't reach it. Point it at a nixpkgs that already carries the anyio fix.
+    # Fixes https://github.com/NixOS/nixpkgs/issues/570271
+    # See https://github.com/NixOS/nixpkgs/commit/20f328cd6386a6a1efb410c81fa764eb6d3d73d0
+    nixpkgs-comfy = {
+      url = "github:NixOS/nixpkgs/20f328cd6386a6a1efb410c81fa764eb6d3d73d0";
+    };
     comfyui-nix = {
       url = "github:utensils/comfyui-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-comfy";
       inputs.flake-parts.follows = "flake-parts";
     };
   };
@@ -10,28 +17,6 @@
   nichts.overlays = [
     # Manual import so that it's in the global package set
     inputs.comfyui-nix.overlays.default
-
-    # Fixes https://github.com/utensils/comfyui-nix/issues/99
-    (final: prev: {
-      pythonPackagesExtensions =
-        prev.pythonPackagesExtensions
-        ++ [
-          (pyfinal: pyprev: {
-            jupyter-server = pyprev.jupyter-server.overridePythonAttrs (old: {
-              doCheck = false;
-              doInstallCheck = false;
-              dontUsePytestCheck = true;
-              nativeCheckInputs = [];
-            });
-            ultralytics = pyprev.ultralytics.overridePythonAttrs (old: {
-              doCheck = false;
-              doInstallCheck = false;
-              dontUsePytestCheck = true;
-              nativeCheckInputs = [];
-            });
-          })
-        ];
-    })
   ];
 
   nichts.aspects.comfyui.nixos = {

@@ -1,10 +1,4 @@
-{
-  lib,
-  inputs,
-  ...
-}: let
-  inherit (lib) singleton;
-in {
+{inputs, ...}: {
   flake-file.inputs = {
     affinity-nix = {
       url = "github:mrshmllow/affinity-nix";
@@ -13,7 +7,9 @@ in {
     };
   };
 
-  nichts.overlays = singleton inputs.affinity-nix.overlays.default;
+  nichts.overlays = [
+    inputs.affinity-nix.overlays.default
+  ];
 
   nichts.aspects.affinity = {
     homeManager = {pkgs, ...}: {
