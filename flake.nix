@@ -71,6 +71,13 @@
     };
     import-tree.url = "github:denful/import-tree";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    monado-cv1-nixos = {
+      url = "github:derkalaender/monado-cv1-nixos";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs = {

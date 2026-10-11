@@ -13,6 +13,7 @@
       tailscale
       comfyui
       llama
+      vr
     ];
 
     nixos = {
