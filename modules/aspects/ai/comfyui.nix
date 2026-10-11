@@ -1,15 +1,7 @@
 {inputs, ...}: {
   flake-file.inputs = {
-    # comfyui-nix builds ComfyUI's Python runtime from its own nixpkgs import, so our
-    # overlays can't reach it. Point it at a nixpkgs that already carries the anyio fix.
-    # Fixes https://github.com/NixOS/nixpkgs/issues/570271
-    # See https://github.com/NixOS/nixpkgs/commit/20f328cd6386a6a1efb410c81fa764eb6d3d73d0
-    nixpkgs-comfy = {
-      url = "github:NixOS/nixpkgs/20f328cd6386a6a1efb410c81fa764eb6d3d73d0";
-    };
     comfyui-nix = {
       url = "github:utensils/comfyui-nix";
-      inputs.nixpkgs.follows = "nixpkgs-comfy";
       inputs.flake-parts.follows = "flake-parts";
     };
   };
@@ -64,7 +56,7 @@
     imports = [inputs.comfyui-nix.nixosModules.default];
 
     services.comfyui = {
-      enable = true;
+      enable = false; # Currently broken; see https://github.com/NixOS/nixpkgs/issues/570271 and https://github.com/NixOS/nixpkgs/commit/20f328cd6386a6a1efb410c81fa764eb6d3d73d0
       package = pkgs.comfy-ui-rocm; # Force this version from utensils/comfyui-nix
       gpuSupport = "rocm";
       enableManager = true;
