@@ -1,27 +1,34 @@
 let
+  # Lower priority = queried first (`?priority=N`, overrides the cache's advertised
+  # priority). cache.nixos.org leads: it resolves the bulk of a nixpkgs closure in
+  # one batch, so the narrower caches only get asked about what's left over.
   caches = [
     {
       url = "https://cache.nixos.org";
+      priority = 1;
       keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     }
     {
       url = "https://cache.numtide.com";
+      priority = 2;
       keys = [
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
       ];
     }
     {
-      url = "https://comfyui.cachix.org";
+      url = "https://nix-community.cachix.org";
+      priority = 3;
       keys = [
-        "comfyui.cachix.org-1:33mf9VzoIjzVbp0zwj+fT51HG0y31ZTK3nzYZAX0rec="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     }
     {
-      url = "https://nix-community.cachix.org";
+      url = "https://comfyui.cachix.org";
+      priority = 4;
       keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "comfyui.cachix.org-1:33mf9VzoIjzVbp0zwj+fT51HG0y31ZTK3nzYZAX0rec="
       ];
     }
     # Determinate system's cache times out frequently, disabling for now
@@ -40,7 +47,7 @@ let
     # }
   ];
 
-  substituters = map (cache: cache.url) caches;
+  substituters = map (cache: "${cache.url}?priority=${toString cache.priority}") caches;
   trusted-public-keys = builtins.concatMap (cache: cache.keys) caches;
 in {
   flake-file.formatter = pkgs: pkgs.nixfmt;
@@ -66,7 +73,9 @@ in {
     # Improve performance
     http-connections = 50;
     max-jobs = "auto";
-    max-substitution-jobs = 32;
+    # Default is 16; matches max-jobs = "auto" on this 16-core box. Substitution is
+    # bandwidth-bound, and pushing this higher risks throttling on the Cachix caches.
+    max-substitution-jobs = 16;
 
     # Don't remove any dependencies needed to build alive (non-GC'd) packages
     keep-outputs = true;

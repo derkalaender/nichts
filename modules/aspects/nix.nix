@@ -29,8 +29,16 @@ in {
 
     # Configure nix itself. Flakes, GC, etc.
     nix = {
-      # Get settings from flake.nix
-      settings = config.flake-file.nixConfig;
+      # Get settings from flake.nix.
+      # nixpkgs' nix module also defines these three list settings (notably
+      # `substituters = lib.mkAfter [ "https://cache.nixos.org/" ]`), and list
+      # options merge by concatenation — which duplicated cache.nixos.org and
+      # `root` in the generated /etc/nix/nix.conf. mkForce makes our values win.
+      settings = config.flake-file.nixConfig // {
+        substituters = lib.mkForce config.flake-file.nixConfig.substituters;
+        trusted-public-keys = lib.mkForce config.flake-file.nixConfig.trusted-public-keys;
+        trusted-users = lib.mkForce config.flake-file.nixConfig.trusted-users;
+      };
 
       # Periodically gets rid of duplicate files in the store
       optimise.automatic = true;

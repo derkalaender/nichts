@@ -17,19 +17,19 @@
     keep-derivations = true;
     keep-outputs = true;
     max-jobs = "auto";
-    max-substitution-jobs = 32;
+    max-substitution-jobs = 16;
     show-trace = true;
     substituters = [
-      "https://cache.nixos.org"
-      "https://cache.numtide.com"
-      "https://comfyui.cachix.org"
-      "https://nix-community.cachix.org"
+      "https://cache.nixos.org?priority=1"
+      "https://cache.numtide.com?priority=2"
+      "https://nix-community.cachix.org?priority=3"
+      "https://comfyui.cachix.org?priority=4"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-      "comfyui.cachix.org-1:33mf9VzoIjzVbp0zwj+fT51HG0y31ZTK3nzYZAX0rec="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "comfyui.cachix.org-1:33mf9VzoIjzVbp0zwj+fT51HG0y31ZTK3nzYZAX0rec="
     ];
     trusted-users = [
       "root"
