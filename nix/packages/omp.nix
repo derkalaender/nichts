@@ -1,14 +1,17 @@
 {
-  pkgs,
+  stdenvNoCC,
+  makeWrapper,
+  patchelf,
   lib,
   llm-agents,
   llmPkgs,
 }:
-pkgs.stdenvNoCC.mkDerivation {
+# Wrap omp so its native addon resolves libraries by DT_RUNPATH, not LD_LIBRARY_PATH.
+stdenvNoCC.mkDerivation {
   name = "omp-${llm-agents.omp.version}";
   nativeBuildInputs = [
-    pkgs.makeWrapper
-    pkgs.patchelf
+    makeWrapper
+    patchelf
   ];
   dontUnpack = true; # no src; unpackPhase errors otherwise
   # 380 MB of prebuilt Bun output: leave its ELF loader and sections alone.

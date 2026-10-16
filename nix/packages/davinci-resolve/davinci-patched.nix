@@ -3,7 +3,6 @@
   writers,
   writeTextDir,
   symlinkJoin,
-  davinci-resolve,
   davinci-resolve-studio-unwrapped,
   davinci-resolve-studio,
   ffmpeg-encoder-plugin,
@@ -89,10 +88,6 @@ let
     '';
   };
 in
-# Same result as overriding the studio wrapper, but expressed against the
-# package whose argument this is, so it stays overridable when imported as a
-# plain package file.
-davinci-resolve.override {
+wrapped.override {
   davinci-resolve-unwrapped = patchedDavinci;
-  studioVariant = true;
 }
