@@ -6,8 +6,10 @@ let
   inherit (lib) mkOption;
   inherit (lib.types)
     attrsOf
+    bool
     deferredModule
     listOf
+    nullOr
     str
     submodule
     ;
@@ -73,10 +75,60 @@ in
     };
 
     users = mkOption {
-      description = "Users. Referenced from nichts.entities.hosts.<name>.users.";
-      type = attrsOf (submodule {
-        options.module = moduleOption;
-      });
+      description = ''
+        Users. A host picks the ones it provides through
+        nichts.entities.hosts.<name>.users.
+
+        What makes a user an *account* is declared here as data (description,
+        groups, SSH keys, which secret holds the password), so every host wires
+        accounts the same way and the flake can reason about its users without
+        reading module bodies. Everything else about a user is a module:
+        module.nixos for NixOS configuration, module.home for Home Manager.
+      '';
+      type = attrsOf (
+        submodule (
+          { name, ... }: {
+            options = {
+              module = moduleOption;
+
+              description = mkOption {
+                description = "GECOS field of the account.";
+                type = str;
+                default = name;
+              };
+
+              isNormalUser = mkOption {
+                description = "Whether this is a login account rather than a system user.";
+                type = bool;
+                default = true;
+              };
+
+              extraGroups = mkOption {
+                description = "Groups the account is added to, on top of its own.";
+                type = listOf str;
+                default = [ ];
+              };
+
+              authorizedKeys = mkOption {
+                description = "SSH public keys allowed to log in as this account.";
+                type = listOf str;
+                default = [ ];
+              };
+
+              hashedPasswordSecret = mkOption {
+                description = ''
+                  Name of the sops secret holding this account's hashed password;
+                  config.sops.secrets.<name>.path becomes hashedPasswordFile. The
+                  secret itself is declared where its file lives, by the host or by
+                  the user. null for an account without a password.
+                '';
+                type = nullOr str;
+                default = "user_passwords/${name}";
+              };
+            };
+          }
+        )
+      );
       default = { };
     };
   };

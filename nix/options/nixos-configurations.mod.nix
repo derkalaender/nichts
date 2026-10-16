@@ -6,9 +6,31 @@
   ...
 }:
 let
-  inherit (lib) genAttrs mapAttrs;
+  inherit (lib) genAttrs mapAttrs optionalAttrs;
 
   nichts = config.nichts;
+
+  # The account side of every user the host lists. Passwords are the host's.
+  mkUserAccounts =
+    host:
+    { config, ... }:
+    {
+      users.users = genAttrs host.users (
+        userName:
+        let
+          user = nichts.entities.users.${userName};
+        in
+        {
+          inherit (user) description isNormalUser extraGroups;
+        }
+        // optionalAttrs (user.hashedPasswordSecret != null) {
+          hashedPasswordFile = config.sops.secrets.${user.hashedPasswordSecret}.path;
+        }
+        // optionalAttrs (user.authorizedKeys != [ ]) {
+          openssh.authorizedKeys.keys = user.authorizedKeys;
+        }
+      );
+    };
 
   # A host is: the always-on modules, its own modules, the NixOS side of every
   # user it lists, and Home Manager for those same users.
@@ -41,6 +63,8 @@ let
             });
           };
         }
+
+        (mkUserAccounts host)
 
         inputs.nixpkgs.nixosModules.readOnlyPkgs
 

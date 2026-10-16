@@ -81,8 +81,14 @@ the default home units plus the host's `module.home` plus the user's own
 ```nix
 # nix/users/marvin/marvin.mod.nix
 {nichts, ...}: {
+  # What makes marvin an account is data: the flake turns it into
+  # users.users.marvin, so every host wires accounts the same way.
+  nichts.entities.users.marvin.description = "Marvin UwU";
+  nichts.entities.users.marvin.extraGroups = ["wheel" "networkmanager" ...];
+
+  # Everything else is a module.
   nichts.entities.users.marvin.module = {
-    nixos = {config, ...}: {users.users.marvin = {...};};
+    nixos = {config, ...}: {sops.secrets."user_passwords/marvin".neededForUsers = true;};
     home = {pkgs, ...}: {imports = with nichts.lib.units.home; [browser terminal ...];};
   };
 }
