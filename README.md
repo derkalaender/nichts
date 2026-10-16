@@ -1,51 +1,60 @@
 # nichts - My personal NixOS configurations
-<sup>nichts (colloquially: *nix*) meaning "nothing" in German</sup>
 
 NixOS configurations for my desktops, laptops and servers, built with
-[flake-parts](https://flake.parts) and the dendritic pattern: every piece of the
-configuration is a flake-parts module, and `flake.nix` only declares inputs,
-nix settings and where to find them.
+[flake-parts](https://flake.parts) and the dendritic pattern.
 
 ## Layout
 
 ```
-flake.nix         inputs, nixConfig, and one imports line that collects every
-                  nix/**/*.mod.nix file as a flake-parts module
-nix/lib/          plain library functions, exposed as nichts.lib.<name>
-nix/options/      flake-level options and the wiring between them: nichts.lib,
-                  nichts.overlays, nichts.modules.{nixos,home},
-                  nichts.entities.{hosts,users}, flake.nixosConfigurations,
-                  deploy-rs, disko, images, treefmt
-nix/modules/      units of system and home configuration
-nix/hosts/        host entities
-nix/users/        user entities
-nix/packages/     custom packages, with their perSystem declarations next to them
-nix/secrets/      secrets that belong to no single host or user
+nichts
+│─ flake.nix                            # entrypoint
+│─ justfile                             # command runner specification
+│─ .sops.yaml                           # SOPS secret identities
+└─ nix
+  ├─ lib                                # custom library functions
+  ├─ options                            # flake-level options
+  ├─ modules                            # shared modules
+  ├─ packages                           # custom packages
+  ├─ hosts                              # host-specific nixos configuration
+  │ └─ <host>
+  │   └─ secrets                        # host-specific secrets
+  ├─ users                              # user-specific home-manager configuration
+  │ └─ <user>
+  │   └─ secrets                        # user-specific secrets
+  └─ secrets                            # common secrets
 ```
 
-Files without the `.mod.nix` suffix are *not* collected: they are plain Nix and
-are only used when something imports them explicitly (`nix/lib` helpers,
-`nix/packages` definitions, a host's `disko.nix` and `deploy.nix`, host-local
-NixOS modules like `sops.nix`, secrets, `facter.json`).
+The flake entrypoint collects every `nix/**/*.mod.nix` file as a flake-parts module.
+This way, files without a `.mod.nix` suffix are *not* collected and can be imported explicitly.
 
 ## Units
 
 A unit is one file in `nix/modules` that declares the NixOS and/or Home Manager
-module it contributes:
+module it contributes. Both sides of a unit sit together, so a unit reads as one
+thing:
 
 ```nix
 {nichts, ...}: {
-  nichts.modules.nixos.game-thing = {...};
-  nichts.modules.home.game-thing = {...};
+  nichts.modules.game-thing = {
+    nixos = {...};   # the NixOS side
+    home = {...};    # the Home Manager side
+  };
 }
 ```
 
-Units are addressed by name, so a host (or a user) can import exactly what it
-wants: `imports = with nichts.modules.nixos; [desktop gaming];`. The module
-system deduplicates them by `key`, so a host and one of its users can both ask
-for `desktop` and it is only evaluated once. `nichts.modules.nixos.default` and
-`nichts.modules.home.default` are the units every host and user gets, composed in
-`nix/modules/default.mod.nix`.
+Importing stays short: `nichts.lib.units.nixos` (and `.home`) is the same
+registry with one class picked out, so a host or user lists exactly what it wants:
+
+```nix
+imports = with nichts.lib.units.nixos; [desktop gaming];
+imports = with nichts.lib.units.home; [browser terminal];
+```
+
+The module system deduplicates units by `key`, so a host and one of its users may
+both ask for `desktop` and it is only evaluated once; `_class` makes importing a
+Home Manager unit into NixOS an error instead of a silent no-op.
+`nichts.modules.default.nixos` / `.home` are the units every host and user gets,
+composed in `nix/modules/default.mod.nix`.
 
 ## Hosts and users
 
@@ -57,7 +66,7 @@ for `desktop` and it is only evaluated once. `nichts.modules.nixos.default` and
   nichts.entities.hosts.shika = {
     users = ["marvin"];
     module = {
-      nixos = {pkgs, lib, ...}: {imports = with nichts.modules.nixos; [desktop ...];};
+      nixos = {pkgs, lib, ...}: {imports = with nichts.lib.units.nixos; [desktop ...];};
       home = {};   # Home Manager defaults for this host's users, if any
     };
   };
@@ -66,7 +75,7 @@ for `desktop` and it is only evaluated once. `nichts.modules.nixos.default` and
 
 A host becomes `flake.nixosConfigurations.<name>`; `hostname` defaults to the
 host's attribute name and `system` to `x86_64-linux`. Its Home Manager users get
-`nichts.modules.home.default` plus the host's `module.home` plus the user's own
+the default home units plus the host's `module.home` plus the user's own
 `module.home`.
 
 ```nix
@@ -74,7 +83,7 @@ host's attribute name and `system` to `x86_64-linux`. Its Home Manager users get
 {nichts, ...}: {
   nichts.entities.users.marvin.module = {
     nixos = {config, ...}: {users.users.marvin = {...};};
-    home = {pkgs, ...}: {imports = with nichts.modules.home; [browser terminal ...];};
+    home = {pkgs, ...}: {imports = with nichts.lib.units.home; [browser terminal ...];};
   };
 }
 ```
@@ -84,15 +93,8 @@ and sets up Home Manager for them.
 
 ## Secrets
 
-A secret belongs to exactly one user or host and lives with it:
+Secrets are age-encrypted and managed through SOPS. Each secret belongs to exactly one user or host.
 
-- `nix/hosts/<host>/secrets/`, `nix/users/<user>/secrets/`, and `nix/secrets/`
-  only for secrets that belong to no single entity
-- the sops configuration for it (`sops.age.keyFile`, `sops.defaultSopsFile`) sits
-  in that entity's own module
-- `.sops.yaml` maps each path to its recipients; after moving a secret file, run
-  `just sops-rekey` so the file's recipients follow
+`.sops.yaml` maps each path to its recipients; after moving a secret file, run `just sops-rekey` so the file's recipients follow
 
-Shared units never touch sops. When a shared unit needs a secret it declares an
-option, and the host or user wires `config.sops.secrets.<name>.path` into it
-(`nichts.atuin.key` and `nichts.atuin.session` are examples).
+Shared units never touch sops, and instead declare an option that the host or user wires `config.sops.secrets.<name>.path` into it.
