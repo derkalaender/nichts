@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{ inputs, ... }: {
   nichts.modules.nixos.sops = {
     imports = [
       inputs.sops-nix.nixosModules.default

@@ -1,7 +1,8 @@
 {
   nichts,
   ...
-}: {
+}:
+{
   # Every host and user gets these. Members are individual units, so a new
   # always-on unit is added here and nowhere else.
   nichts.modules.nixos.default = {

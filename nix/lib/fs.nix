@@ -1,4 +1,4 @@
-{self}: rec {
+{ self }: rec {
   # Path into this flake's source tree, as a string.
   #
   # Prefer a plain relative path (`./foo`): a path is copied into the store

@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.desktop-base = {pkgs, ...}: {
+  nichts.modules.nixos.desktop-base = { pkgs, ... }: {
     # Allow Chromium and Electron to use Wayland natively instead of XWayland
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -40,7 +40,8 @@
       fontconfig.enable = true;
       fontconfig.useEmbeddedBitmaps = false;
       enableDefaultPackages = true;
-      packages = with pkgs;
+      packages =
+        with pkgs;
         [
           noto-fonts
           noto-fonts-cjk-sans # Chinese, Japanese, Korean

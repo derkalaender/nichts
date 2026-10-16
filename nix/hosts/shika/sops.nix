@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   sops = {
     age.keyFile = "/root/.config/sops/age/keys.txt";
 

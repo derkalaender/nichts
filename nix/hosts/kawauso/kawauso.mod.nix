@@ -2,14 +2,29 @@
   config,
   nichts,
   ...
-}: {
-  imports = [./disko.nix ./deploy.nix];
+}:
+{
+  imports = [
+    ./disko.nix
+    ./deploy.nix
+  ];
 
   nichts.entities.hosts.kawauso = {
-    users = ["dot" "kyson"];
+    users = [
+      "dot"
+      "kyson"
+    ];
 
     module.nixos = {
-      imports = [./sops.nix] ++ (with nichts.modules.nixos; [deerlab deerlab-k3s deerlab-k3s-server minecraft]);
+      imports = [
+        ./sops.nix
+      ]
+      ++ (with nichts.modules.nixos; [
+        deerlab
+        deerlab-k3s
+        deerlab-k3s-server
+        minecraft
+      ]);
 
       # Disk configuration via disko
       inherit (config.flake.diskoConfigurations.kawauso) disko;
@@ -18,7 +33,10 @@
       hardware.facter.reportPath = ./facter.json;
 
       # Minecraft, Traefik
-      networking.firewall.allowedTCPPorts = [80 443];
+      networking.firewall.allowedTCPPorts = [
+        80
+        443
+      ];
 
       # Tailscale subnet routing
       services.tailscale = {

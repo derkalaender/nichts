@@ -2,7 +2,8 @@
   nichts,
   lib,
   ...
-}: {
+}:
+{
   nichts.modules.nixos.deerlab = {
     imports = with nichts.modules.nixos; [
       openssh

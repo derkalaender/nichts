@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkForce;
-in {
+in
+{
   nichts.modules.nixos.bitwarden = {
     # Disable the default SSH agent since Bitwarden will provide one
     programs.ssh = {
@@ -9,7 +11,7 @@ in {
     };
   };
 
-  nichts.modules.home.bitwarden = {pkgs, ...}: {
+  nichts.modules.home.bitwarden = { pkgs, ... }: {
     home.packages = with pkgs; [
       bitwarden-desktop
     ];

@@ -1,5 +1,5 @@
-{nichts, ...}: {
-  nichts.modules.nixos.kubernetes-tools = {pkgs, ...}: {
+{ nichts, ... }: {
+  nichts.modules.nixos.kubernetes-tools = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [
       kubectl
       k9s

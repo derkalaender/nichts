@@ -1,11 +1,9 @@
-{...}: {
-  nichts.modules.home.blender = {pkgs, ...}: {
+{ ... }: {
+  nichts.modules.home.blender = { pkgs, ... }: {
     home.packages = [
-      (
-        pkgs.pkgsRocm.blender.override {
-          waylandSupport = true;
-        }
-      )
+      (pkgs.pkgsRocm.blender.override {
+        waylandSupport = true;
+      })
       # (pkgs.symlinkJoin {
       #   name = "blender-wrapped";
       #   paths = [

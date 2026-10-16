@@ -17,15 +17,20 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  nativeBuildInputs = [pkg-config];
-  buildInputs = [llvmPackages.libcxx fdk_aac];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [
+    llvmPackages.libcxx
+    fdk_aac
+  ];
 
-  installPhase = let
-    plugin = "aac_fdk_plugin.dvcp";
-  in ''
-    runHook preInstall
-    mkdir -p $out/${plugin}.bundle/Contents/Linux-x86-64
-    cp bin/${plugin} $out/${plugin}.bundle/Contents/Linux-x86-64/
-    runHook postInstall
-  '';
+  installPhase =
+    let
+      plugin = "aac_fdk_plugin.dvcp";
+    in
+    ''
+      runHook preInstall
+      mkdir -p $out/${plugin}.bundle/Contents/Linux-x86-64
+      cp bin/${plugin} $out/${plugin}.bundle/Contents/Linux-x86-64/
+      runHook postInstall
+    '';
 })

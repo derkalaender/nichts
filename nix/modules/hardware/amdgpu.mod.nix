@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.hardware-amdgpu = {pkgs, ...}: {
+  nichts.modules.nixos.hardware-amdgpu = { pkgs, ... }: {
     hardware = {
       # AMD settings
       amdgpu = {

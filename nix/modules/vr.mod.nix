@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{ inputs, ... }: {
   # Oculus Rift CV1 (original, 2016) support.
   #
   # The runtime is upstream Monado built with OpenHMD's Rift CV1 driver, taken
@@ -7,7 +7,7 @@
   # constellation tracker never advertises position tracking. That flake swaps
   # the driver for OpenHMD's rift-room-config branch, which tracks the HMD and
   # both Touch controllers.
-  nichts.modules.nixos.vr = {pkgs, ...}: {
+  nichts.modules.nixos.vr = { pkgs, ... }: {
     services.monado = {
       enable = true;
       package = inputs.monado-cv1-nixos.packages.${pkgs.stdenv.hostPlatform.system}.monado;
@@ -18,10 +18,10 @@
 
     # 70-xrhardware.rules: uaccess for 2833:0031 (headset HID) and 2833:0211
     # (the two constellation cameras)
-    services.udev.packages = [pkgs.xr-hardware];
+    services.udev.packages = [ pkgs.xr-hardware ];
 
     # Two UVC sensor streams are isochronous; the 16 MiB default is too small.
-    boot.kernelParams = ["usbcore.usbfs_memory_mb=1000"];
+    boot.kernelParams = [ "usbcore.usbfs_memory_mb=1000" ];
 
     # Steam needs to be allowed to access Monado. See: https://vronlinux.org/docs/distros/nixos/
     programs.steam.package = pkgs.steam.override {
@@ -50,23 +50,25 @@
   };
 
   # User-level wiring for OpenVR games.
-  nichts.modules.home.vr = {
-    pkgs,
-    config,
-    ...
-  }: {
-    # OpenVR games resolve their runtime through this file. xrizer bridges
-    # OpenVR to OpenXR/Monado, so SteamVR is not needed (and SteamVR would
-    # fight Monado for the headset's display lease). Written as a read-only
-    # store file on purpose: Steam rewrites it on every start when it is
-    # writable, putting SteamVR back first and silently breaking the chain.
-    xdg.configFile."openvr/openvrpaths.vrpath".text = builtins.toJSON {
-      jsonid = "vrpathreg";
-      version = 1;
-      runtime = ["${pkgs.xrizer}/lib/xrizer"];
-      config = ["${config.home.homeDirectory}/.local/share/Steam/config"];
-      log = ["${config.home.homeDirectory}/.local/share/Steam/logs"];
-      external_drivers = null;
+  nichts.modules.home.vr =
+    {
+      pkgs,
+      config,
+      ...
+    }:
+    {
+      # OpenVR games resolve their runtime through this file. xrizer bridges
+      # OpenVR to OpenXR/Monado, so SteamVR is not needed (and SteamVR would
+      # fight Monado for the headset's display lease). Written as a read-only
+      # store file on purpose: Steam rewrites it on every start when it is
+      # writable, putting SteamVR back first and silently breaking the chain.
+      xdg.configFile."openvr/openvrpaths.vrpath".text = builtins.toJSON {
+        jsonid = "vrpathreg";
+        version = 1;
+        runtime = [ "${pkgs.xrizer}/lib/xrizer" ];
+        config = [ "${config.home.homeDirectory}/.local/share/Steam/config" ];
+        log = [ "${config.home.homeDirectory}/.local/share/Steam/logs" ];
+        external_drivers = null;
+      };
     };
-  };
 }

@@ -1,7 +1,8 @@
 {
   nichts,
   ...
-}: {
+}:
+{
   # The desktop is one concept spread over several units; hosts import
   # `desktop` rather than listing the parts.
   nichts.modules.nixos.desktop = {

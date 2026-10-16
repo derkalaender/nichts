@@ -8,52 +8,53 @@
   ffmpeg-encoder-plugin,
   aac-encoder-plugin,
   aac-fdk-encoder-plugin,
-}: let
+}:
+let
   wrapped = davinci-resolve-studio;
   unwrapped = davinci-resolve-studio-unwrapped;
   patcher =
     writers.writePython3Bin "patcher"
-    {
-      flakeIgnore = [
-        "E111" # Indentation is not a multiple of 4.
-        "E121" # Continuation line under-indented for hanging indent.
-        "E241" # Multiple spaces after ':'.
-        "E501" # Line too long.
-      ];
-    }
-    ''
-      import sys
+      {
+        flakeIgnore = [
+          "E111" # Indentation is not a multiple of 4.
+          "E121" # Continuation line under-indented for hanging indent.
+          "E241" # Multiple spaces after ':'.
+          "E501" # Line too long.
+        ];
+      }
+      ''
+        import sys
 
-      target = sys.argv[1]
-      data = open(target, "rb").read()
+        target = sys.argv[1]
+        data = open(target, "rb").read()
 
-      patches = [
-        {
-          "find":    "03008945FC837DFC007411488B45C88B",
-          "replace": "03008945FC837DFC00EB11488B45C88B"
-        },
-        {
-          "find":    "7411488B45C88B55FC895058B8000000",
-          "replace": "EB11488B45C88B55FC895058B8000000"
-        },
-        {
-          "find":    "41B60184C00F84B000000048 85DB74084531F6E9A3000000".replace(" ", ""),
-          "replace": "41B60084C00F84B000000048 85DB74084531F6E9A3000000".replace(" ", "")
-        }
-      ]
+        patches = [
+          {
+            "find":    "03008945FC837DFC007411488B45C88B",
+            "replace": "03008945FC837DFC00EB11488B45C88B"
+          },
+          {
+            "find":    "7411488B45C88B55FC895058B8000000",
+            "replace": "EB11488B45C88B55FC895058B8000000"
+          },
+          {
+            "find":    "41B60184C00F84B000000048 85DB74084531F6E9A3000000".replace(" ", ""),
+            "replace": "41B60084C00F84B000000048 85DB74084531F6E9A3000000".replace(" ", "")
+          }
+        ]
 
-      for p in patches:
-        find_bytes = bytes.fromhex(p["find"])
-        replace_bytes = bytes.fromhex(p["replace"])
+        for p in patches:
+          find_bytes = bytes.fromhex(p["find"])
+          replace_bytes = bytes.fromhex(p["replace"])
 
-        count = data.count(find_bytes)
-        assert count > 0, f"pattern {p['find']} not found in {target}"
+          count = data.count(find_bytes)
+          assert count > 0, f"pattern {p['find']} not found in {target}"
 
-        data = data.replace(find_bytes, replace_bytes)
+          data = data.replace(find_bytes, replace_bytes)
 
-      open(target, "wb").write(data)
-      print(f"patched {target} successfully")
-    '';
+        open(target, "wb").write(data)
+        print(f"patched {target} successfully")
+      '';
   licenseDir = writeTextDir "blackmagic.lic" ''
     LICENSE blackmagic davinciresolvestudio 999999 permanent uncounted
       hostid=ANY issuer=CGP customer=CGP issued=28-dec-2023
@@ -69,8 +70,8 @@
   };
   patchedDavinci = symlinkJoin {
     inherit (wrapped) pname version;
-    paths = [unwrapped];
-    nativeBuildInputs = [patcher];
+    paths = [ unwrapped ];
+    nativeBuildInputs = [ patcher ];
     postBuild = ''
       # Replace resolve binary with patched version
       rm -f $out/bin/resolve
@@ -87,6 +88,6 @@
     '';
   };
 in
-  wrapped.override {
-    davinci-resolve-unwrapped = patchedDavinci;
-  }
+wrapped.override {
+  davinci-resolve-unwrapped = patchedDavinci;
+}

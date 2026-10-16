@@ -20,7 +20,7 @@
     # TODO
   };
 
-  nichts.modules.nixos.desktop-boot = {pkgs, ...}: {
+  nichts.modules.nixos.desktop-boot = { pkgs, ... }: {
     boot = {
       # Use latest kernel for better hardware support
       kernelPackages = pkgs.linuxPackages_latest;
@@ -34,7 +34,7 @@
         theme = "colorful_sliced";
         themePackages = with pkgs; [
           (adi1090x-plymouth-themes.override {
-            selected_themes = ["colorful_sliced"];
+            selected_themes = [ "colorful_sliced" ];
           })
         ];
       };
@@ -55,7 +55,11 @@
       # Dirty Frag mitigation
       # See https://github.com/V4bel/dirtyfrag/blob/master/README.md
       # TODO remove me once fixed upstream (no CVE yet)
-      blacklistedKernelModules = ["esp4" "esp6" "rxrpc"];
+      blacklistedKernelModules = [
+        "esp4"
+        "esp6"
+        "rxrpc"
+      ];
     };
   };
 }

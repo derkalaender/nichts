@@ -17,8 +17,8 @@
                     type = "filesystem";
                     format = "vfat";
                     mountpoint = "/boot";
-                    mountOptions = ["umask=0077"];
-                    extraArgs = ["-nESP"]; # Label
+                    mountOptions = [ "umask=0077" ];
+                    extraArgs = [ "-nESP" ]; # Label
                   };
                 };
                 root = {
@@ -29,30 +29,35 @@
                       "-L NixOS" # Label
                       "-d single -m dup" # Metadata duplication
                     ];
-                    subvolumes = let
-                      mountOptions = ["compress=zstd" "noatime"];
-                    in {
-                      "@" = {
-                        mountpoint = "/";
-                        inherit mountOptions;
+                    subvolumes =
+                      let
+                        mountOptions = [
+                          "compress=zstd"
+                          "noatime"
+                        ];
+                      in
+                      {
+                        "@" = {
+                          mountpoint = "/";
+                          inherit mountOptions;
+                        };
+                        "@home" = {
+                          mountpoint = "/home";
+                          inherit mountOptions;
+                        };
+                        "@nix" = {
+                          mountpoint = "/nix";
+                          inherit mountOptions;
+                        };
+                        "@snapshots" = {
+                          mountpoint = "/.snapshots";
+                          inherit mountOptions;
+                        };
+                        "@var_log" = {
+                          mountpoint = "/var/log";
+                          inherit mountOptions;
+                        };
                       };
-                      "@home" = {
-                        mountpoint = "/home";
-                        inherit mountOptions;
-                      };
-                      "@nix" = {
-                        mountpoint = "/nix";
-                        inherit mountOptions;
-                      };
-                      "@snapshots" = {
-                        mountpoint = "/.snapshots";
-                        inherit mountOptions;
-                      };
-                      "@var_log" = {
-                        mountpoint = "/var/log";
-                        inherit mountOptions;
-                      };
-                    };
                   };
                 };
               };

@@ -3,12 +3,14 @@
   lib,
   withSystem,
   ...
-}: let
+}:
+let
   inherit (lib) singleton;
-in {
-  perSystem = {pkgs, ...}: {
+in
+{
+  perSystem = { pkgs, ... }: {
     packages = {
-      davinci-resolve-unwrapped = pkgs.callPackage ./davinci-resolve-unwrapped.nix {};
+      davinci-resolve-unwrapped = pkgs.callPackage ./davinci-resolve-unwrapped.nix { };
       davinci-resolve = pkgs.callPackage ./davinci-resolve.nix {
         inherit (pkgs) davinci-resolve-unwrapped;
       };
@@ -20,17 +22,20 @@ in {
         studioVariant = true;
       };
 
-      ffmpeg-encoder-plugin = pkgs.callPackage ./ffmpeg-encoder-plugin.nix {};
-      aac-encoder-plugin = pkgs.callPackage ./aac-encoder-plugin.nix {};
-      aac-fdk-encoder-plugin = pkgs.callPackage ./aac-fdk-encoder-plugin.nix {};
+      ffmpeg-encoder-plugin = pkgs.callPackage ./ffmpeg-encoder-plugin.nix { };
+      aac-encoder-plugin = pkgs.callPackage ./aac-encoder-plugin.nix { };
+      aac-fdk-encoder-plugin = pkgs.callPackage ./aac-fdk-encoder-plugin.nix { };
     };
   };
 
-  nichts.overlays = singleton (final: prev: (
-    withSystem prev.stdenv.hostPlatform.system ({config, ...}: {
-      inherit (config.packages) davinci-resolve-unwrapped davinci-resolve;
-      inherit (config.packages) davinci-resolve-studio-unwrapped davinci-resolve-studio;
-      inherit (config.packages) ffmpeg-encoder-plugin aac-encoder-plugin aac-fdk-encoder-plugin;
-    })
-  ));
+  nichts.overlays = singleton (
+    final: prev:
+    (withSystem prev.stdenv.hostPlatform.system (
+      { config, ... }: {
+        inherit (config.packages) davinci-resolve-unwrapped davinci-resolve;
+        inherit (config.packages) davinci-resolve-studio-unwrapped davinci-resolve-studio;
+        inherit (config.packages) ffmpeg-encoder-plugin aac-encoder-plugin aac-fdk-encoder-plugin;
+      }
+    ))
+  );
 }

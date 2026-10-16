@@ -4,22 +4,26 @@
   lib,
   withSystem,
   ...
-}: let
+}:
+let
   inherit (lib) genAttrs mapAttrs;
 
   nichts = config.nichts;
 
   # A host is: the always-on modules, its own modules, the NixOS side of every
   # user it lists, and Home Manager for those same users.
-  mkHost = name: host:
+  mkHost =
+    name: host:
     lib.nixosSystem {
-      specialArgs = {inherit nichts;};
+      specialArgs = { inherit nichts; };
 
       modules = [
         {
-          imports =
-            [nichts.modules.nixos.default host.module.nixos]
-            ++ map (user: nichts.entities.users.${user}.module.nixos) host.users;
+          imports = [
+            nichts.modules.nixos.default
+            host.module.nixos
+          ]
+          ++ map (user: nichts.entities.users.${user}.module.nixos) host.users;
 
           networking.hostName = host.hostname;
 
@@ -41,9 +45,10 @@
         inputs.nixpkgs.nixosModules.readOnlyPkgs
 
         # Use pkgs from flake-parts, so overlays and nixpkgs config carry over.
-        {nixpkgs.pkgs = withSystem host.system ({pkgs, ...}: pkgs);}
+        { nixpkgs.pkgs = withSystem host.system ({ pkgs, ... }: pkgs); }
       ];
     };
-in {
+in
+{
   flake.nixosConfigurations = mapAttrs mkHost nichts.entities.hosts;
 }

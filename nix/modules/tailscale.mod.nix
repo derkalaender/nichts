@@ -1,4 +1,4 @@
-{lib, ...}: {
+{ lib, ... }: {
   nichts.modules.nixos.tailscale = {
     services.tailscale = {
       enable = true;

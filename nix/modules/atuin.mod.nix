@@ -1,5 +1,5 @@
 {
-  nichts.modules.home.atuin = {config, lib, ...}: {
+  nichts.modules.home.atuin = { config, lib, ... }: {
     options.nichts.atuin = {
       key = lib.mkOption {
         type = lib.types.nullOr lib.types.str;

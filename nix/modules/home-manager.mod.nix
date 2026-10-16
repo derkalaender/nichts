@@ -2,11 +2,13 @@
   inputs,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) mkDefault;
-in {
+in
+{
   nichts.modules.nixos.home-manager = {
-    imports = [inputs.home-manager.nixosModules.default];
+    imports = [ inputs.home-manager.nixosModules.default ];
 
     home-manager = {
       # Makes Home Manager use pkg from NixOS. This way, overlays, nixpkgs config, etc. carries over.
@@ -17,7 +19,7 @@ in {
     };
   };
 
-  nichts.modules.home.home-manager = {osConfig, ...}: {
+  nichts.modules.home.home-manager = { osConfig, ... }: {
     xdg.enable = true;
 
     home.stateVersion = mkDefault osConfig.system.stateVersion;

@@ -17,8 +17,8 @@
                     type = "filesystem";
                     format = "vfat";
                     mountpoint = "/boot";
-                    mountOptions = ["umask=0077"];
-                    extraArgs = ["-nESP"]; # Label
+                    mountOptions = [ "umask=0077" ];
+                    extraArgs = [ "-nESP" ]; # Label
                   };
                 };
                 root = {
@@ -29,41 +29,43 @@
                       "-L NixOS" # Label
                       "-d single -m dup" # Metadata duplication
                     ];
-                    subvolumes = let
-                      mountOptions = [
-                        "compress=zstd:1" # Default is zstd:3, but lower is faster and still good compression
-                        "noatime"
-                      ];
-                    in {
-                      "@" = {
-                        mountpoint = "/";
-                        inherit mountOptions;
+                    subvolumes =
+                      let
+                        mountOptions = [
+                          "compress=zstd:1" # Default is zstd:3, but lower is faster and still good compression
+                          "noatime"
+                        ];
+                      in
+                      {
+                        "@" = {
+                          mountpoint = "/";
+                          inherit mountOptions;
+                        };
+                        "@home" = {
+                          mountpoint = "/home";
+                          inherit mountOptions;
+                        };
+                        "@nix" = {
+                          mountpoint = "/nix";
+                          inherit mountOptions;
+                        };
+                        "@snapshots" = {
+                          mountpoint = "/.snapshots";
+                          inherit mountOptions;
+                        };
+                        "@var_log" = {
+                          mountpoint = "/var/log";
+                          inherit mountOptions;
+                        };
+                        "@var_lib" = {
+                          mountpoint = "/var/lib";
+                          inherit mountOptions;
+                        };
+                        "@models" = {
+                          mountpoint = "/models";
+                          inherit mountOptions;
+                        };
                       };
-                      "@home" = {
-                        mountpoint = "/home";
-                        inherit mountOptions;
-                      };
-                      "@nix" = {
-                        mountpoint = "/nix";
-                        inherit mountOptions;
-                      };
-                      "@snapshots" = {
-                        mountpoint = "/.snapshots";
-                        inherit mountOptions;
-                      };
-                      "@var_log" = {
-                        mountpoint = "/var/log";
-                        inherit mountOptions;
-                      };
-                      "@var_lib" = {
-                        mountpoint = "/var/lib";
-                        inherit mountOptions;
-                      };
-                      "@models" = {
-                        mountpoint = "/models";
-                        inherit mountOptions;
-                      };
-                    };
                   };
                 };
                 swap = {
@@ -93,7 +95,10 @@
                     type = "filesystem";
                     format = "btrfs";
                     mountpoint = "/games";
-                    mountOptions = ["noatime" "nodatacow"];
+                    mountOptions = [
+                      "noatime"
+                      "nodatacow"
+                    ];
                     extraArgs = [
                       "-L Games"
                       "-d single -m dup"

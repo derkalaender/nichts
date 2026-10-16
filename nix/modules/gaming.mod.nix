@@ -9,7 +9,7 @@
     })
   ];
 
-  nichts.modules.nixos.gaming = {pkgs, ...}: {
+  nichts.modules.nixos.gaming = { pkgs, ... }: {
     # This allows games to activate system optimizations
     programs.gamemode.enable = true;
 

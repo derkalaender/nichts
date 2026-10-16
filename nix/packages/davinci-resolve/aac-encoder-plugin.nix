@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-NVNxmUFNwZ3hzlyi3QVENXhfPICAAP3M4s6QEgWsP/g=";
   };
 
-  buildInputs = [ffmpeg-full];
+  buildInputs = [ ffmpeg-full ];
 
   # Don't use clang and patch out hardcoded paths and flags
   postPatch = ''
@@ -26,12 +26,14 @@ stdenv.mkDerivation (finalAttrs: {
       --replace " -I/usr/include/c++/x86_64-redhat-linux/14" ""
   '';
 
-  installPhase = let
-    plugin = "aac_encoder_plugin.dvcp";
-  in ''
-    runHook preInstall
-    mkdir -p $out/${plugin}.bundle/Contents/Linux-x86-64
-    cp bin/${plugin} $out/${plugin}.bundle/Contents/Linux-x86-64/
-    runHook postInstall
-  '';
+  installPhase =
+    let
+      plugin = "aac_encoder_plugin.dvcp";
+    in
+    ''
+      runHook preInstall
+      mkdir -p $out/${plugin}.bundle/Contents/Linux-x86-64
+      cp bin/${plugin} $out/${plugin}.bundle/Contents/Linux-x86-64/
+      runHook postInstall
+    '';
 })

@@ -8,7 +8,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFkj75RIzUSmFX33FFYAc8Ek6V0HpeTqrZel6T4GL8XL" # Deploy RS
       ];
 
-      extraGroups = ["wheel"];
+      extraGroups = [ "wheel" ];
     };
 
     # Enables sudo with SSH key
@@ -18,10 +18,10 @@
     # Restrict commands deploy user can run with sudo
     security.sudo.extraRules = [
       {
-        users = ["deploy"];
+        users = [ "deploy" ];
         commands = [
-          {command = "/nix/store/*-activatable-nixos-system-*/activate-rs";}
-          {command = "/run/current-system/sw/bin/rm /tmp/deploy-rs-canary-*";}
+          { command = "/nix/store/*-activatable-nixos-system-*/activate-rs"; }
+          { command = "/run/current-system/sw/bin/rm /tmp/deploy-rs-canary-*"; }
         ];
       }
     ];

@@ -11,5 +11,5 @@
     };
   };
 
-  nichts.entities.users.kyson.module.home = {};
+  nichts.entities.users.kyson.module.home = { };
 }

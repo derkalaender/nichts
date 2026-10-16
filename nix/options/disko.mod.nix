@@ -1,3 +1,3 @@
-{inputs, ...}: {
-  imports = [inputs.disko.flakeModule];
+{ inputs, ... }: {
+  imports = [ inputs.disko.flakeModule ];
 }

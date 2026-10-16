@@ -1,9 +1,11 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkForce;
-in {
-  nichts.modules.nixos.cli = {pkgs, ...}: {
+in
+{
+  nichts.modules.nixos.cli = { pkgs, ... }: {
     # Yeet perl (as much as possible)
-    environment.defaultPackages = mkForce [];
+    environment.defaultPackages = mkForce [ ];
     documentation = {
       man.enable = true;
       doc.enable = false;
@@ -96,7 +98,7 @@ in {
       enable = true;
       enableFishIntegration = true;
       enableBashIntegration = true;
-      flags = ["--cmd cd"];
+      flags = [ "--cmd cd" ];
     };
   };
 

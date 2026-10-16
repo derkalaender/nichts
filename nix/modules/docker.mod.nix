@@ -1,5 +1,5 @@
-{nichts, ...}: {
-  nichts.modules.nixos.docker = {pkgs, ...}: {
+{ nichts, ... }: {
+  nichts.modules.nixos.docker = { pkgs, ... }: {
     virtualisation = {
       docker.enable = true;
       # virtualbox.host.enable = true;

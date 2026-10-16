@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.desktop-printing = {pkgs, ...}: {
+  nichts.modules.nixos.desktop-printing = { pkgs, ... }: {
     services.printing = {
       enable = true;
       drivers = with pkgs; [

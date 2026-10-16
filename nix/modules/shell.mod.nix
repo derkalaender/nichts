@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.shell = {pkgs, ...}: {
+  nichts.modules.nixos.shell = { pkgs, ... }: {
     programs.bash.enable = true;
     programs.fish.enable = true;
 
