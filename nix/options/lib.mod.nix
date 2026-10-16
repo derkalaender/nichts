@@ -1,8 +1,7 @@
 {
   config,
-  inputs,
-  lib,
   self,
+  lib,
   ...
 }:
 let
@@ -16,9 +15,13 @@ in
   };
 
   config = {
-    # nix/lib holds plain Nix (functions, constants); this is where it becomes
-    # available as nichts.lib, which modules reach through the `nichts` argument.
-    nichts.lib = import ../lib { inherit self lib inputs; };
+    # nix/lib holds plain Nix (functions); this is where it becomes available as
+    # nichts.lib. `modules` is the unit registry below, so nichts.lib.units can
+    # transpose it without every import having to pass it in.
+    nichts.lib = import ../lib {
+      inherit self lib;
+      modules = config.nichts.modules;
+    };
 
     # Make the flake's nichts config available as a module argument everywhere
     # ("nichts" is the flake's config.nichts, so a NixOS module argument named

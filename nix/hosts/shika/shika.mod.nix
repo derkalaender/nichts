@@ -11,9 +11,9 @@
 
     # Home Manager side of this host's units, for every user it lists.
     module.home = {
-      imports = with nichts.modules; [
-        desktop.home
-        vr.home
+      imports = with nichts.lib.units.home; [
+        desktop
+        vr
       ];
     };
 
@@ -28,19 +28,19 @@
           ./sops.nix
           ./backup.nix
         ]
-        ++ (with nichts.modules; [
-          desktop.nixos
-          gaming.nixos
-          tailscale.nixos
-          comfyui.nixos
-          llama.nixos
-          vr.nixos
-          hardware-amdgpu.nixos
-          hardware-unfree.nixos
-          minecraft.nixos
-          docker.nixos
-          kubernetes-tools.nixos
-          btrfs.nixos
+        ++ (with nichts.lib.units.nixos; [
+          desktop
+          gaming
+          tailscale
+          comfyui
+          llama
+          vr
+          hardware-amdgpu
+          hardware-unfree
+          minecraft
+          docker
+          kubernetes-tools
+          btrfs
         ]);
 
         # Disk configuration via disko
