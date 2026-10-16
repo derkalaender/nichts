@@ -3,7 +3,7 @@ let
   inherit (lib) mkForce;
 in
 {
-  nichts.modules.nixos.bitwarden = {
+  nichts.modules.bitwarden.nixos = {
     # Disable the default SSH agent since Bitwarden will provide one
     programs.ssh = {
       startAgent = mkForce false;
@@ -11,7 +11,7 @@ in
     };
   };
 
-  nichts.modules.home.bitwarden = { pkgs, ... }: {
+  nichts.modules.bitwarden.home = { pkgs, ... }: {
     home.packages = with pkgs; [
       bitwarden-desktop
     ];

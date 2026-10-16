@@ -1,5 +1,5 @@
 { ... }: {
-  nichts.modules.nixos.llama =
+  nichts.modules.llama.nixos =
     {
       pkgs,
       lib,

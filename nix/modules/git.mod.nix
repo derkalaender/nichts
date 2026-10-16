@@ -1,5 +1,5 @@
 {
-  nichts.modules.home.git = {
+  nichts.modules.git.home = {
     programs.git = {
       enable = true;
 

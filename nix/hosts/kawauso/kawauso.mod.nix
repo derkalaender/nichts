@@ -19,11 +19,11 @@
       imports = [
         ./sops.nix
       ]
-      ++ (with nichts.modules.nixos; [
-        deerlab
-        deerlab-k3s
-        deerlab-k3s-server
-        minecraft
+      ++ (with nichts.modules; [
+        deerlab.nixos
+        deerlab-k3s.nixos
+        deerlab-k3s-server.nixos
+        minecraft.nixos
       ]);
 
       # Disk configuration via disko

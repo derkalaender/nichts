@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.rustic =
+  nichts.modules.rustic.nixos =
     {
       config,
       lib,

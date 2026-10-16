@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  nichts.modules.nixos.disko = {
+  nichts.modules.disko.nixos = {
     imports = [ inputs.disko.nixosModules.default ];
   };
 }

@@ -1,7 +1,7 @@
 {
   # See https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/cluster/k3s/docs/USAGE.md
 
-  nichts.modules.nixos.deerlab-k3s = { config, ... }: {
+  nichts.modules.deerlab-k3s.nixos = { config, ... }: {
     services.k3s = {
       enable = true;
       gracefulNodeShutdown.enable = true;
@@ -29,7 +29,7 @@
     };
   };
 
-  nichts.modules.nixos.deerlab-k3s-server = {
+  nichts.modules.deerlab-k3s-server.nixos = {
     services.k3s = {
       role = "server";
       extraFlags = [

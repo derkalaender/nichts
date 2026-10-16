@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.desktop-kde = {
+  nichts.modules.desktop-kde.nixos = {
     # See https://wiki.nixos.org/wiki/KDE#Plasma_6
 
     services.displayManager.sddm.enable = true;
@@ -29,7 +29,7 @@
     environment.sessionVariables.KWIN_FORCE_SW_CURSOR = "1";
   };
 
-  nichts.modules.home.desktop-kde =
+  nichts.modules.desktop-kde.home =
     {
       config,
       lib,

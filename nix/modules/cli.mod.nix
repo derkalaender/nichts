@@ -3,7 +3,7 @@ let
   inherit (lib) mkForce;
 in
 {
-  nichts.modules.nixos.cli = { pkgs, ... }: {
+  nichts.modules.cli.nixos = { pkgs, ... }: {
     # Yeet perl (as much as possible)
     environment.defaultPackages = mkForce [ ];
     documentation = {
@@ -102,7 +102,7 @@ in
     };
   };
 
-  nichts.modules.home.cli = {
+  nichts.modules.cli.home = {
     programs.yt-dlp = {
       enable = true;
       settings = {

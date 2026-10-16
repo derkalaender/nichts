@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  nichts.modules.home.llm-agents =
+  nichts.modules.llm-agents.home =
     {
       pkgs,
       lib,

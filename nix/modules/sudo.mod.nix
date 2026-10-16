@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.sudo = {
+  nichts.modules.sudo.nixos = {
     # TODO: replace with run0
     security.sudo = {
       # Keep the upstream default of false. Setting this true makes the NixOS sudo

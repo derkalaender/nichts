@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.remote-deploy = {
+  nichts.modules.remote-deploy.nixos = {
     users.users.deploy = {
       description = "System deploy user";
       isNormalUser = true;

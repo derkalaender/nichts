@@ -1,5 +1,5 @@
 { nichts, ... }: {
-  nichts.modules.home.nuvio = { pkgs, ... }: {
+  nichts.modules.nuvio.home = { pkgs, ... }: {
     home.packages = [
       pkgs.nuvio
     ];

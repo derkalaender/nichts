@@ -4,7 +4,7 @@
   ...
 }:
 {
-  nichts.modules.home.spotify = { pkgs, ... }: {
+  nichts.modules.spotify.home = { pkgs, ... }: {
     imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
     programs.spicetify =

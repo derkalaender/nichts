@@ -20,7 +20,7 @@ let
       modules = [
         {
           imports = [
-            nichts.modules.nixos.default
+            nichts.modules.default.nixos
             host.module.nixos
           ]
           ++ map (user: nichts.entities.users.${user}.module.nixos) host.users;
@@ -34,7 +34,7 @@ let
 
             users = genAttrs host.users (user: {
               imports = [
-                nichts.modules.home.default
+                nichts.modules.default.home
                 host.module.home
                 nichts.entities.users.${user}.module.home
               ];

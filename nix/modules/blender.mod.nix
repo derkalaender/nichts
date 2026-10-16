@@ -1,5 +1,5 @@
 { ... }: {
-  nichts.modules.home.blender = { pkgs, ... }: {
+  nichts.modules.blender.home = { pkgs, ... }: {
     home.packages = [
       (pkgs.pkgsRocm.blender.override {
         waylandSupport = true;

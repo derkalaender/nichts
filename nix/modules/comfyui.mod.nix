@@ -4,7 +4,7 @@
     inputs.comfyui-nix.overlays.default
   ];
 
-  nichts.modules.nixos.comfyui =
+  nichts.modules.comfyui.nixos =
     {
       pkgs,
       lib,

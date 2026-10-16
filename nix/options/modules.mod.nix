@@ -4,44 +4,53 @@
   ...
 }:
 let
-  inherit (lib) mkOption singleton;
-  inherit (lib.attrsets) mapAttrs;
-  inherit (lib.types) deferredModule lazyAttrsOf;
+  inherit (lib) mkOption;
+  inherit (lib.types) attrsOf deferredModule submodule;
 
-  # Modules are addressed by name, and the same module is often wanted twice:
-  # a host and one of its users may both ask for `desktop`. flake-parts sets
-  # `_file` on its own module outputs but no `key`, and `key` is what makes the
-  # module system deduplicate, so we set both here (plus `_class`, so importing
-  # a Home Manager module into NixOS is an error instead of a silent no-op).
+  # `key` makes the module system deduplicate (a host and a user may both want
+  # `desktop`), `_class` makes a wrong class an error, `_file` points errors at the
+  # unit.
   wrap =
     { class, path }:
-    name: value: rec {
-      _file = "${toString moduleLocation}#${path}.${name}";
+    value: rec {
+      _file = "${toString moduleLocation}#${path}";
       key = _file;
       _class = class;
       imports = [ value ];
     };
+
+  classOption =
+    { class, path }:
+    mkOption {
+      description = "The ${class} side of this unit.";
+      type = deferredModule;
+      default = { };
+      apply = wrap { inherit class path; };
+    };
 in
 {
-  options.nichts.modules = {
-    nixos = mkOption {
-      description = "NixOS modules, addressable by name as nichts.modules.nixos.<name>.";
-      type = lazyAttrsOf deferredModule;
-      default = { };
-      apply = mapAttrs (wrap {
-        class = "nixos";
-        path = "nichts.modules.nixos";
-      });
-    };
+  options.nichts.modules = mkOption {
+    description = ''
+      Units, addressed by name: nichts.modules.<name>.{nixos,home}. Import them
+      through nichts.lib.units.<class>.
+    '';
+    type = attrsOf (
+      submodule (
+        { name, ... }: {
+          options = {
+            nixos = classOption {
+              class = "nixos";
+              path = "nichts.modules.${name}.nixos";
+            };
 
-    home = mkOption {
-      description = "Home Manager modules, addressable by name as nichts.modules.home.<name>.";
-      type = lazyAttrsOf deferredModule;
-      default = { };
-      apply = mapAttrs (wrap {
-        class = "homeManager";
-        path = "nichts.modules.home";
-      });
-    };
+            home = classOption {
+              class = "homeManager";
+              path = "nichts.modules.${name}.home";
+            };
+          };
+        }
+      )
+    );
+    default = { };
   };
 }

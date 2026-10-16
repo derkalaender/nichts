@@ -4,12 +4,12 @@
   ...
 }:
 {
-  nichts.modules.nixos.deerlab = {
-    imports = with nichts.modules.nixos; [
-      openssh
-      fail2ban
-      remote-deploy
-      tailscale
+  nichts.modules.deerlab.nixos = {
+    imports = with nichts.modules; [
+      openssh.nixos
+      fail2ban.nixos
+      remote-deploy.nixos
+      tailscale.nixos
     ];
 
     # `deerlab._.users` is not imported here: dot and kyson are entities now, wired via nichts.entities.hosts.kawauso.users.

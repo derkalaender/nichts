@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.boot = {
+  nichts.modules.boot.nixos = {
     # Use limine by default
     boot.loader = {
       efi.canTouchEfiVariables = true;
@@ -16,11 +16,11 @@
     };
   };
 
-  nichts.modules.nixos.secureboot = {
+  nichts.modules.secureboot.nixos = {
     # TODO
   };
 
-  nichts.modules.nixos.desktop-boot = { pkgs, ... }: {
+  nichts.modules.desktop-boot.nixos = { pkgs, ... }: {
     boot = {
       # Use latest kernel for better hardware support
       kernelPackages = pkgs.linuxPackages_latest;

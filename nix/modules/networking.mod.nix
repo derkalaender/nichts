@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.networking = {
+  nichts.modules.networking.nixos = {
     networking = {
       # By default, block all incoming connections
       firewall.enable = true;

@@ -1,5 +1,5 @@
 {
-  nichts.modules.home.mail = {
+  nichts.modules.mail.home = {
     programs.thunderbird = {
       enable = true;
       profiles.private = {

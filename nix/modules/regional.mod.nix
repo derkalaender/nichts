@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.regional = {
+  nichts.modules.regional.nixos = {
     # Berlin as default timezone
     time.timeZone = "Europe/Berlin";
 

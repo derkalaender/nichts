@@ -1,5 +1,5 @@
 {
-  nichts.modules.home.editor =
+  nichts.modules.editor.home =
     { pkgs, ... }:
     let
       # This patched openssh removes permission checks on ssh config files.

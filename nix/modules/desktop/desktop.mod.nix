@@ -5,20 +5,20 @@
 {
   # The desktop is one concept spread over several units; hosts import
   # `desktop` rather than listing the parts.
-  nichts.modules.nixos.desktop = {
-    imports = with nichts.modules.nixos; [
-      desktop-base
-      desktop-audio
-      desktop-boot
-      desktop-compat
-      desktop-kde
-      desktop-printing
+  nichts.modules.desktop.nixos = {
+    imports = with nichts.modules; [
+      desktop-base.nixos
+      desktop-audio.nixos
+      desktop-boot.nixos
+      desktop-compat.nixos
+      desktop-kde.nixos
+      desktop-printing.nixos
     ];
   };
 
-  nichts.modules.home.desktop = {
-    imports = with nichts.modules.home; [
-      desktop-kde
+  nichts.modules.desktop.home = {
+    imports = with nichts.modules; [
+      desktop-kde.home
     ];
   };
 }

@@ -1,5 +1,5 @@
 {
-  nichts.modules.home.terminal = {
+  nichts.modules.terminal.home = {
     programs.wezterm = {
       enable = true;
       enableBashIntegration = true;

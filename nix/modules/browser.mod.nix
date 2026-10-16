@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  nichts.modules.home.browser =
+  nichts.modules.browser.home =
     { pkgs, ... }:
     let
       chrome = pkgs.google-chrome;

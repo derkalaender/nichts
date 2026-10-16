@@ -1,5 +1,5 @@
 { lib, ... }: {
-  nichts.modules.nixos.tailscale = {
+  nichts.modules.tailscale.nixos = {
     services.tailscale = {
       enable = true;
       openFirewall = true;

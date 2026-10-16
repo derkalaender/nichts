@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.openssh = {
+  nichts.modules.openssh.nixos = {
     services.openssh = {
       enable = true;
       startWhenNeeded = true; # Socket-based activation

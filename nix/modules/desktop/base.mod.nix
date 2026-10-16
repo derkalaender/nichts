@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.desktop-base = { pkgs, ... }: {
+  nichts.modules.desktop-base.nixos = { pkgs, ... }: {
     # Allow Chromium and Electron to use Wayland natively instead of XWayland
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 

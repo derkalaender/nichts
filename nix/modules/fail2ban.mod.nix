@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.fail2ban = {
+  nichts.modules.fail2ban.nixos = {
     services.fail2ban = {
       enable = true;
       maxretry = 3; # Ban IP after 3 failures

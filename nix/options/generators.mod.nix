@@ -17,8 +17,8 @@
     format = "install-iso";
     pkgs = withSystem "x86_64-linux" ({ pkgs, ... }: pkgs);
     modules = [
-      nichts.modules.nixos.default
-      nichts.modules.nixos.install-iso
+      nichts.modules.default.nixos
+      nichts.modules.install-iso.nixos
     ];
   };
 }

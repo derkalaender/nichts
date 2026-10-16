@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.hardware-unfree = {
+  nichts.modules.hardware-unfree.nixos = {
     hardware.enableRedistributableFirmware = true;
   };
 }

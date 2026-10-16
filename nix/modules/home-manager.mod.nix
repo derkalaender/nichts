@@ -7,7 +7,7 @@ let
   inherit (lib) mkDefault;
 in
 {
-  nichts.modules.nixos.home-manager = {
+  nichts.modules.home-manager.nixos = {
     imports = [ inputs.home-manager.nixosModules.default ];
 
     home-manager = {
@@ -19,7 +19,7 @@ in
     };
   };
 
-  nichts.modules.home.home-manager = { osConfig, ... }: {
+  nichts.modules.home-manager.home = { osConfig, ... }: {
     xdg.enable = true;
 
     home.stateVersion = mkDefault osConfig.system.stateVersion;

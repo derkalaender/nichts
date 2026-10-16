@@ -4,9 +4,9 @@
   ...
 }:
 {
-  nichts.modules.nixos.install-iso = {
-    imports = with nichts.modules.nixos; [
-      openssh
+  nichts.modules.install-iso.nixos = {
+    imports = with nichts.modules; [
+      openssh.nixos
     ];
 
     # Add installer SSH key here for remote installation

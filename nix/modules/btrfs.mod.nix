@@ -1,5 +1,5 @@
 { ... }: {
-  nichts.modules.nixos.btrfs =
+  nichts.modules.btrfs.nixos =
     {
       config,
       lib,

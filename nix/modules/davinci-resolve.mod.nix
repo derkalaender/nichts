@@ -1,5 +1,5 @@
 { nichts, ... }: {
-  nichts.modules.home.davinci-resolve = { pkgs, ... }: {
+  nichts.modules.davinci-resolve.home = { pkgs, ... }: {
     home.packages = [
       pkgs.davinci-patched
     ];

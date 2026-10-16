@@ -1,5 +1,5 @@
 {
-  nichts.modules.nixos.desktop-audio = {
+  nichts.modules.desktop-audio.nixos = {
     # See https://wiki.nixos.org/wiki/PipeWire#Configuring_PipeWire
 
     security.rtkit.enable = true;

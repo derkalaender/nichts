@@ -25,7 +25,7 @@ in
     })
   ];
 
-  nichts.modules.nixos.nix =
+  nichts.modules.nix.nixos =
     { pkgs, ... }:
     let
       # `self` is skipped: registering it would put this flake's *source path* into

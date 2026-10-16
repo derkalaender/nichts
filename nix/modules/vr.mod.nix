@@ -7,7 +7,7 @@
   # constellation tracker never advertises position tracking. That flake swaps
   # the driver for OpenHMD's rift-room-config branch, which tracks the HMD and
   # both Touch controllers.
-  nichts.modules.nixos.vr = { pkgs, ... }: {
+  nichts.modules.vr.nixos = { pkgs, ... }: {
     services.monado = {
       enable = true;
       package = inputs.monado-cv1-nixos.packages.${pkgs.stdenv.hostPlatform.system}.monado;
@@ -50,7 +50,7 @@
   };
 
   # User-level wiring for OpenVR games.
-  nichts.modules.home.vr =
+  nichts.modules.vr.home =
     {
       pkgs,
       config,
