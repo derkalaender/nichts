@@ -1,13 +1,9 @@
 {self}: rec {
-  # Paths into the flake source, as strings rather than paths: sops-nix reads
-  # these at build time, and a string keeps the reference inside the source tree
-  # instead of copying the file into the store on its own.
+  # Path into this flake's source tree, as a string.
+  #
+  # Prefer a plain relative path (`./foo`): a path is copied into the store
+  # content-addressed, while a string built from `self` drags the *whole* source
+  # tree in as a build dependency, which makes every commit rebuild things.
+  # This exists for the rare case where a string really is required.
   get-file = p: "${self}/${p}";
-
-  # Secrets that belong to no single entity.
-  secret = p: get-file "secrets/${p}";
-
-  # Per-entity secrets, so a host or user owns its own encrypted files.
-  host = host: file: get-file "nix/hosts/${host}/secrets/${file}";
-  user = user: file: get-file "nix/users/${user}/secrets/${file}";
 }

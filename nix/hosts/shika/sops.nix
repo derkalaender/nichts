@@ -1,12 +1,12 @@
-{nichts, ...}: let
-  inherit (nichts.lib) fs;
-in {
+{...}: {
   sops = {
     age.keyFile = "/root/.config/sops/age/keys.txt";
-    defaultSopsFile = fs.host "shika" "host_shika.yaml";
 
     secrets = {
-      "user_passwords/marvin".neededForUsers = true;
+      "user_passwords/marvin" = {
+        sopsFile = ./secrets/user_passwords.yaml;
+        neededForUsers = true;
+      };
     };
   };
 }

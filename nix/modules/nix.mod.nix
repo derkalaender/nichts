@@ -19,7 +19,11 @@ in {
   ];
 
   nichts.modules.nixos.nix = {pkgs, ...}: let
-    registryMap = inputs |> filterAttrs (const <| isType "flake");
+    # `self` is skipped: registering it would put this flake's *source path* into
+    # /etc/nix/registry.json and NIX_PATH, which makes every commit produce new
+    # system derivations. Every real input stays registered, so
+    # `nix run nixpkgs#cowsay` keeps working.
+    registryMap = inputs |> filterAttrs (name: value: name != "self" && isType "flake" value);
   in {
     imports = [inputs.nix-index-database.nixosModules.default];
 
