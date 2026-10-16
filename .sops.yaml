@@ -2,6 +2,8 @@
 # This is simpler as I don't have to create SSH keys stored on the machine (I store them in the sops secrets file instead which would be a chicken-egg problem).
 
 # Hosts and users have their own keys and own secrets file for better separation and a bit of RBAC.
+# Secret files live next to the entity that owns them: nix/hosts/<host>/secrets and
+# nix/users/<user>/secrets. Only secrets that belong to no entity live in nix/secrets.
 
 ### Key Location ###
 # The keys are stored in ~/.config/sops/age/keys.txt
@@ -18,10 +20,10 @@
 # nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 
 # Edit secrets with:
-# nix shell nixpkgs#sops -c sops secrets/user_something.yaml
+# nix shell nixpkgs#sops -c sops nix/users/something/secrets/user_something.yaml
 
 # Rekey after editing recipients in .sops.yaml with:
-# nix shell nixpkgs#sops -c sops updatekeys secrets/user_something.yaml
+# nix shell nixpkgs#sops -c sops updatekeys nix/users/something/secrets/user_something.yaml
 
 ### Usage: Host ###
 
@@ -33,10 +35,10 @@
 # nix shell nixpkgs#age -c sudo sh -c "age-keygen -y ~/.config/sops/age/keys.txt"
 
 # Edit secrets with:
-# nix shell nixpkgs#sops -c sudo sops secrets/host_something.yaml
+# nix shell nixpkgs#sops -c sudo sops nix/hosts/something/secrets/host_something.yaml
 
 # Rekey after editing recipients in .sops.yaml with:
-# nix shell nixpkgs#sops -c sudo sops updatekeys secrets/host_something.yaml
+# nix shell nixpkgs#sops -c sudo sops updatekeys nix/hosts/something/secrets/host_something.yaml
 
 keys:
   - &bitwarden age1grp897uk453xrpmq6ed8qcqjwgjwm0s4usptwkkxa7ujy60cpawstq6tu5
@@ -46,53 +48,53 @@ keys:
   - &host_itachi age18d6mqxn5jf7ukuxm5ly933jpcntql9xw4ndrp75mpznm9j0nd34quf86fq
   - &host_kawauso age18veqr2x9td0yqkelue352x8ltrtpqmf7cq5ps2uqsp4hfgxc29wqdjep6s
 creation_rules:
-  - path_regex: secrets/user_marvin.yaml
+  - path_regex: nix/users/marvin/secrets/user_marvin.yaml
     key_groups:
       - age:
           - *bitwarden
           - *user_marvin_shika
           - *user_marvin_itachi
-  - path_regex: secrets/host_shika.yaml
+  - path_regex: nix/hosts/shika/secrets/user_passwords.yaml
     key_groups:
       - age:
           - *bitwarden
           - *host_shika
           - *user_marvin_shika
           - *user_marvin_itachi
-  - path_regex: secrets/host_itachi.yaml
+  - path_regex: nix/secrets/host_itachi.yaml
     key_groups:
       - age:
           - *bitwarden
           - *host_itachi
           - *user_marvin_shika
           - *user_marvin_itachi
-  - path_regex: secrets/host_kawauso.yaml
+  - path_regex: nix/hosts/kawauso/secrets/host_kawauso.yaml
     key_groups:
       - age:
           - *bitwarden
           - *host_kawauso
           - *user_marvin_shika
           - *user_marvin_itachi
-  - path_regex: secrets/secureboot/*
+  - path_regex: nix/secrets/secureboot/*
     key_groups:
       - age:
           - *bitwarden
           - *host_shika
           - *user_marvin_shika
           - *user_marvin_itachi
-  - path_regex: secrets/atuin.yaml
+  - path_regex: nix/users/marvin/secrets/atuin.yaml
     key_groups:
       - age:
           - *bitwarden
           - *user_marvin_shika
           - *user_marvin_itachi
-  - path_regex: secrets/backup_shika.yaml
+  - path_regex: nix/hosts/shika/secrets/backup.yaml
     key_groups:
       - age:
           - *bitwarden
           - *host_shika
           - *user_marvin_shika
-  - path_regex: secrets/deerlab.yaml
+  - path_regex: nix/users/dot/secrets/deerlab.yaml
     key_groups:
       - age:
           - *bitwarden
