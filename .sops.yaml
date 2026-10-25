@@ -94,7 +94,7 @@ creation_rules:
           - *bitwarden
           - *host_shika
           - *user_marvin_shika
-  - path_regex: nix/users/dot/secrets/deerlab.yaml
+  - path_regex: nix/hosts/kawauso/secrets/user_passwords.yaml
     key_groups:
       - age:
           - *bitwarden

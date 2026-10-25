@@ -1,31 +1,55 @@
 {
   lib,
   moduleLocation,
+  config,
   ...
 }:
 let
-  inherit (lib) mkOption;
+  inherit (lib) mkOption optional;
   inherit (lib.types) attrsOf deferredModule submodule;
 
   # `key` makes the module system deduplicate (a host and a user may both want
   # `desktop`), `_class` makes a wrong class an error, `_file` points errors at the
-  # unit.
+  # unit. `couples`: importing the NixOS side also gives every user of that host
+  # the Home Manager side.
   wrap =
-    { class, path }:
+    {
+      name,
+      class,
+      path,
+      couples ? false,
+    }:
     value: rec {
       _file = "${toString moduleLocation}#${path}";
       key = _file;
       _class = class;
-      imports = [ value ];
+      imports = [
+        value
+      ]
+      ++ optional couples {
+        home-manager.sharedModules = [ config.nichts.modules.${name}.home ];
+      };
     };
 
-  classOption =
-    { class, path }:
+  mkClassOption =
+    {
+      name,
+      class,
+      path,
+      couples ? false,
+    }:
     mkOption {
       description = "The ${class} side of this unit.";
       type = deferredModule;
       default = { };
-      apply = wrap { inherit class path; };
+      apply = wrap {
+        inherit
+          name
+          class
+          path
+          couples
+          ;
+      };
     };
 in
 {
@@ -38,12 +62,15 @@ in
       submodule (
         { name, ... }: {
           options = {
-            nixos = classOption {
+            nixos = mkClassOption {
+              inherit name;
               class = "nixos";
               path = "nichts.modules.${name}.nixos";
+              couples = true;
             };
 
-            home = classOption {
+            home = mkClassOption {
+              inherit name;
               class = "homeManager";
               path = "nichts.modules.${name}.home";
             };

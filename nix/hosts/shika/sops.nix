@@ -1,4 +1,8 @@
-{ ... }: {
+{
+  config,
+  ...
+}:
+{
   sops = {
     age.keyFile = "/root/.config/sops/age/keys.txt";
 
@@ -9,4 +13,6 @@
       };
     };
   };
+
+  users.users.marvin.hashedPasswordFile = config.sops.secrets."user_passwords/marvin".path;
 }

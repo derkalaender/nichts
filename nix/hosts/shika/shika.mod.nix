@@ -9,15 +9,7 @@
   nichts.entities.hosts.shika = {
     users = [ "marvin" ];
 
-    # Home Manager side of this host's units, for every user it lists.
-    module.home = {
-      imports = with nichts.lib.units.home; [
-        desktop
-        vr
-      ];
-    };
-
-    module.nixos =
+    module =
       {
         pkgs,
         lib,

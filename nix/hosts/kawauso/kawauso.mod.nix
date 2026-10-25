@@ -15,7 +15,7 @@
       "kyson"
     ];
 
-    module.nixos = {
+    module = {
       imports = [
         ./sops.nix
       ]

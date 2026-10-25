@@ -9,36 +9,18 @@ let
     bool
     deferredModule
     listOf
-    nullOr
     str
     submodule
     ;
 
-  # Hosts and users are both "an entity with a NixOS module and a Home Manager
-  # module". Hosts additionally know their platform and which users they have.
-  moduleOption = mkOption {
-    description = ''
-      The NixOS and Home Manager modules this entity contributes.
-
-      Files that have nothing to say about one side leave that side empty.
-    '';
-    type = submodule {
-      options = {
-        nixos = mkOption {
-          description = "NixOS module.";
-          type = deferredModule;
-          default = { };
-        };
-
-        home = mkOption {
-          description = "Home Manager module.";
-          type = deferredModule;
-          default = { };
-        };
-      };
+  # A host is NixOS, a user is Home Manager.
+  mkModuleOption =
+    description:
+    mkOption {
+      inherit description;
+      type = deferredModule;
+      default = { };
     };
-    default = { };
-  };
 in
 {
   options.nichts.entities = {
@@ -48,7 +30,7 @@ in
         submodule (
           { name, ... }: {
             options = {
-              module = moduleOption;
+              module = mkModuleOption "The host's NixOS module.";
 
               system = mkOption {
                 description = "Platform this host is evaluated for.";
@@ -77,19 +59,14 @@ in
     users = mkOption {
       description = ''
         Users. A host picks the ones it provides through
-        nichts.entities.hosts.<name>.users.
-
-        What makes a user an *account* is declared here as data (description,
-        groups, SSH keys, which secret holds the password), so every host wires
-        accounts the same way and the flake can reason about its users without
-        reading module bodies. Everything else about a user is a module:
-        module.nixos for NixOS configuration, module.home for Home Manager.
+        nichts.entities.hosts.<name>.users. The account fields are data; `module`
+        is Home Manager. A password is supplied by the host.
       '';
       type = attrsOf (
         submodule (
           { name, ... }: {
             options = {
-              module = moduleOption;
+              module = mkModuleOption "The user's Home Manager module.";
 
               description = mkOption {
                 description = "GECOS field of the account.";
@@ -113,17 +90,6 @@ in
                 description = "SSH public keys allowed to log in as this account.";
                 type = listOf str;
                 default = [ ];
-              };
-
-              hashedPasswordSecret = mkOption {
-                description = ''
-                  Name of the sops secret holding this account's hashed password;
-                  config.sops.secrets.<name>.path becomes hashedPasswordFile. The
-                  secret itself is declared where its file lives, by the host or by
-                  the user. null for an account without a password.
-                '';
-                type = nullOr str;
-                default = "user_passwords/${name}";
               };
             };
           }

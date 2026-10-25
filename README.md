@@ -12,7 +12,7 @@ nichts
 │─ .sops.yaml                           # SOPS secret identities
 └─ nix
   ├─ lib                                # custom library functions
-  ├─ options                            # flake-level options
+  ├─ flake                              # flake-level configuration
   ├─ modules                            # shared modules
   ├─ packages                           # custom packages
   ├─ hosts                              # host-specific nixos configuration
@@ -56,6 +56,10 @@ Home Manager unit into NixOS an error instead of a silent no-op.
 `nichts.modules.default.nixos` / `.home` are the units every host and user gets,
 composed in `nix/modules/default.mod.nix`.
 
+A unit is also one *concept*, so importing its NixOS side gives its Home Manager
+side to every user of that host — the two only make sense together.
+Importing `home` directly is for user-only units such as `browser` or `spotify`.
+
 ## Hosts and users
 
 ```nix
@@ -65,18 +69,19 @@ composed in `nix/modules/default.mod.nix`.
 
   nichts.entities.hosts.shika = {
     users = ["marvin"];
-    module = {
-      nixos = {pkgs, lib, ...}: {imports = with nichts.lib.units.nixos; [desktop ...];};
-      home = {};   # Home Manager defaults for this host's users, if any
+    module = {pkgs, lib, ...}: {
+      imports = with nichts.lib.units.nixos; [desktop gaming ...];
     };
   };
 }
 ```
 
 A host becomes `flake.nixosConfigurations.<name>`; `hostname` defaults to the
-host's attribute name and `system` to `x86_64-linux`. Its Home Manager users get
-the default home units plus the host's `module.home` plus the user's own
-`module.home`.
+host's attribute name and `system` to `x86_64-linux`. A host's module is NixOS
+only: every user it lists gets the default user-side units, the user-side units
+its NixOS imports couple in, and its own module. A host that wants a
+Home-Manager-only unit for *everyone* on it adds it to
+`home-manager.sharedModules` in that same NixOS module.
 
 ```nix
 # nix/users/marvin/marvin.mod.nix
@@ -86,16 +91,15 @@ the default home units plus the host's `module.home` plus the user's own
   nichts.entities.users.marvin.description = "Marvin UwU";
   nichts.entities.users.marvin.extraGroups = ["wheel" "networkmanager" ...];
 
-  # Everything else is a module.
-  nichts.entities.users.marvin.module = {
-    nixos = {config, ...}: {sops.secrets."user_passwords/marvin".neededForUsers = true;};
-    home = {pkgs, ...}: {imports = with nichts.lib.units.home; [browser terminal ...];};
+  # The rest is a Home Manager module.
+  nichts.entities.users.marvin.module = {pkgs, ...}: {
+    imports = with nichts.lib.units.home; [browser terminal ...];
   };
 }
 ```
 
-Users do nothing on their own: a host has to list them, which pulls in both sides
-and sets up Home Manager for them.
+Users do nothing on their own: a host has to list them, which generates the
+account and sets up Home Manager for them.
 
 ## Secrets
 
@@ -103,4 +107,11 @@ Secrets are age-encrypted and managed through SOPS. Each secret belongs to exact
 
 `.sops.yaml` maps each path to its recipients; after moving a secret file, run `just sops-rekey` so the file's recipients follow
 
-Shared units never touch sops, and instead declare an option that the host or user wires `config.sops.secrets.<name>.path` into it.
+Shared units never touch sops: when a unit needs a secret it declares an option
+and the host or user wires `config.sops.secrets.<name>.path` into it
+(`nichts.atuin.key` is an example).
+
+The one thing the flake cannot generate is an account's password. The user entity
+says *what* the account is; the host that provides the user owns the secret and
+supplies it as `users.users.<name>.hashedPasswordFile`, next to declaring
+`sops.secrets."user_passwords/<name>"` in its `sops.nix`.
