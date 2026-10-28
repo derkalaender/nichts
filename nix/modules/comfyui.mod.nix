@@ -55,7 +55,7 @@
       imports = [ inputs.comfyui-nix.nixosModules.default ];
 
       services.comfyui = {
-        enable = false; # Currently broken; see https://github.com/NixOS/nixpkgs/issues/570271 and https://github.com/NixOS/nixpkgs/commit/20f328cd6386a6a1efb410c81fa764eb6d3d73d0
+        enable = true; # Currently broken; see https://github.com/NixOS/nixpkgs/issues/570271 and https://github.com/NixOS/nixpkgs/commit/20f328cd6386a6a1efb410c81fa764eb6d3d73d0
         package = pkgs.comfy-ui-rocm; # Force this version from utensils/comfyui-nix
         gpuSupport = "rocm";
         enableManager = true;
