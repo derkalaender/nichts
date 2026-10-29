@@ -21,11 +21,6 @@ let
     davinci-patched = pkgs.callPackage ./davinci-resolve/davinci-patched.nix { };
 
     nuvio = pkgs.callPackage ./nuvio.nix { };
-
-    omp = pkgs.callPackage ./omp.nix {
-      llm-agents = inputs.llm-agents.packages.${system};
-      llmPkgs = inputs.llm-agents.inputs.nixpkgs.legacyPackages.${system};
-    };
   };
 in
 {
