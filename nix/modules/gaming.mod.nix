@@ -27,7 +27,7 @@
     environment.systemPackages = with pkgs; [
       mangohud
       heroic
-      lutris
+      # lutris # gtk2 deprecated
       prismlauncher # minecraft
     ];
   };
