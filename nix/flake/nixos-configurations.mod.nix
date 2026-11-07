@@ -51,9 +51,6 @@ let
             # nichts is used inside Home Manager modules too.
             extraSpecialArgs.nichts = nichts;
 
-            # The default user side; hosts and coupled units append to it.
-            sharedModules = [ nichts.modules.default.home ];
-
             users = genAttrs host.users (userName: {
               imports = [
                 {

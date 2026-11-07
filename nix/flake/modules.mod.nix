@@ -1,54 +1,42 @@
 {
   lib,
   moduleLocation,
-  config,
   ...
 }:
 let
-  inherit (lib) mkOption optional;
+  inherit (lib.fixedPoints) fix;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption;
   inherit (lib.types) attrsOf deferredModule submodule;
 
   # `key` makes the module system deduplicate (a host and a user may both want
   # `desktop`), `_class` makes a wrong class an error, `_file` points errors at the
-  # unit. `couples`: importing the NixOS side also gives every user of that host
-  # the Home Manager side.
+  # unit.
   wrap =
     {
-      name,
       class,
       path,
-      couples ? false,
     }:
-    value: rec {
+    value:
+    fix (module: {
       _file = "${toString moduleLocation}#${path}";
-      key = _file;
+      key = module._file;
       _class = class;
       imports = [
         value
-      ]
-      ++ optional couples {
-        home-manager.sharedModules = [ config.nichts.modules.${name}.home ];
-      };
-    };
+      ];
+    });
 
   mkClassOption =
     {
-      name,
       class,
       path,
-      couples ? false,
     }:
     mkOption {
       description = "The ${class} side of this unit.";
       type = deferredModule;
-      default = { };
       apply = wrap {
-        inherit
-          name
-          class
-          path
-          couples
-          ;
+        inherit class path;
       };
     };
 in
@@ -60,24 +48,32 @@ in
     '';
     type = attrsOf (
       submodule (
-        { name, ... }: {
+        {
+          name,
+          config,
+          options,
+          ...
+        }:
+        {
           options = {
             nixos = mkClassOption {
-              inherit name;
               class = "nixos";
               path = "nichts.modules.${name}.nixos";
-              couples = true;
             };
 
             home = mkClassOption {
-              inherit name;
               class = "homeManager";
               path = "nichts.modules.${name}.home";
             };
           };
+
+          # Each home module gets imported in the corresponding NixOS module as a sharedModule.
+          # This way, importing the NixOS module also imports the home module.
+          config.nixos = mkIf options.home.isDefined {
+            home-manager.sharedModules = [ config.home ];
+          };
         }
       )
     );
-    default = { };
   };
 }
