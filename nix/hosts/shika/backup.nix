@@ -13,14 +13,26 @@ let
     {
       subvolume = "/";
       name = "root";
+      btrbk = {
+        snapshot_preserve_min = "1d";
+        snapshot_preserve = "7d 4w";
+      };
     }
     {
       subvolume = "/home";
       name = "home";
+      btrbk = {
+        snapshot_preserve_min = "2d";
+        snapshot_preserve = "14d 4w 3m";
+      };
     }
     {
       subvolume = "/var/lib";
       name = "var_lib";
+      btrbk = {
+        snapshot_preserve_min = "1d";
+        snapshot_preserve = "7d 4w";
+      };
     }
   ];
   snapshotDir = "/.snapshots";
@@ -33,12 +45,13 @@ in
   services.btrbk.instances.local = {
     onCalendar = "hourly";
     settings = {
-      snapshot_preserve_min = "2d";
-      snapshot_preserve = "14d 8w 12m";
+      snapshot_create = "onchange";
 
       snapshot_dir = snapshotDir;
       subvolume =
-        backups |> map (x: nameValuePair x.subvolume { snapshot_name = x.name; }) |> listToAttrs;
+        backups
+        |> map (x: nameValuePair x.subvolume ({ snapshot_name = x.name; } // x.btrbk or { }))
+        |> listToAttrs;
     };
   };
 
@@ -89,10 +102,11 @@ in
           repository = "opendal:sftp";
           key-file = config.sops.secrets."backup/master-key".path;
           options = {
-            endpoint = "ssh://u530494.your-storagebox.de:23";
-            user = "u530494";
+            endpoint = "ssh://u716458.your-storagebox.de:23";
+            user = "u716458";
             key = config.sops.secrets."backup/ssh-key".path;
             root = "/home/backups/${backupTarget}";
+            connections = "8";
             known_hosts_strategy = "Accept"; # auto-accept on first connect, otherwise connection timeout
           };
         };
@@ -104,7 +118,7 @@ in
           no-require-git = true;
           # Exclude these patterns
           globs = [
-            "!**/.cache"
+            # "!**/.cache"
             "!**/.cargo"
             "!**/.rustup"
             "!**/node_modules"
@@ -126,7 +140,7 @@ in
           # Retention policy
           keep-last = 10;
           keep-daily = 7;
-          keep-weekly = 5;
+          keep-weekly = 4;
           keep-monthly = 12;
           keep-yearly = 2;
         };
