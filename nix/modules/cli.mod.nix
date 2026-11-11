@@ -78,7 +78,7 @@ in
       # Nix
       nil
       nixd
-      alejandra
+      nixfmt
       devenv
     ];
 
