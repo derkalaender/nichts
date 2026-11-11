@@ -26,7 +26,13 @@
 
     environment.systemPackages = with pkgs; [
       mangohud
-      heroic
+      (heroic.override {
+        extraPkgs = pkgs': with pkgs'; [
+          gamescope
+          gamemode
+          mangohud
+        ];
+      })
       # lutris # gtk2 deprecated
       prismlauncher # minecraft
     ];
